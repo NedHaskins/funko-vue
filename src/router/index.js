@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
 import FiguresView from '../views/FiguresView.vue';
+import FigureView from '../views/FigureView.vue';
 
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
          path: '/figures',
          name: 'figures',
          component: FiguresView,
+      },
+      {
+         path: '/figure/:slug',
+         name: 'figure',
+         component: FigureView,
       },
    ],
 });

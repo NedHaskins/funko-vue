@@ -1,6 +1,10 @@
-.site-menu ul {
+menu-wrapper {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-evenly;
-	flex-wrap: wrap;
+}
+
+code {
+	font-family: 'Courier';
+	color: green;
+	background-color: white;
 }

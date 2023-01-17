@@ -24,3 +24,11 @@ body {
 .outlet {
 	border: 3px solid orange;
 }
+
+img {
+	max-width: 200px;
+}
+
+.cart {
+	max-width: 50px;
+}
