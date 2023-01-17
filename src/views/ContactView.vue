@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-	<h1>Artifacts of the Tolkien Universe</h1>
+	<h1>Contact us for more info!</h1>
 
 	<!-- insert ArtifactList here, which will grab from the data store -->
 </template>

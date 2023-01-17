@@ -1,13 +1,11 @@
 @import './base.css';
 @import './reset.css';
+@import './setup.css';
+@import './structure.css';
+@import './typography.css';
 #app {
-	/*  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;*/
-
-	background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('../images/middle-earth.jpeg');
+	background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+		url('../../public/images/Funko-Pop-Figures.webp');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -17,4 +15,12 @@
 
 body {
 	color: black;
+}
+
+.subpage-links {
+	border: 3px solid black;
+}
+
+.outlet {
+	border: 3px solid orange;
 }

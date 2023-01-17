@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import CharactersView from '../views/CharactersView.vue';
-import ArtifactsView from '../views/ArtifactsView.vue';
+import AboutView from '../views/AboutView.vue';
+import ContactView from '../views/ContactView.vue';
+import FiguresView from '../views/FiguresView.vue';
 
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,17 +20,20 @@ const router = createRouter({
       //    // which is lazy-loaded when the route is visited.
       //    component: () => import('../views/AboutView.vue'),
       // },
-
       {
-         path: '/characters',
-         name: 'characters',
-         component: CharactersView,
+         path: '/about',
+         name: 'about',
+         component: AboutView,
       },
-
       {
-         path: '/artifacts',
-         name: 'artifacts',
-         component: ArtifactsView,
+         path: '/contact',
+         name: 'contact',
+         component: ContactView,
+      },
+      {
+         path: '/figures',
+         name: 'figures',
+         component: FiguresView,
       },
    ],
 });
