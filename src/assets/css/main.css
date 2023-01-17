@@ -1,0 +1,20 @@
+@import './base.css';
+@import './reset.css';
+#app {
+	/*  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;*/
+
+	background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('../images/middle-earth.jpeg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	padding: 30px;
+	min-height: 100vh;
+}
+
+body {
+	color: black;
+}
