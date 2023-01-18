@@ -22,7 +22,9 @@
 					<RouterLink to="/figures">Figures</RouterLink>
 				</nav>
 				<button @click="ui.toggleMenu()">Toggle menu</button>
-				<picture class="cart"><img src="/images/shopping-cart.jpeg" /></picture>
+				<RouterLink to="/shopping-cart">
+					<picture class="cart"><img src="/images/shopping-cart.jpeg" /></picture
+				></RouterLink>
 			</menu-wrapper>
 		</header>
 	</div>
