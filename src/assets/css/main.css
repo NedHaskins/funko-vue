@@ -1,34 +1,50 @@
-@import './base.css';
 @import './reset.css';
 @import './setup.css';
 @import './structure.css';
 @import './typography.css';
-#app {
+/*#app {
 	background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
-		url('../../public/images/Funko-Pop-Figures.webp');
+		url('/images/Funko-Pop-Figures.webp');
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
 	padding: 30px;
 	min-height: 100vh;
+}*/
+
+html {
+	--scaffoldPadding: 8px;
 }
 
-body {
-	color: black;
+#app {
+	background-color: #366d04;
+	color: white;
+}
+
+/*SCAFFOLDING*/
+
+body * > {
+	border: 1px dashed white;
 }
 
 .subpage-links {
-	border: 3px solid black;
-}
-
-.outlet {
-	border: 3px solid orange;
-}
-
-img {
-	max-width: 200px;
+	border: 1px dashed white;
 }
 
 .cart {
 	max-width: 50px;
+}
+
+.inner-column {
+	border: 1px dashed orange;
+	padding: var(--scaffoldPadding);
+}
+
+figure-card,
+:is(figure-card) :is(p, a, picture, h3),
+h2,
+.figure-list,
+.outlet {
+	border: 1px dashed white;
+	padding: 8px;
 }

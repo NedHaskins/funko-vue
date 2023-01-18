@@ -10,3 +10,7 @@ h1 {
 h2 {
 	font-size: 28px;
 }
+
+figcaption {
+	font-size: calc(20px + 1vw);
+}

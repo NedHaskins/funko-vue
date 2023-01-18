@@ -7,16 +7,43 @@ export const useFigureDataStore = defineStore('figureData', function () {
          id: '12e',
          slug: 'ant-man',
          name: 'Ant-Man',
-         image: '../../public/images/ant-man.jpeg',
+         image: '/images/ant-man.jpg',
          price: '$12.99',
+         description:
+            "Hank Pym's alter-ego. After his wife's death at the hands of secret police, he vows to root out injustice wherever it lurks. His discovery of Pym Particles allows him to alter his size.",
       },
-      { name: 'Circle Soldier', image: '../../public/images/circle-soldier.jpeg', price: '$14.99' },
+      {
+         name: 'Square Soldier',
+         image: '/images/square-soldier.jpg',
+         price: '$14.99',
+         description:
+            'Foot soldier in the shadowy organization portrayed in the Korean hit Netflix series "Squid Game". Anonymous, armed, and taksed with keeping the game\'s competitors in line.',
+      },
       {
          id: '23f',
          slug: 'witch-king',
          name: 'Witch-King of Angmar',
-         image: '../../public/images/witch-king.png',
+         image: '/images/witch-king.jpg',
          price: '$12.99',
+         description:
+            'Chief of the Nazgûl, the Ringwraiths, the holders of the nine Rings of Power the Dark Lord Sauron gifted to the leaders of Men. Fear is his chief weapon.',
+      },
+
+      {
+         id: '23f',
+         slug: 'tekken-king',
+         name: 'Tekken King',
+         image: '/images/tekken-king.jpg',
+         price: '$12.99',
+         description: '',
+      },
+      {
+         id: '23f',
+         slug: 'dj-khaled',
+         name: 'DJ Khaled',
+         image: '/images/dj-khaled.jpg',
+         price: '$12.99',
+         description: '',
       },
    ]);
 

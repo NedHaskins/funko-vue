@@ -1,3 +1,8 @@
+#app {
+	--defaultPadding: 27px 27px 0px 27px;
+	--standardMargin: 16px;
+}
+
 menu-wrapper {
 	display: flex;
 	justify-content: space-evenly;
@@ -7,4 +12,21 @@ code {
 	font-family: 'Courier';
 	color: green;
 	background-color: white;
+}
+
+.inner-column {
+	display: block;
+	margin: 0 auto;
+}
+
+/*body needs to be 100vh for big screens */
+
+@media (min-width: 960px) {
+	#app {
+		min-height: 100vh;
+	}
+
+	.inner-column {
+		max-width: 960px;
+	}
 }
