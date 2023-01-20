@@ -5,6 +5,7 @@ import ContactView from '../views/ContactView.vue';
 import FiguresView from '../views/FiguresView.vue';
 import FigureView from '../views/FigureView.vue';
 import ShoppingCartView from '../views/ShoppingCartView.vue';
+import CreateItemView from '../views/CreateItemView.vue';
 
 const router = createRouter({
    history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,11 @@ const router = createRouter({
          path: '/figure/:slug',
          name: 'figure',
          component: FigureView,
+      },
+      {
+         path: '/create-item',
+         name: 'create-item',
+         component: CreateItemView,
       },
    ],
 });

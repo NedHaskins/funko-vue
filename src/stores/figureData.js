@@ -1,3 +1,5 @@
+//The figure data store should be imported from local storage.
+
 import { reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 
@@ -14,6 +16,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
       },
       {
          name: 'Square Soldier',
+         slug: 'square-soldier',
          image: '/images/square-soldier.jpg',
          price: '$14.99',
          description:

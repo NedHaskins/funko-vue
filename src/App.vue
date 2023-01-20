@@ -8,8 +8,8 @@
 </script>
 
 <template>
-	<div class="inner-column">
-		<header v-bind:class="`${route.name} ${ui.menuClass}`">
+	<header v-bind:class="`${route.name} ${ui.menuClass}`">
+		<div class="inner-column">
 			<!-- 			<pre><code>
 		{{ route.name }}</code></pre> -->
 			<h1>Funko Pop Store</h1>
@@ -20,22 +20,25 @@
 					<RouterLink to="/about">About</RouterLink>
 					<RouterLink to="/contact">Contact</RouterLink>
 					<RouterLink to="/figures">Figures</RouterLink>
+					<RouterLink to="/create-item">Create Item</RouterLink>
 				</nav>
 				<button @click="ui.toggleMenu()">Toggle menu</button>
 				<RouterLink to="/shopping-cart">
 					<picture class="cart"><img src="/images/shopping-cart.jpeg" /></picture
 				></RouterLink>
 			</menu-wrapper>
-		</header>
-	</div>
-	<div class="inner-column">
-		<main class="outlet">
+		</div>
+	</header>
+
+	<main class="outlet">
+		<div class="inner-column">
 			<RouterView />
-		</main>
-	</div>
-	<div class="inner-column">
-		<footer>footer</footer>
-	</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="inner-column">https://github.com/NedHaskins/funko-vue</div>
+	</footer>
 </template>
 
 <style>

@@ -1,31 +1,31 @@
 <script setup>
-	import { reactive } from 'vue';
-
 	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
-
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
 
-	function addItem() {
-		const item = { name: values.item.name, price: values.item.price };
-		values.items = [...values.items, item];
-		//this can be written in one line using map?
+	//Prepare local storage to be read by the app.
+	function setUpCart() {
+		const data = JSON.parse(localStorage.getItem('shoppingCartData')) || [];
+
+		data.forEach((shoppingCartData) => {
+			shoppingCart.list = [...shoppingCart.list, shoppingCartData];
+		});
+
+		console.log(shoppingCart.list);
 	}
 
-	//grabbing the add() function from the store file
-
-	//This function i
-
-	function save(name, price) {
+	function addToCart(name, price) {
 		const record = {
 			name: name,
 			price: price,
 		};
 		shoppingCart.add(record);
-		console.log(shoppingCart.list);
-		console.log('NICE WORK!!!');
+		console.log(shoppingCart.list); //check
+		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 	}
+
+	setUpCart();
 </script>
 <template>
 	<ul class="figure-list">
@@ -38,7 +38,7 @@
 				<div>
 					<p>{{ figure.price }}</p>
 					<button-wrapper>
-						<button @click.prevent="save(figure.name, figure.price)">Add to cart</button>
+						<button @click.prevent="addToCart(figure.name, figure.price)">Add to cart</button>
 					</button-wrapper>
 					<RouterLink v-bind:to="`/figure/${figure.slug}`">More</RouterLink>
 				</div>
@@ -63,6 +63,10 @@
 	div {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	h3 {
+		text-align: center;
 	}
 
 	@media (min-width: 960px) {

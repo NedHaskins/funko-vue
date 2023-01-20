@@ -13,6 +13,18 @@
 		return total;
 	});
 
+	// function setUpCart() {
+	// 	const data = JSON.parse(localStorage.getItem('shoppingCartData')) || [];
+
+	// 	data.forEach((shoppingCartData) => {
+	// 		shoppingCart.list = [...shoppingCart.list, shoppingCartData];
+	// 	});
+
+	// 	console.log(shoppingCart.list);
+	// }
+
+	//find a way to view cart contents
+
 	function clearCart() {
 		shoppingCart.list.length = 0;
 		console.log('Cart was cleared.');
