@@ -20,6 +20,7 @@
 					<RouterLink to="/about">About</RouterLink>
 					<RouterLink to="/contact">Contact</RouterLink>
 					<RouterLink to="/figures">Figures</RouterLink>
+					<RouterLink to="/categories">Categories</RouterLink>
 					<RouterLink to="/create-item">Create Item</RouterLink>
 				</nav>
 				<button @click="ui.toggleMenu()">Toggle menu</button>

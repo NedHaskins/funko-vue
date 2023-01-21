@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
+
+import CategoriesView from '../views/CategoriesView.vue';
+import CategoryView from '../views/CategoryView.vue';
+
 import FiguresView from '../views/FiguresView.vue';
 import FigureView from '../views/FigureView.vue';
 import ShoppingCartView from '../views/ShoppingCartView.vue';
@@ -33,6 +37,17 @@ const router = createRouter({
          name: 'contact',
          component: ContactView,
       },
+      {
+         path: '/categories',
+         name: 'categories',
+         component: CategoriesView,
+      },
+      {
+         path: '/category',
+         name: 'category',
+         component: CategoryView,
+      },
+
       {
          path: '/figures',
          name: 'figures',

@@ -9,6 +9,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          id: '12e',
          slug: 'ant-man',
          name: 'Ant-Man',
+         type: 'marvel',
          image: '/images/ant-man.jpg',
          price: '$12.99',
          description:
@@ -17,6 +18,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
       {
          name: 'Square Soldier',
          slug: 'square-soldier',
+         type: 'tv-show',
          image: '/images/square-soldier.jpg',
          price: '$14.99',
          description:
@@ -26,6 +28,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          id: '23f',
          slug: 'witch-king',
          name: 'Witch-King of Angmar',
+         type: 'lotr',
          image: '/images/witch-king.jpg',
          price: '$12.99',
          description:
@@ -36,6 +39,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          id: '23f',
          slug: 'tekken-king',
          name: 'Tekken King',
+         type: 'video-game',
          image: '/images/tekken-king.jpg',
          price: '$12.99',
          description: '',
@@ -44,6 +48,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          id: '23f',
          slug: 'dj-khaled',
          name: 'DJ Khaled',
+         type: 'music',
          image: '/images/dj-khaled.jpg',
          price: '$12.99',
          description: '',
