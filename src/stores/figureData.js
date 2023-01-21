@@ -27,6 +27,18 @@ export const useFigureDataStore = defineStore('figureData', function () {
          description:
             'Son of Thranduil, King of the Elves of Mirkwood. One of the Nine Companions that set out to Mordor to destroy the One Ring.',
       },
+
+      {
+         id: '329djnn',
+         slug: 'square-soldier',
+         name: 'Square Soldier',
+         category: 'tv-show',
+         subcategory: 'squid-game',
+         image: '/images/square-soldier.jpg',
+         price: 14.99,
+         description:
+            'Member of management in the shadowy organization portrayed in the Korean hit Netflix series "Squid Game". Anonymous, armed, and tasked with keeping the game\'s competitors in line.',
+      },
    ]);
 
    return { list: list };
