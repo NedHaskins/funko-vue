@@ -1,7 +1,7 @@
 <script setup>
-   import { useCategoryStore } from '@/stores/categories';
+   import { useCategoriesStore } from '@/stores/categories';
 
-   const categories = useCategoryStore();
+   const categories = useCategoriesStore();
 </script>
 
 <template>
@@ -9,7 +9,7 @@
 
    <ul>
       <li v-for="category in categories.list">
-         <RouterLink v-bind:to="`/categories/${category.slug}`"
+         <RouterLink v-bind:to="`/category/${category.slug}`"
             ><h3>{{ category.name }}</h3></RouterLink
          >
       </li>

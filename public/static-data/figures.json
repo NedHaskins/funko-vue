@@ -1,0 +1,48 @@
+[
+   {
+      "id": "12e",
+      "slug": "ant-man",
+      "name": "Ant-Man",
+      "category": "marvel",
+      "image": "/images/ant-man.jpg",
+      "price": 12.99,
+      "description": "Hank Pym's alter-ego. After his wife's death at the hands of secret police, he vows to root out injustice wherever it lurks. His discovery of Pym Particles allows him to alter his size."
+   },
+   {
+      "name": "Square Soldier",
+      "slug": "square-soldier",
+      "category": "tv-show",
+      "subcategory": "squid-game",
+      "image": "/images/square-soldier.jpg",
+      "price": 14.99,
+      "description": "Member of management in the shadowy organization portrayed in the Korean hit Netflix series \"Squid Game\". Anonymous, armed, and tasked with keeping the game's competitors in line."
+   },
+   {
+      "id": "3udhdhj",
+      "slug": "witch-king",
+      "name": "Witch-King of Angmar",
+      "category": "lotr",
+      "image": "/images/witch-king.jpg",
+      "price": 12.99,
+      "description": "Chief of the Nazgûl, the Ringwraiths, the holders of the nine Rings of Power the Dark Lord Sauron gifted to the leaders of Men. Fear is his chief weapon."
+   },
+   {
+      "id": "4trtfk4lj",
+      "slug": "tekken-king",
+      "name": "Tekken King",
+      "type": "video-game",
+      "subcategory": "tekken",
+      "image": "/images/tekken-king.jpg",
+      "price": 12.99,
+      "description": ""
+   },
+   {
+      "id": "dfjkclhe122",
+      "slug": "dj-khaled",
+      "name": "DJ Khaled",
+      "type": "music",
+      "image": "/images/dj-khaled.jpg",
+      "price": 12.99,
+      "description": ""
+   }
+]

@@ -69,6 +69,8 @@ to every page.-->
 <template>
 	<h1>Create Store Record</h1>
 
+	<!--Need to put some drop-down option menus in here-->
+
 	<div class="record-form">
 		<form>
 			<input-wrapper>

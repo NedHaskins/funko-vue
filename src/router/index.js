@@ -5,6 +5,7 @@ import ContactView from '../views/ContactView.vue';
 
 import CategoriesView from '../views/CategoriesView.vue';
 import CategoryView from '../views/CategoryView.vue';
+import SubcategoryView from '../views/SubcategoryView.vue';
 
 import FiguresView from '../views/FiguresView.vue';
 import FigureView from '../views/FigureView.vue';
@@ -43,7 +44,7 @@ const router = createRouter({
          component: CategoriesView,
       },
       {
-         path: '/category',
+         path: '/category/:slug',
          name: 'category',
          component: CategoryView,
       },
@@ -54,14 +55,20 @@ const router = createRouter({
          component: FiguresView,
       },
       {
-         path: '/shopping-cart',
-         name: 'shopping-cart',
-         component: ShoppingCartView,
+         path: '/subcategory/:slug',
+         name: 'subcategory',
+         component: SubcategoryView,
       },
+
       {
          path: '/figure/:slug',
          name: 'figure',
          component: FigureView,
+      },
+      {
+         path: '/shopping-cart',
+         name: 'shopping-cart',
+         component: ShoppingCartView,
       },
       {
          path: '/create-item',
