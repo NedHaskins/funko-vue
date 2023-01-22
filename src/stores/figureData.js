@@ -11,7 +11,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          name: 'Galadriel',
          category: 'lotr',
          subcategory: 'elves',
-         image: '/images/galadriel.png',
+         image: '/images/galadriel.jpg',
          price: 12.99,
          description:
             'Lady of Lórien, one of the last High Elves to dwell in Middle-Earth in the Third Age. Holder of Nenya, one of the Elven Rings of Power.',
@@ -22,7 +22,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          name: 'Legolas',
          category: 'lotr',
          subcategory: 'elves',
-         image: '/images/legolas.png',
+         image: '/images/legolas.jpg',
          price: 12.99,
          description:
             'Son of Thranduil, King of the Elves of Mirkwood. One of the Nine Companions that set out to Mordor to destroy the One Ring.',
