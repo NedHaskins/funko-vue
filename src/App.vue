@@ -19,20 +19,4 @@
 	</footer>
 </template>
 
-<style>
-	.site-menu {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-	}
-
-	.site-menu a {
-		padding: 1em;
-	}
-
-	.router-link-active {
-		font-weight: 700;
-		color: green;
-	}
-</style>
+<style></style>
