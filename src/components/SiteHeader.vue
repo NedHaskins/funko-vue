@@ -68,6 +68,9 @@
 </template>
 
 <style scoped>
+	/*	*:focus {
+	 outline: 20px solid black;}*/
+
 	.site-menu {
 		font-family: 'Bangers';
 	}
@@ -209,10 +212,10 @@
 			text-align: center;
 		}
 		/*   .site-menu .corner {
-	   position: absolute;
-	   top: 20px;
-	   right: 20px;
-	 } */
+		   position: absolute;
+		   top: 20px;
+		   right: 20px;
+		 } */
 
 		body.small-menu-open .site-menu {
 			opacity: 1;

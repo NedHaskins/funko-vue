@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
 
+import UserLoginView from '../views/UserLoginView.vue';
+
 import CategoriesView from '../views/CategoriesView.vue';
 import CategoryView from '../views/CategoryView.vue';
 import SubcategoryView from '../views/SubcategoryView.vue';
@@ -38,6 +40,12 @@ const router = createRouter({
          name: 'contact',
          component: ContactView,
       },
+      {
+         path: '/login',
+         name: 'login',
+         component: UserLoginView,
+      },
+
       {
          path: '/categories',
          name: 'categories',
