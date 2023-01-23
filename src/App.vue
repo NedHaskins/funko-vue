@@ -1,36 +1,11 @@
 <script setup>
-	import { RouterLink, RouterView, useRoute } from 'vue-router';
-	import { useInterfaceStore } from '@/stores/interface';
+	import { RouterView } from 'vue-router';
 
-	const route = useRoute();
-
-	const ui = useInterfaceStore();
+	import SiteHeader from '@/components/SiteHeader.vue';
 </script>
 
 <template>
-	<header v-bind:class="`${route.name} ${ui.menuClass}`">
-		<div class="inner-column">
-			<!-- 			<pre><code>
-		{{ route.name }}</code></pre> -->
-			<h1>Funko Pop Store</h1>
-			<menu-wrapper>
-				<!-- {{ ui.menuClass }} -->
-				<nav class="site-menu">
-					<RouterLink to="/">Home</RouterLink>
-					<RouterLink to="/about">About</RouterLink>
-					<RouterLink to="/contact">Contact</RouterLink>
-					<RouterLink to="/figures">Figures</RouterLink>
-					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink to="/create-item">Create Item</RouterLink>
-				</nav>
-				<button @click="ui.toggleMenu()">Toggle menu</button>
-				<RouterLink to="/shopping-cart">
-					<picture class="cart"><img src="/images/shopping-cart.jpeg" /></picture
-				></RouterLink>
-			</menu-wrapper>
-		</div>
-	</header>
-
+	<SiteHeader />
 	<main class="outlet">
 		<div class="inner-column">
 			<RouterView />
@@ -38,7 +13,9 @@
 	</main>
 
 	<footer>
-		<div class="inner-column">https://github.com/NedHaskins/funko-vue</div>
+		<div class="inner-column">
+			<a href="https://github.com/NedHaskins/funko-vue">Project Github</a>
+		</div>
 	</footer>
 </template>
 

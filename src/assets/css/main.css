@@ -14,21 +14,26 @@
 
 html {
 	--scaffoldPadding: 8px;
+	--paper: white;
+	--ink: black;
 }
 
 #app {
-	background-color: black;
-	color: white;
+	background-color: var(--paper);
+	color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+	#app {
+		background-color: var(--ink);
+		color: var(--paper);
+	}
 }
 
 /*SCAFFOLDING*/
 
 .subpage-links {
 	border: 1px dashed white;
-}
-
-.cart {
-	max-width: 50px;
 }
 
 .inner-column {

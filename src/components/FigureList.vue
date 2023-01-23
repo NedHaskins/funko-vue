@@ -34,7 +34,7 @@
 				<picture>
 					<img v-bind:src="figure.image" />
 				</picture>
-				<h3>{{ figure.name }}</h3>
+				<h3 class="energy-voice">{{ figure.name }}</h3>
 				<div>
 					<p>{{ figure.price }}</p>
 					<button-wrapper>

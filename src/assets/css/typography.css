@@ -11,6 +11,22 @@ h2 {
 	font-size: 28px;
 }
 
+h3 {
+	font-size: 24px;
+}
+
+p {
+	font-size: 16px;
+}
+
 figcaption {
 	font-size: calc(20px + 1vw);
+}
+
+.normal-voice {
+	font-family: 'Fredoka One';
+}
+
+.energy-voice {
+	font-family: 'Bangers';
 }
