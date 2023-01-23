@@ -35,7 +35,7 @@
 				<!-- 			<pre><code>
 		{{ route.name }}</code></pre> -->
 				<title-wrapper>
-					<h1 class="site-title normal-voice">Funko Pop<br />East Coast</h1>
+					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
 					<div class="svg-wrapper user-icon">
@@ -126,6 +126,12 @@
 		flex: 3;
 	}
 
+	@media (max-width: 729px) {
+		title-wrapper {
+			max-width: 265px;
+		}
+	}
+
 	space-box {
 		display: flex;
 		flex-direction: column;
@@ -203,10 +209,10 @@
 			text-align: center;
 		}
 		/*   .site-menu .corner {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  } */
+	   position: absolute;
+	   top: 20px;
+	   right: 20px;
+	 } */
 
 		body.small-menu-open .site-menu {
 			opacity: 1;
