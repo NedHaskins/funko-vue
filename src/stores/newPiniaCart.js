@@ -23,3 +23,35 @@ export const useNewPiniaCartStore = defineStore('useNewPiniaCart', {
 		}
 	}
 }
+
+
+	state: () => {
+		if(localStorage.getItem('shoppingCartData')) {
+			return JSON.parse(localStorage.getItem('shoppingCartData'));
+		}
+		return {
+			list: []
+		}
+	},
+
+	actions: {
+		add(item) {
+			this.list.push(item);
+		},
+
+		remove(userInput) {
+			this.list = this.list.filter(item => item !== userInput)
+			console.log(this.list);
+		},	
+
+		getCount(list) {
+			return this.list.length;
+		},
+
+		clear() {
+			this.list = [];
+		}
+	},
+
+	getters:
+})

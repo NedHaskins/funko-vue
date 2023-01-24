@@ -13,10 +13,10 @@ app.use(router);
 
 app.mount('#app');
 
-watch(
-	pinia.state,
-	(state) => {
-		localStorage.setItem('shoppingCartData', JSON.stringify(state.shoppingCart));
-	},
-	{ deep: true }, //what does this mean?
-);
+// watch(
+// 	pinia.state,
+// 	(state) => {
+// 		localStorage.setItem('shoppingCartData', JSON.stringify(state.shoppingCart));
+// 	},
+// 	{ deep: true }, //what does this mean?
+// );
