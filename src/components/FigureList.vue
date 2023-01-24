@@ -2,8 +2,6 @@
 	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
-	import { onMounted } from 'vue';
-
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
 
