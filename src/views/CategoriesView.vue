@@ -19,5 +19,6 @@
 <style>
    li {
       font-size: 24px;
+      font-family: 'Bangers';
    }
 </style>

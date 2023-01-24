@@ -1,19 +1,13 @@
 <script setup>
 	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
+
+	import { onMounted } from 'vue';
+
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
 
 	//Prepare local storage to be read by the app.
-	function setUpCart() {
-		const data = JSON.parse(localStorage.getItem('shoppingCartData')) || [];
-
-		data.forEach((shoppingCartData) => {
-			shoppingCart.list = [...shoppingCart.list, shoppingCartData];
-		});
-
-		console.log(shoppingCart.list);
-	}
 
 	function addToCart(name, price) {
 		const record = {
@@ -24,8 +18,6 @@
 		console.log(shoppingCart.list); //check
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 	}
-
-	setUpCart();
 </script>
 <template>
 	<ul class="figure-list">

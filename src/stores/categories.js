@@ -33,6 +33,26 @@ export const useCategoriesStore = defineStore('categories', function () {
 				},
 			],
 		},
+		{
+			name: 'Movies',
+			slug: 'movies',
+		},
+		{
+			name: 'Music',
+			slug: 'music',
+		},
+		{
+			name: 'Famous Memes',
+			slug: 'memes',
+		},
+		{
+			name: 'Anime',
+			slug: 'anime',
+		},
+		{
+			name: 'Marvel Universe',
+			slug: 'marvel',
+		},
 	]);
 
 	//add an item to the list

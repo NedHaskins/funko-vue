@@ -26,7 +26,8 @@
 	//find a way to view cart contents
 
 	function clearCart() {
-		shoppingCart.list.length = 0;
+		shoppingCart.list = [];
+		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 		console.log('Cart was cleared.');
 	}
 </script>

@@ -173,16 +173,16 @@
 	/*SCAFFOLDING */
 
 	.inner-column > * {
-		border: 3px solid black;
+		/*		border: 3px solid black;*/
 	}
 
 	space-box > * {
-		border: 3px dashed green;
+		/*		border: 3px dashed green;*/
 	}
 
 	space-box,
 	.site-title {
-		border: 3px dashed red;
+		/*		border: 3px dashed red;*/
 	}
 
 	@media (max-width: 599px) {
