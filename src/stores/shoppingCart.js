@@ -2,8 +2,6 @@
 // list of items in cart
 // add, remove, add additional copies of, items
 
-import { reactive, computed } from 'vue';
-
 import { defineStore } from 'pinia';
 
 export const useShoppingCartStore = defineStore('shoppingCart', {
@@ -18,11 +16,13 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
 		add(item) {
 			this.list.push(item);
 		},
-	},
 
-	getters: {
 		getCount(list) {
 			return this.list.length;
 		},
 	},
+
+	// getters: { //anything that returns a value -- not modifies
+
+	// },
 });
