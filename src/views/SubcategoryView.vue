@@ -3,6 +3,8 @@
 	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
+	import FigureCard from '@/components/FigureCard.vue';
+
 	const route = useRoute();
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
@@ -50,12 +52,14 @@
 					<img v-bind:src="figure.image" />
 				</picture>
 				<h3>{{ figure.name }}</h3>
-				<div>
-					<p>{{ figure.price }}</p>
-					<button-wrapper>
+				<div class="card-bottom">
+					<div class="price-wrapper">
+						<p>{{ figure.price }}</p>
+					</div>
+					<button-wrapper class="add-to-cart">
 						<button @click.prevent="addToCart(figure.name, figure.price)">Add to cart</button>
 					</button-wrapper>
-					<RouterLink v-bind:to="`/figure/${figure.slug}`">More</RouterLink>
+					<more-info> <RouterLink v-bind:to="`/figure/${figure.slug}`">More</RouterLink></more-info>
 				</div>
 			</figure-card>
 		</li>
@@ -73,11 +77,6 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: var(--scaffoldPadding);
-	}
-
-	div {
-		display: flex;
-		justify-content: space-between;
 	}
 
 	h3 {

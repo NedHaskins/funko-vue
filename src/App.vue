@@ -26,7 +26,7 @@
 	<SiteHeader />
 	<main class="outlet">
 		<div class="inner-column">
-			{{ shoppingCart }}
+			{{ shoppingCart.getCount }}
 			<RouterView />
 		</div>
 	</main>

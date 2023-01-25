@@ -16,13 +16,12 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
 		add(item) {
 			this.list.push(item);
 		},
+	},
 
-		getCount(list) {
+	getters: {
+		//anything that returns a value -- not modifies
+		getCount() {
 			return this.list.length;
 		},
 	},
-
-	// getters: { //anything that returns a value -- not modifies
-
-	// },
 });

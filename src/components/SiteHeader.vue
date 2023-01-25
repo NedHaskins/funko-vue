@@ -163,11 +163,12 @@
 	}
 
 	.user-icon {
-		width: 60px;
+		width: 44px;
+		margin-left: 12px;
 	}
 
 	.cart {
-		width: 66px;
+		width: 51px;
 	}
 
 	/*SCAFFOLDING */

@@ -2,6 +2,8 @@
 	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
+	// import FigureCard from '@/components/FigureCard.vue';
+
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
 
@@ -24,13 +26,17 @@
 				<picture>
 					<img v-bind:src="figure.image" />
 				</picture>
-				<h3 class="energy-voice">{{ figure.name }}</h3>
-				<div>
-					<p>{{ figure.price }}</p>
-					<button-wrapper>
+				<h3>{{ figure.name }}</h3>
+				<div class="card-bottom">
+					<div class="price-wrapper">
+						<p>${{ figure.price }}</p>
+					</div>
+					<button-wrapper class="add-to-cart">
 						<button @click.prevent="addToCart(figure.name, figure.price)">Add to cart</button>
 					</button-wrapper>
-					<RouterLink v-bind:to="`/figure/${figure.slug}`">More</RouterLink>
+					<div class="more-info">
+						<RouterLink v-bind:to="`/figure/${figure.slug}`">More info</RouterLink>
+					</div>
 				</div>
 			</figure-card>
 		</li>
@@ -38,34 +44,14 @@
 </template>
 
 <style scoped>
-	figure-card {
-		display: grid;
-
-		gap: var(--scaffoldPadding);
-	}
-
 	ul {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: var(--scaffoldPadding);
 	}
 
-	div {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	h3 {
-		text-align: center;
-	}
-
 	@media (min-width: 960px) {
 		ul {
 		}
-	}
-
-	figcaption {
-		text-align: center;
-		margin-top: 8px;
 	}
 </style>
