@@ -1,28 +1,14 @@
 <script setup>
 	import { useFigureDataStore } from '@/stores/figureData';
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	import FigureCard from '@/components/FigureCard.vue';
 
 	const figures = useFigureDataStore();
-	const shoppingCart = useShoppingCartStore();
-
-	//Prepare local storage to be read by the app.
-
-	function addToCart(name, price) {
-		const record = {
-			name: name,
-			price: price,
-		};
-		shoppingCart.add(record);
-		console.log(shoppingCart.list); //check
-		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	}
 </script>
 <template>
 	<ul class="figure-list">
-		<li v-for="blech in figures.list">
-			<FigureCard v-bind:figure="blech" />
+		<li v-for="card in figures.list">
+			<FigureCard v-bind:figure="card" />
 		</li>
 	</ul>
 </template>

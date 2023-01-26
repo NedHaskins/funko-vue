@@ -2,7 +2,7 @@
 	import { RouterLink, RouterView, useRoute } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
 
-	import SiteHeader from '@/components/SiteHeader.vue';
+	import UserIcon from '@/components/icons/UserIcon.vue';
 
 	const route = useRoute();
 	const ui = useInterfaceStore();
@@ -39,7 +39,9 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div class="svg-wrapper user-icon">
-						<img src="/images/user-icon.svg" />
+						<RouterLink to="/login">
+							<UserIcon />
+						</RouterLink>
 					</div>
 
 					<div class="svg-wrapper cart">

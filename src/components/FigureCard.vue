@@ -1,5 +1,18 @@
 <script setup>
+	import { useShoppingCartStore } from '@/stores/shoppingCart';
 	defineProps(['figure']);
+
+	const shoppingCart = useShoppingCartStore();
+
+	function addToCart(name, price) {
+		const record = {
+			name: name,
+			price: price,
+		};
+		shoppingCart.add(record);
+		console.log(shoppingCart.list); //check
+		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
+	}
 </script>
 <template>
 	<figure-card>

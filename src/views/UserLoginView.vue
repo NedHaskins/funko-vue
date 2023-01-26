@@ -1,8 +1,8 @@
 <script setup>
-	import UserLoginForm from '@/components/UserLoginForm.vue';
+	import LoginModal from '@/components/LoginModal.vue';
 </script>
 <template>
-	<UserLoginForm />
+	<LoginModal />
 </template>
 
 <style></style>
