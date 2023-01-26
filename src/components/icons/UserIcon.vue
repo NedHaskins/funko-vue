@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
 	<svg
 		width="100%"
@@ -31,4 +29,4 @@
 		</g>
 	</svg>
 </template>
-<style></style>
+<style scoped></style>

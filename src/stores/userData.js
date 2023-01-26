@@ -35,5 +35,11 @@ export const useUserDataStore = defineStore('userData', function () {
 		localStorage.setItem('currentUser', JSON.stringify(user, null, 2));
 	}
 
-	return { database, add, saveToStorage, isLoggedIn, currentUser };
+	return {
+		database,
+		add,
+		saveToStorage,
+		isLoggedIn,
+		currentUser,
+	};
 });
