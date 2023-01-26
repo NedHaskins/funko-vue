@@ -92,7 +92,7 @@
 
 	.site-menu .router-link-active {
 		font-weight: 700;
-		color: purple;
+		color: var(--vividMulberry);
 	}
 	@media (max-width: 599px) {
 		.site-menu {
@@ -144,13 +144,6 @@
 		padding: 10px;
 	}
 
-	@media (min-width: 600px) {
-		space-box.right {
-			flex-direction: row;
-			justify-content: space-evenly;
-		}
-	}
-
 	.svg-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -165,6 +158,17 @@
 	.user-icon {
 		width: 44px;
 		margin-left: 12px;
+	}
+
+	@media (min-width: 600px) {
+		space-box.right {
+			flex-direction: row;
+			justify-content: space-evenly;
+		}
+
+		.user-icon {
+			margin-left: 0px;
+		}
 	}
 
 	.cart {

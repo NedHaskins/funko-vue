@@ -54,7 +54,17 @@ figure-card h3 {
 
 .add-to-cart button {
 	border: 3px solid black;
-	background: white;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: 'Bangers';
+	font-size: 20px;
+	padding: 12px;
+}
+
+.add-to-cart button:hover {
+	border: 3px solid var(--ink);
+	background: var(--ink);
+	color: var(--paper);
 	font-family: 'Bangers';
 	font-size: 20px;
 	padding: 12px;
@@ -73,6 +83,10 @@ figure-card h3 {
 
 .more-info a {
 	color: var(--vividMulberry);
+}
+
+.more-info a:hover {
+	color: red;
 }
 
 /*SCAFFOLDING*/

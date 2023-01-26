@@ -5,3 +5,5 @@
 
 	<!-- insert ArtifactList here, which will grab from the data store -->
 </template>
+
+<style scoped></style>
