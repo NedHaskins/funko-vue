@@ -34,4 +34,15 @@
 	</figure-card>
 </template>
 
-<style></style>
+<style scoped>
+	picture {
+		width: 236px;
+		justify-self: center;
+		padding: 10px;
+	}
+
+	@media (min-width: 600px) {
+		picture {
+		}
+	}
+</style>

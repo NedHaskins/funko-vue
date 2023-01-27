@@ -1,5 +1,5 @@
 <script setup>
-	import { RouterLink, RouterView, useRoute } from 'vue-router';
+	import { RouterLink, useRoute } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
 
 	import UserIcon from '@/components/icons/UserIcon.vue';
@@ -63,8 +63,7 @@
 
 				<nav class="site-menu">
 					<RouterLink to="/">Home</RouterLink>
-					<RouterLink to="/about">About</RouterLink>
-					<RouterLink to="/contact">Contact</RouterLink>
+
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
 					<RouterLink to="/create-item">Create Item</RouterLink>
@@ -84,7 +83,7 @@
 	}
 
 	.site-menu a {
-		font-size: 24px;
+		font-size: 32px;
 	}
 
 	.site-menu {
@@ -95,7 +94,7 @@
 	}
 
 	.site-menu a {
-		padding: 1em;
+		padding: 0.8em;
 	}
 
 	.site-menu .router-link-active {
@@ -135,6 +134,10 @@
 		align-items: center;
 		justify-content: center;
 		flex: 3;
+	}
+
+	.site-title {
+		font-size: calc(36px + 1.3vw);
 	}
 
 	@media (max-width: 729px) {
@@ -187,7 +190,7 @@
 	.cart-count {
 		background-color: var(--cherokee);
 		position: absolute;
-		top: -10px;
+		top: -9px;
 		right: -8px;
 		border: 2px solid black;
 		padding: 4px;

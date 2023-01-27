@@ -1,13 +1,17 @@
 #app {
 	--defaultPadding: 27px 27px 0px 27px;
-	--standardMargin: 16px;
+	--standardMargin: 26px; /* was 16px */
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	padding: 20px;
+	padding: 0px var(--standardMargin) 0px var(--standardMargin);
 }
 
 /* setting up the sticky footer */
+
+header {
+	margin-top: var(--standardMargin);
+}
 
 .outlet {
 	flex: 1;
