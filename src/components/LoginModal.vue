@@ -27,7 +27,7 @@
 </script>
 <template>
 	<div class="user-login">
-		<form @submit.prevent="checkLogin">
+		<form @submit.prevent="checkLogin()">
 			<input-wrapper>
 				<label for="user-id">Username</label>
 				<input id="user-id" type="text" v-model="form.username" />

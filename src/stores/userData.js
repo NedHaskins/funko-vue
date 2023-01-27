@@ -1,7 +1,7 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useUserDataStore = defineStore('userData', function () {
+export const useUserDataStore = defineStore('users', function () {
 	const database = reactive([
 		{
 			id: 'a1',

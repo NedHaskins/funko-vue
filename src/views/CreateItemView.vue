@@ -15,27 +15,23 @@ to every page.-->
 	const route = useRoute();
 	const figures = useFigureDataStore();
 
-	const values = reactive({
-		items: [],
-		item: {
-			name: '',
-			price: '',
-		},
-		amount: '',
-		total: '',
-		itemRow: '',
-		output: '',
+	const attrs = reactive({
+		name: '',
+		slug: '',
+		image: '',
+		price: '',
+		description: '',
 	});
 
 	// function add() {
 	// 	const item = {
-	// 		name: values.item.name,
-	// 		slug: values.item.slug,
-	// 		image: values.item.image,
-	// 		price: values.item.price,
-	// 		description: values.item.description,
+	// 		name: attrs.name,
+	// 		slug: attrs.slug,
+	// 		image: attrs.image,
+	// 		price: attrs.price,
+	// 		description: attrs.description,
 	// 	};
-	// 	values.items = [...values.items, item];
+	// 	attrss = [...attrss, item];
 	// 	//this can be written in one line using map?
 	// 	clearForm();
 	// }
@@ -44,11 +40,11 @@ to every page.-->
 	function createRecord() {
 		const record = {
 			id: uuidv4(),
-			name: values.item.name,
-			slug: values.item.slug,
-			image: values.item.image,
-			price: values.item.price,
-			description: values.item.description,
+			name: attrs.name,
+			slug: attrs.slug,
+			image: attrs.image,
+			price: attrs.price,
+			description: attrs.description,
 		};
 		// console.log(record);
 
@@ -58,11 +54,11 @@ to every page.-->
 	}
 
 	function clearForm() {
-		values.item.name = '';
-		values.item.slug = '';
-		values.item.image = '';
-		values.item.price = '';
-		values.item.description = '';
+		attrs.name = '';
+		attrs.slug = '';
+		attrs.image = '';
+		attrs.price = '';
+		attrs.description = '';
 	}
 </script>
 
@@ -75,23 +71,23 @@ to every page.-->
 		<form>
 			<input-wrapper>
 				<label for="name">Name</label>
-				<input id="name" type="text" v-model="values.item.name" />
+				<input id="name" type="text" v-model="attrs.name" />
 			</input-wrapper>
 			<input-wrapper>
 				<label for="slug">Slug</label>
-				<input id="slug" type="text" v-model="values.item.slug" />
+				<input id="slug" type="text" v-model="attrs.slug" />
 			</input-wrapper>
 			<input-wrapper>
 				<label for="image">Image</label>
-				<input id="image" type="text" v-model="values.item.image" />
+				<input id="image" type="text" v-model="attrs.image" />
 			</input-wrapper>
 			<input-wrapper>
 				<label for="price">Price</label>
-				<input id="price" type="number" v-model="values.item.price" />
+				<input id="price" type="number" v-model="attrs.price" />
 			</input-wrapper>
 			<input-wrapper>
 				<label for="description">Description</label>
-				<input id="description" type="text" v-model="values.item.description" />
+				<input id="description" type="text" v-model="attrs.description" />
 			</input-wrapper>
 
 			<button-wrapper>
