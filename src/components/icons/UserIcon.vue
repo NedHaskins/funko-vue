@@ -17,14 +17,14 @@
 		"
 	>
 		<g id="user-icon-svg">
-			<circle cx="125.208" cy="125.208" r="120" style="fill: none; stroke: #000; stroke-width: 10.42px" />
+			<circle cx="125.208" cy="125.208" r="120" style="fill: none; stroke-width: 10.42px" />
 			<path
 				d="M39.23,199.577c-0,0 2.636,-5.577 10.194,-9.816c7.558,-4.239 51.67,-7.916 51.082,-25.254c-0.587,-17.339 -18.225,-27.435 -19.907,-68.058c-1.681,-40.624 43.041,-47.676 44.609,-45.156"
-				style="fill: none; stroke: #000; stroke-width: 10.42px"
+				style="fill: none; stroke-width: 10.42px"
 			/>
 			<path
 				d="M211.187,199.577c-0,0 -2.637,-5.577 -10.195,-9.816c-7.557,-4.239 -51.669,-7.916 -51.082,-25.254c0.588,-17.339 18.225,-27.435 19.907,-68.058c1.682,-40.624 -43.04,-47.676 -44.609,-45.156"
-				style="fill: none; stroke: #000; stroke-width: 10.42px"
+				style="fill: none; stroke-width: 10.42px"
 			/>
 		</g>
 	</svg>

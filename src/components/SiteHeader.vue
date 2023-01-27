@@ -3,6 +3,8 @@
 	import { useInterfaceStore } from '@/stores/interface';
 
 	import UserIcon from '@/components/icons/UserIcon.vue';
+	import CartIcon from '@/components/icons/CartIcon.vue';
+	import CheeseburgerIcon from '@/components/icons/CheeseburgerIcon.vue';
 
 	const route = useRoute();
 	const ui = useInterfaceStore();
@@ -29,7 +31,7 @@
 			<header-top>
 				<space-box class="left">
 					<div @click="ui.toggleMenu()" class="svg-wrapper hamburger">
-						<img class="toggle" src="/images/Cheeseburger.svg" />
+						<CheeseburgerIcon />
 					</div>
 				</space-box>
 				<!-- 			<pre><code>
@@ -46,7 +48,7 @@
 
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
-							<img src="/images/cart.svg" />
+							<CartIcon />
 						</RouterLink>
 					</div>
 				</space-box>

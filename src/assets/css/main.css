@@ -31,6 +31,30 @@ html {
 	}
 }
 
+/*SVG COMPONENTS*/
+
+circle,
+path {
+	stroke: var(--ink);
+}
+
+.cls-1 {
+	fill: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+	circle,
+	path {
+		stroke: var(--paper);
+		fill: white;
+	}
+
+	.cls-1 {
+		stroke: var(--paper);
+		fill: white;
+	}
+}
+
 /* FIGURE CARD COMPONENTS */
 
 figure-card {
