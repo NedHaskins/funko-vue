@@ -94,7 +94,7 @@
 	}
 
 	.site-menu a {
-		padding: 0.8em;
+		padding: 0.8em 0.8em 0 0.8em;
 	}
 
 	.site-menu .router-link-active {
@@ -206,7 +206,7 @@
 
 	/*SCAFFOLDING */
 
-	.inner-column > * {
+	inner-column > * {
 		/*		border: 3px solid black;*/
 	}
 

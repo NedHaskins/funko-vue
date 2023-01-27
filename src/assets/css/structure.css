@@ -28,7 +28,7 @@ code {
 	background-color: white;
 }
 
-.inner-column {
+inner-column {
 	display: block;
 	margin: 0 auto;
 }
@@ -40,7 +40,7 @@ code {
 		min-height: 100vh;
 	}
 
-	.inner-column {
+	inner-column {
 		max-width: 960px;
 	}
 }

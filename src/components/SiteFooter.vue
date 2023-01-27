@@ -1,12 +1,12 @@
 <template>
 	<footer>
-		<div class="inner-column">
+		<inner-column>
 			<nav class="site-menu footer">
 				<RouterLink to="/about">About</RouterLink>
 				<RouterLink to="/contact">Contact</RouterLink>
 				<a class="github" href="https://github.com/nedhaskins/funko-vue">Project Github Link</a>
 			</nav>
-		</div>
+		</inner-column>
 	</footer>
 </template>
 

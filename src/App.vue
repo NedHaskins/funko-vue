@@ -23,9 +23,9 @@
 <template>
 	<SiteHeader />
 	<main class="outlet">
-		<div class="inner-column">
+		<inner-column>
 			<RouterView />
-		</div>
+		</inner-column>
 	</main>
 	<SiteFooter />
 </template>

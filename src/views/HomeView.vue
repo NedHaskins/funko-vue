@@ -1,15 +1,9 @@
-<script setup></script>
+<script setup>
+   import FeaturedItems from '@/components/FeaturedItems.vue';
+</script>
 
 <template>
-   <homepage-header>
-      <h2>Welcome to the store!</h2>
-      <p>This project is built with Vue.js and uses the Pinia data store.</p>
-   </homepage-header>
+   <FeaturedItems />
 </template>
 
-<style scoped>
-   homepage-header {
-      display: block;
-      text-align: center;
-   }
-</style>
+<style scoped></style>

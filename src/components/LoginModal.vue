@@ -44,4 +44,26 @@
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+	.user-login,
+	form,
+	input-wrapper {
+		border: 1px solid black;
+		padding: 5px;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	input-wrapper,
+	button-wrapper {
+		display: flex;
+		justify-content: center;
+		width: 60%;
+		gap: 20px;
+		font-size: 36px;
+	}
+</style>
