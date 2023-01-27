@@ -46,12 +46,12 @@ path {
 	circle,
 	path {
 		stroke: var(--paper);
-		fill: white;
+		fill: var(--paper);
 	}
 
 	.cls-1 {
 		stroke: var(--paper);
-		fill: white;
+		fill: var(--paper);
 	}
 }
 
@@ -96,7 +96,7 @@ figure-card h3 {
 
 .card-bottom {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .price-wrapper p,

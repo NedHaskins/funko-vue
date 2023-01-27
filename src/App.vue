@@ -2,11 +2,8 @@
 	import { RouterView } from 'vue-router';
 
 	import SiteHeader from '@/components/SiteHeader.vue';
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	import { onMounted, watch } from 'vue';
-
-	const shoppingCart = useShoppingCartStore();
 
 	// onMounted(function () {
 	// 	if (localStorage.getItem('shoppingCartData')) {
@@ -26,7 +23,6 @@
 	<SiteHeader />
 	<main class="outlet">
 		<div class="inner-column">
-			{{ shoppingCart.getCount }}
 			<RouterView />
 		</div>
 	</main>

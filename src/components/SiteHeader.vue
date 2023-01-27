@@ -6,6 +6,9 @@
 	import CartIcon from '@/components/icons/CartIcon.vue';
 	import CheeseburgerIcon from '@/components/icons/CheeseburgerIcon.vue';
 
+	import { useShoppingCartStore } from '@/stores/shoppingCart';
+	const shoppingCart = useShoppingCartStore();
+
 	const route = useRoute();
 	const ui = useInterfaceStore();
 
@@ -31,7 +34,7 @@
 			<header-top>
 				<space-box class="left">
 					<div @click="ui.toggleMenu()" class="svg-wrapper hamburger">
-						<CheeseburgerIcon />
+						<CheeseburgerIcon class="toggle" />
 					</div>
 				</space-box>
 				<!-- 			<pre><code>
@@ -48,6 +51,7 @@
 
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
+							<span class="cart-count">{{ shoppingCart.getCount }}</span>
 							<CartIcon />
 						</RouterLink>
 					</div>
@@ -176,7 +180,25 @@
 	}
 
 	.cart {
+		position: relative;
 		width: 51px;
+	}
+
+	.cart-count {
+		background-color: var(--cherokee);
+		position: absolute;
+		top: -10px;
+		right: -8px;
+		border: 2px solid black;
+		padding: 4px;
+		text-align: center;
+		border-radius: 50%;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.cart-count {
+			color: var(--ink);
+		}
 	}
 
 	/*SCAFFOLDING */
