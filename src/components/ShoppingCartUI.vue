@@ -13,6 +13,11 @@
 		return total;
 	});
 
+	function incrementValue(item) {
+		const quantity = item.quantity;
+		quantity++;
+	}
+
 	function clearCart() {
 		shoppingCart.list = [];
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
@@ -22,31 +27,52 @@
 
 <template>
 	<inner-column>
-		<h1>shopping cart</h1>
+		<ul class="cart-items">
+			<li v-for="item in shoppingCart.list">
+				<div>{{ item.name }}</div>
+				<div class="item-quantity">
+					<button id="remove">-</button>
+					<div>{{ item.quantity }}</div>
+					<button id="add" @click="incrementValue(item)">+</button>
+				</div>
+				<div>${{ item.price }}</div>
+			</li>
+		</ul>
 
-		<div class="overflow-wrapper">
-			<table class="item-list">
-				<tbody>
-					<tr v-for="item in shoppingCart.list">
-						<td>{{ item.name }}</td>
-						<td>{{ item.price }}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<button-wrapper>
+			<button>Update cart</button>
+		</button-wrapper>
 
-		<table class="item-total">
-			<tbody>
-				<tr>
-					<td>Total</td>
-					<td class="cost total">${{ total }}</td>
-				</tr>
-			</tbody>
-		</table>
 		<button-wrapper>
 			<button @click.prevent="clearCart">Clear cart</button>
 		</button-wrapper>
 	</inner-column>
 </template>
+<style lang="scss" scoped>
+	inner-column {
+		max-width: 600px;
+	}
 
-<style></style>
+	.cart-items {
+		li {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+		}
+	}
+
+	.item-quantity {
+		display: flex;
+		flex-direction: row;
+	}
+
+	/*SCAFFOLDING*/
+	.cart-items {
+		border: 3px dashed black;
+		padding: 3px;
+
+		li {
+			border: 3px dashed red;
+		}
+	}
+</style>

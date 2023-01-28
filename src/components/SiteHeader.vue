@@ -1,5 +1,5 @@
 <script setup>
-	import { RouterLink, useRoute } from 'vue-router';
+	import { RouterLink, useRoute, useRouter } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
 	import { useUserDataStore } from '@/stores/userData';
 
@@ -11,6 +11,7 @@
 	const shoppingCart = useShoppingCartStore();
 
 	const route = useRoute();
+	const router = useRouter();
 	const ui = useInterfaceStore();
 	const users = useUserDataStore();
 
@@ -29,6 +30,12 @@
 			body.classList.toggle('small-menu-open');
 		}
 	});
+
+	function logOutUser() {
+		users.currentUser = false;
+		localStorage.setItem('currentUser', false);
+		router.push('/');
+	}
 </script>
 <template>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
@@ -41,9 +48,12 @@
 				</space-box>
 				<title-wrapper>
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
-					<span>{{ users.currentUser }}</span>
 				</title-wrapper>
 				<space-box class="right">
+					<div v-if="users.currentUser" class="user-prompts">
+						<span>Hi, {{ users.currentUser.username }}</span
+						><button @click="logOutUser()">Logout</button>
+					</div>
 					<div class="svg-wrapper user-icon">
 						<RouterLink to="/login">
 							<UserIcon />

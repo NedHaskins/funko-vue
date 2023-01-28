@@ -4,9 +4,10 @@
 
 	const shoppingCart = useShoppingCartStore();
 
-	function addToCart(name, price) {
+	function addToCart(name, quantity, price) {
 		const record = {
 			name: name,
+			quantity: 1,
 			price: price,
 		};
 		shoppingCart.add(record);
@@ -25,7 +26,7 @@
 				<p>${{ figure.price }}</p>
 			</div>
 			<button-wrapper class="add-to-cart">
-				<button @click.prevent="addToCart(figure.name, figure.price)">Add to cart</button>
+				<button @click.prevent="addToCart(figure.name, figure.quantity, figure.price)">Add to cart</button>
 			</button-wrapper>
 			<div class="more-info">
 				<RouterLink v-bind:to="`/figure/${figure.slug}`">More<br />info</RouterLink>

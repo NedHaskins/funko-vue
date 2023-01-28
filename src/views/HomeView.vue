@@ -7,8 +7,7 @@
 
 <template>
    <!--if user is loggedin and they have an admin role-->
-   {{ users.currentUser }}
-   <div v-if="users.isLoggedIn">
+   <div v-if="users.isLoggedIn && users.currentUser.role === 'admin'">
       <AdminDashboard />
    </div>
 
