@@ -9,19 +9,28 @@
 
 	//Phase 1:  Write out code that will pair up each letter in an array with a color in the colors array.
 
+	let figuresFromStore = [];
+
 	let featuredFigures = [];
+
+	figures.list.forEach(function (figure) {
+		figuresFromStore.push(figure);
+	});
+	//this is needed to not permanently change the actual store list, which will affect other components rendering during the session
 
 	function get3Random(items) {
 		for (let i = 0; i < 3; i++) {
-			let randomIndex = Math.floor(Math.random() * figures.list.length);
-			let randomItem = figures.list[randomIndex];
+			let randomIndex = Math.floor(Math.random() * figuresFromStore.length);
+			let randomItem = figuresFromStore[randomIndex];
 			featuredFigures.push(randomItem);
-			figures.list.splice(randomIndex, 1); //ensures that the same element won't be selected twice -- and reduces the amount of memory the initial array takes up, as the items are being removed from it
+			figuresFromStore.splice(randomIndex, 1); //ensures that the same element won't be selected twice -- and reduces the amount of memory the initial array takes up, as the items are being removed from it
 		}
 	}
 	get3Random(figures);
 
 	const container = ref(null);
+
+	const active = ref(true);
 
 	const phrase = 'Featured Items';
 
@@ -34,7 +43,7 @@
 	<module-header>
 		<div id="letters-container" ref="container"></div>
 	</module-header>
-	<ul class="featured-items">
+	<ul class="featured-items" :class="{ party: active }">
 		<li v-for="card in featuredFigures">
 			<FigureCard v-bind:figure="card" />
 		</li>

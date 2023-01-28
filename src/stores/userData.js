@@ -5,13 +5,13 @@ export const useUserDataStore = defineStore('users', function () {
 	const database = reactive([
 		{
 			id: 'a1',
-			name: 'ned',
+			username: 'ned',
 			role: 'admin',
 			password: 'mango',
 		},
 		{
 			id: 'a2',
-			name: 'test',
+			username: 'test',
 			role: 'user',
 			password: 'carrot',
 		},
@@ -27,7 +27,10 @@ export const useUserDataStore = defineStore('users', function () {
 		}
 	});
 
+	//maybe make a computed property for admin check
+
 	function add(record) {
+		//for future adding of users
 		database.push(record);
 	}
 

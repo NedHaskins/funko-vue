@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
 
 import UserLoginView from '../views/UserLoginView.vue';
+import AdminDashboardView from '../views/AdminDashboard.vue';
 
 import CategoriesView from '../views/CategoriesView.vue';
 import CategoryView from '../views/CategoryView.vue';
@@ -77,10 +78,22 @@ const router = createRouter({
          name: 'shopping-cart',
          component: ShoppingCartView,
       },
+      // {
+      //    path: '/create-item',
+      //    name: 'create-item',
+      //    component: CreateItemView,
+      // },
       {
-         path: '/create-item',
-         name: 'create-item',
-         component: CreateItemView,
+         path: '/admin',
+         name: 'admin',
+         component: AdminDashboardView,
+         children: [
+            {
+               path: '/admin/create-item',
+               name: 'create-item',
+               component: CreateItemView,
+            },
+         ],
       },
    ],
 });

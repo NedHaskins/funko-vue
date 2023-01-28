@@ -97,7 +97,9 @@ to every page.-->
 	</div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+	$color: red;
+
 	button-wrapper {
 		display: flex;
 		gap: 20px;
@@ -107,6 +109,7 @@ to every page.-->
 	.record-form {
 		padding: 20px;
 		margin-top: 40px;
+		background-color: $color;
 	}
 
 	input-wrapper {

@@ -1,6 +1,7 @@
 <script setup>
 	import { RouterLink, useRoute } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
+	import { useUserDataStore } from '@/stores/userData';
 
 	import UserIcon from '@/components/icons/UserIcon.vue';
 	import CartIcon from '@/components/icons/CartIcon.vue';
@@ -11,13 +12,14 @@
 
 	const route = useRoute();
 	const ui = useInterfaceStore();
+	const users = useUserDataStore();
 
 	var body = document.querySelector('body');
 
 	// set up a "listener" that will
 	// listen for "clicks" (and taps) on the whole page!
 	document.addEventListener('click', function (event) {
-		console.log(event.target);
+		// console.log(event.target); //showed up on the login page
 
 		if (event.target.matches('.toggle')) {
 			body.classList.toggle('small-menu-open');
@@ -37,10 +39,9 @@
 						<CheeseburgerIcon class="toggle" />
 					</div>
 				</space-box>
-				<!-- 			<pre><code>
-		{{ route.name }}</code></pre> -->
 				<title-wrapper>
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
+					<span>{{ users.currentUser }}</span>
 				</title-wrapper>
 				<space-box class="right">
 					<div class="svg-wrapper user-icon">
@@ -66,7 +67,7 @@
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink to="/create-item">Create Item</RouterLink>
+
 					<button class="toggle small-screen">Close</button>
 				</nav>
 			</menu-wrapper>
@@ -168,7 +169,7 @@
 
 	.user-icon {
 		width: 44px;
-		margin-left: 12px;
+		margin-left: 11px;
 	}
 
 	@media (min-width: 600px) {

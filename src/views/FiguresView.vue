@@ -14,5 +14,7 @@
 		display: flex;
 		justify-content: center;
 		font-family: 'Bangers';
+		font-size: 36px;
+		padding: 0.8em 0.8em 0 0.8em;
 	}
 </style>

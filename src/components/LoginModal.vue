@@ -15,19 +15,26 @@
 	function checkLogin() {
 		if (form.username && form.password) {
 			users.database.forEach(function (user) {
-				if (user.username == form.username && user.password == form.password) {
-					users.isLoggedIn = true;
+				// console.log(user);
+				if (user.username === form.username && user.password === form.password) {
+					// //setting
 					users.currentUser = user;
 					users.saveToStorage(user);
+
+					console.log(form.username, form.password, users.isLoggedIn, users.currentUser);
 					router.push('/');
 				}
 			});
 		}
 	}
+
+	function printTest() {
+		console.log(form.username, form.password);
+	}
 </script>
 <template>
 	<div class="user-login">
-		<form @submit.prevent="checkLogin()">
+		<form>
 			<input-wrapper>
 				<label for="user-id">Username</label>
 				<input id="user-id" type="text" v-model="form.username" />
@@ -38,7 +45,7 @@
 				<input id="password" type="text" v-model="form.password" />
 			</input-wrapper>
 			<button-wrapper>
-				<button>Submit</button>
+				<button @click.prevent="checkLogin()">Submit</button>
 			</button-wrapper>
 		</form>
 	</div>
