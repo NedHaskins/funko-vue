@@ -1,24 +1,35 @@
 <script setup>
+   import CategoryCard from '@/components/CategoryCard.vue';
+
    import { useCategoriesStore } from '@/stores/categories';
 
    const categories = useCategoriesStore();
 </script>
 
 <template>
-   <h2>This page will list all of the high-level categories for the figures.</h2>
+   <module-header>
+      <h2>Choose a category!</h2>
+   </module-header>
 
    <ul>
-      <li v-for="category in categories.list">
-         <RouterLink v-bind:to="`/category/${category.slug}`"
-            ><h3>{{ category.name }}</h3></RouterLink
-         >
+      <li v-for="item in categories.list">
+         <CategoryCard v-bind:category="item" />
       </li>
    </ul>
 </template>
 
-<style>
-   li {
-      font-size: 24px;
+<style lang="scss" scoped>
+   module-header {
+      display: block;
+      text-align: center;
       font-family: 'Bangers';
+      font-size: 36px;
+      padding: 0.8em 0.8em 0 0.8em;
+   }
+
+   ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--scaffoldPadding);
    }
 </style>

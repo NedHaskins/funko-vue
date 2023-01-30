@@ -212,7 +212,7 @@
 			font-family: 'Fredoka One';
 			letter-spacing: 0.1em;
 			font-size: 17px;
-			margin-left: 2px;
+			margin: 1px 0px 0px 2px;
 		}
 	}
 
@@ -252,7 +252,7 @@
 			justify-content: center;
 			/* */
 			opacity: 0;
-			background-color: var(--x11gray);
+			background-color: gray;
 			pointer-events: none;
 			transform: translate(-100%, 0); /* another fun option to try #a */
 			transform: scale(0.5);

@@ -31,6 +31,26 @@ html {
 	}
 }
 
+/* MAIN SITE COMPONENTS, I.E. BUTTONS */
+
+button {
+	border: 3px solid black;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: 'Bangers';
+	font-size: 20px;
+	padding: 12px;
+}
+
+button:hover {
+	border: 3px solid var(--ink);
+	background: var(--ink);
+	color: var(--paper);
+	font-family: 'Bangers';
+	font-size: 20px;
+	padding: 12px;
+}
+
 /*SVG COMPONENTS*/
 
 circle,
@@ -74,24 +94,6 @@ figure-card h3 {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-.add-to-cart button {
-	border: 3px solid black;
-	background: var(--paper);
-	color: var(--ink);
-	font-family: 'Bangers';
-	font-size: 20px;
-	padding: 12px;
-}
-
-.add-to-cart button:hover {
-	border: 3px solid var(--ink);
-	background: var(--ink);
-	color: var(--paper);
-	font-family: 'Bangers';
-	font-size: 20px;
-	padding: 12px;
 }
 
 .card-bottom {

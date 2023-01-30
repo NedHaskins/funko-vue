@@ -54,6 +54,8 @@
 
 <style lang="scss" scoped>
 	.user-login {
+		border: 2px solid var(--ink);
+		box-shadow: 10px 10px var(--ink);
 		background-color: var(--x11gray);
 		display: flex;
 		flex-direction: column;
@@ -69,20 +71,22 @@
 	@media (prefers-color-scheme: dark) {
 		.user-login {
 			background-color: var(--ink);
-			border: 3px solid white;
+			border: 2px solid var(--paper);
+			box-shadow: 10px 10px var(--paper);
 		}
 	}
 
 	form {
-		border: 1px solid black;
+		// border: 1px solid black;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
 
-	label {
+	label,
+	input {
 		font-family: 'Bangers';
-		/*		font-size: 18px;*/
+		font-size: calc(20px + 1vw);
 	}
 
 	input-wrapper,
@@ -90,8 +94,25 @@
 		display: flex;
 		justify-content: center;
 		width: 60%;
-		gap: 20px;
+		gap: 35px;
 		font-size: 24px;
 		margin-top: 30px;
+	}
+
+	@media (max-width: 539px) {
+		input-wrapper {
+			margin-top: 0px;
+			flex-direction: column;
+			gap: 5px;
+
+			label {
+				margin-top: 30px;
+			}
+
+			input {
+				margin-top: 10px;
+				font-size: 3vh;
+			}
+		}
 	}
 </style>

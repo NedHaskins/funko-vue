@@ -10,6 +10,7 @@ export const useCategoriesStore = defineStore('categories', function () {
 		{
 			name: 'Lord of the Rings',
 			slug: 'lotr',
+			image: '/images/categories/lotr.jpg',
 			subcategories: [
 				{
 					name: 'Elves',
@@ -36,22 +37,27 @@ export const useCategoriesStore = defineStore('categories', function () {
 		{
 			name: 'Movies',
 			slug: 'movies',
+			image: '/images/categories/movies.jpg',
 		},
 		{
 			name: 'Music',
 			slug: 'music',
+			image: '/images/categories/music.jpg',
 		},
 		{
 			name: 'Famous Memes',
 			slug: 'memes',
+			image: '/images/categories/memes.jpg',
 		},
 		{
 			name: 'Anime',
 			slug: 'anime',
+			image: '/images/categories/anime.jpg',
 		},
 		{
 			name: 'Marvel Universe',
 			slug: 'marvel',
+			image: '/images/categories/marvel.jpg',
 		},
 	]);
 
