@@ -34,6 +34,7 @@
 </script>
 <template>
 	<div class="user-login">
+		<h2>User Login</h2>
 		<form>
 			<input-wrapper>
 				<label for="user-id">Username</label>
@@ -51,18 +52,37 @@
 	</div>
 </template>
 
-<style scoped>
-	.user-login,
-	form,
-	input-wrapper {
-		border: 1px solid black;
-		padding: 5px;
+<style lang="scss" scoped>
+	.user-login {
+		background-color: var(--x11gray);
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		margin-top: 60px;
+		padding: 30px 0px 30px 0px;
+		margin: 60px auto 0px auto;
+		width: 80%;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.user-login {
+			background-color: var(--ink);
+			border: 3px solid white;
+		}
 	}
 
 	form {
+		border: 1px solid black;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+
+	label {
+		font-family: 'Bangers';
+		/*		font-size: 18px;*/
 	}
 
 	input-wrapper,
@@ -71,6 +91,7 @@
 		justify-content: center;
 		width: 60%;
 		gap: 20px;
-		font-size: 36px;
+		font-size: 24px;
+		margin-top: 30px;
 	}
 </style>

@@ -1,15 +1,11 @@
 <script setup>
    import FeaturedItems from '@/components/FeaturedItems.vue';
-   import AdminDashboard from '@/views/AdminDashboard.vue';
    import { useUserDataStore } from '@/stores/userData';
    const users = useUserDataStore();
 </script>
 
 <template>
    <!--if user is loggedin and they have an admin role-->
-   <div v-if="users.isLoggedIn && users.currentUser.role === 'admin'">
-      <AdminDashboard />
-   </div>
 
    <FeaturedItems />
 </template>

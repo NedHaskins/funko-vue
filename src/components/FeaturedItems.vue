@@ -37,6 +37,8 @@
 	onMounted(function () {
 		RainbowLetters(phrase);
 	});
+
+	// :to="{ name: routeName: params: { item: item }"
 </script>
 
 <template>

@@ -50,7 +50,7 @@
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
-					<div v-if="users.currentUser" class="user-prompts">
+					<div v-if="users.currentUser == true" class="user-prompts">
 						<span>Hi, {{ users.currentUser.username }}</span
 						><button @click="logOutUser()">Logout</button>
 					</div>
@@ -62,7 +62,10 @@
 
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
-							<span class="cart-count">{{ shoppingCart.getCount }}</span>
+							<div class="cart-count">
+								<p>{{ shoppingCart.getCount }}</p>
+							</div>
+
 							<CartIcon />
 						</RouterLink>
 					</div>
@@ -77,6 +80,9 @@
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
+					<RouterLink v-if="users.isLoggedIn && users.currentUser.role === 'admin'" to="/admin-dashboard"
+						>Dashboard</RouterLink
+					>
 
 					<button class="toggle small-screen">Close</button>
 				</nav>
@@ -85,33 +91,28 @@
 	</header>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 	/*	*:focus {
 	 outline: 20px solid black;}*/
-
-	.site-menu {
-		font-family: 'Bangers';
-	}
-
-	.site-menu a {
-		font-size: 32px;
-	}
 
 	.site-menu {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
+
+		font-family: 'Bangers';
+		a {
+			padding: 0.8em 0.8em 0 0.8em;
+			font-size: 32px;
+		}
+
+		.router-link-active {
+			font-weight: 700;
+			color: var(--vividMulberry);
+		}
 	}
 
-	.site-menu a {
-		padding: 0.8em 0.8em 0 0.8em;
-	}
-
-	.site-menu .router-link-active {
-		font-weight: 700;
-		color: var(--vividMulberry);
-	}
 	@media (max-width: 599px) {
 		.site-menu {
 			display: none;
@@ -205,8 +206,14 @@
 		right: -8px;
 		border: 2px solid black;
 		padding: 4px;
-		text-align: center;
 		border-radius: 50%;
+
+		p {
+			font-family: 'Fredoka One';
+			letter-spacing: 0.1em;
+			font-size: 17px;
+			margin-left: 2px;
+		}
 	}
 
 	@media (prefers-color-scheme: dark) {
@@ -245,7 +252,7 @@
 			justify-content: center;
 			/* */
 			opacity: 0;
-			background-color: gray;
+			background-color: var(--x11gray);
 			pointer-events: none;
 			transform: translate(-100%, 0); /* another fun option to try #a */
 			transform: scale(0.5);

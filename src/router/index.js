@@ -84,8 +84,8 @@ const router = createRouter({
       //    component: CreateItemView,
       // },
       {
-         path: '/admin',
-         name: 'admin',
+         path: '/admin-dashboard',
+         name: 'admin-dashboard',
          component: AdminDashboardView,
          children: [
             {
