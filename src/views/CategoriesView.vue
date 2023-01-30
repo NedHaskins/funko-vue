@@ -19,14 +19,6 @@
 </template>
 
 <style lang="scss" scoped>
-   module-header {
-      display: block;
-      text-align: center;
-      font-family: 'Bangers';
-      font-size: 36px;
-      padding: 0.8em 0.8em 0 0.8em;
-   }
-
    ul {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

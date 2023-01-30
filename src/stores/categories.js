@@ -11,6 +11,7 @@ export const useCategoriesStore = defineStore('categories', function () {
 			name: 'Lord of the Rings',
 			slug: 'lotr',
 			image: '/images/categories/lotr.jpg',
+			blurb: "The characters from Tolkien's world-famous series await you in this inspired collection.",
 			subcategories: [
 				{
 					name: 'Elves',

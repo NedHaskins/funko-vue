@@ -4,6 +4,8 @@
    import { useRoute } from 'vue-router';
    import { useCategoriesStore } from '@/stores/categories';
 
+   import SubcategoryCard from '@/components/SubcategoryCard.vue';
+
    const route = useRoute();
    const categories = useCategoriesStore();
 
@@ -15,15 +17,14 @@
 </script>
 
 <template>
-   <h1>{{ category.name }}</h1>
+   <module-header>
+      <h2>{{ category.name }}</h2>
 
-   <h2>This page will list subpages within the chosen category.</h2>
-
+      <h3>{{ category.blurb }}</h3>
+   </module-header>
    <ul class="subcategory-list">
-      <li v-for="subcategory in category.subcategories">
-         <RouterLink v-bind:to="`/subcategory/${subcategory.slug}`"
-            ><h3>{{ subcategory.name }}</h3></RouterLink
-         >
+      <li v-for="item in category.subcategories">
+         <SubcategoryCard v-bind:subcategory="item" />
       </li>
    </ul>
 </template>

@@ -113,6 +113,10 @@
 		}
 	}
 
+	.small-menu-open .router-link-active {
+		// color: var(--ink);
+	}
+
 	@media (max-width: 599px) {
 		.site-menu {
 			display: none;

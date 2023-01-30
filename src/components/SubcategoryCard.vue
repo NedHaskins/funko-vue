@@ -1,20 +1,20 @@
 <script setup>
-	defineProps(['category']);
+	defineProps(['subcategory']);
 </script>
 
 <template>
-	<category-card>
-		<RouterLink v-bind:to="`/category/${category.slug}`">
+	<subcategory-card>
+		<RouterLink v-bind:to="`/subcategory/${subcategory.slug}`">
 			<picture>
-				<img v-bind:src="category.image" />
+				<img v-bind:src="subcategory.image" />
 			</picture>
 		</RouterLink>
-		<h3>{{ category.name }}</h3>
-	</category-card>
+		<h3>{{ subcategory.name }}</h3>
+	</subcategory-card>
 </template>
 
 <style lang="scss">
-	category-card {
+	subcategory-card {
 		display: block;
 		font-family: 'Bangers';
 		margin-top: 15px;

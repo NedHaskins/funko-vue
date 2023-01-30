@@ -53,18 +53,10 @@
 </template>
 
 <style scoped>
-	module-header {
-		display: block;
-		text-align: center;
-		font-family: 'Bangers';
-		font-size: 36px;
-		padding: 0.8em 0.8em 0 0.8em;
-	}
 	picture {
 		width: 236px;
 	}
 	ul {
-		margin-top: 16px;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: var(--scaffoldPadding);

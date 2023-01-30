@@ -31,3 +31,22 @@ figcaption {
 .energy-voice {
 	font-family: 'Bangers';
 }
+
+module-header {
+	display: block;
+	text-align: center;
+	font-family: 'Bangers';
+	font-size: 36px;
+	margin: 0.8em 0px 0.4em 0px;
+}
+
+module-header h2,
+module-header #letters-container {
+	font-family: 'Bangers';
+	font-size: 36px;
+}
+
+module-header h3 {
+	font-size: 24px;
+	margin-top: 0.3em;
+}
