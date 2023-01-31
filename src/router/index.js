@@ -58,14 +58,15 @@ const router = createRouter({
       },
 
       {
-         path: '/figures',
-         name: 'figures',
-         component: FiguresView,
-      },
-      {
          path: '/subcategory/:slug',
          name: 'subcategory',
          component: SubcategoryView,
+      },
+
+      {
+         path: '/figures',
+         name: 'figures',
+         component: FiguresView,
       },
 
       {

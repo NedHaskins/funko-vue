@@ -12,19 +12,27 @@
    const category = categories.list.find(function (record) {
       return record.slug == route.params.slug;
    });
-
    //List all the subcategories in a navigation menu below.
 </script>
 
 <template>
+   {{ route.params }}
    <module-header>
       <h2>{{ category.name }}</h2>
 
       <h3>{{ category.blurb }}</h3>
    </module-header>
    <ul class="subcategory-list">
-      <li v-for="item in category.subcategories">
-         <SubcategoryCard v-bind:subcategory="item" />
+      <li v-for="subcategory in category.subcategories">
+         <SubcategoryCard v-bind:subcategory="subcategory" v-bind:category="category" />
       </li>
    </ul>
 </template>
+
+<style lang="scss" scoped>
+   ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--scaffoldPadding);
+   }
+</style>

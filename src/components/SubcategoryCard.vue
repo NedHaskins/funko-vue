@@ -1,5 +1,5 @@
 <script setup>
-	defineProps(['subcategory']);
+	defineProps(['category', 'subcategory']);
 </script>
 
 <template>

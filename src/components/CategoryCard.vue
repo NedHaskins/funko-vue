@@ -4,7 +4,7 @@
 
 <template>
 	<category-card>
-		<RouterLink v-bind:to="`/category/${category.slug}`">
+		<RouterLink v-bind:to="`category/${category.slug}`">
 			<picture>
 				<img v-bind:src="category.image" />
 			</picture>
