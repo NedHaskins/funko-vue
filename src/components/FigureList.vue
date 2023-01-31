@@ -3,11 +3,13 @@
 
 	import FigureCard from '@/components/FigureCard.vue';
 
-	const figures = useFigureDataStore();
+	// const figures = useFigureDataStore();
+
+	defineProps(['figures']);
 </script>
 <template>
 	<ul class="figure-list">
-		<li v-for="card in figures.list">
+		<li v-for="card in figures">
 			<FigureCard v-bind:figure="card" />
 		</li>
 	</ul>

@@ -4,7 +4,7 @@
 
 <template>
 	<subcategory-card>
-		<RouterLink v-bind:to="`/subcategory/${subcategory.slug}`">
+		<RouterLink v-bind:to="{ name: 'subcategory', params: { cat: category.slug, sub: subcategory.slug } }">
 			<picture>
 				<img v-bind:src="subcategory.image" />
 			</picture>

@@ -10,13 +10,13 @@
    const categories = useCategoriesStore();
 
    const category = categories.list.find(function (record) {
-      return record.slug == route.params.slug;
+      return record.slug == route.params.cat; // this references the name of the path in the router file (index.js)
    });
    //List all the subcategories in a navigation menu below.
 </script>
 
 <template>
-   {{ route.params }}
+   {{ route }}
    <module-header>
       <h2>{{ category.name }}</h2>
 
@@ -24,7 +24,7 @@
    </module-header>
    <ul class="subcategory-list">
       <li v-for="subcategory in category.subcategories">
-         <SubcategoryCard v-bind:subcategory="subcategory" v-bind:category="category" />
+         <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
       </li>
    </ul>
 </template>

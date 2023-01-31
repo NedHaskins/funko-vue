@@ -4,6 +4,7 @@
 	import { useCategoriesStore } from '@/stores/categories';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
+	import FigureList from '@/components/FigureList.vue';
 	import FigureCard from '@/components/FigureCard.vue';
 
 	const route = useRoute();
@@ -12,7 +13,7 @@
 	const figures = useFigureDataStore();
 	const shoppingCart = useShoppingCartStore();
 
-	// defineProps(['category']);
+	defineProps(['subcategory']);
 
 	//Prepare local storage to be read by the app.
 	// function setUpCart() {
@@ -43,38 +44,47 @@
 	let filteredFigures = [];
 
 	figures.list.forEach(function (figure) {
-		if (figure.subcategory == route.params.slug) {
+		if (figure.subcategory == route.params.sub) {
 			filteredFigures.push(figure);
 		}
 	});
 
+	// console.log(subcategory);
+
 	// const object = categories.list.find((item) => item.subcategory == route.params.slug);
 
-	const category = categories.list.find(function (record) {
-		return record.slug == route.params.slug;
-	});
+	// const category = categories.list.find(function (record) {
+	// 	return record.slug == route.params.slug;
+	// });
 
 	//for each subcategory inside the current category, check against the route.params.  Return the matching one, and assign this value to a variable.
 
 	//The subcategory has to be related, downstream, to the current category.  Otherwise it's a separate reference.
 
 	//Given the store data, how can I relate the subcategory to its parent category?
+
+	const subcategories = categories.list.forEach(function (category) {
+		return category;
+	});
+
+	//I basically need a way to include both the category and the subcategory in the route params.
 </script>
 
 <template>
 	<code>
-		<pre>{{ categories.list }}</pre>
+		<pre>{{ subcategories }}</pre>
 	</code>
 	<module-header>
-		<h1>Test</h1>
 		<h2>{{ route.params.slug }}</h2>
 		<!-- <h3>{{ route.params.blurb }}</h3> -->
 	</module-header>
-	<ul class="figure-list">
+	<!-- 	<ul class="figure-list">
 		<li v-for="figureCard in filteredFigures">
 			<FigureCard v-bind:figure="figureCard" />
 		</li>
-	</ul>
+	</ul> -->
+
+	<FigureList :figures="filteredFigures" />
 </template>
 
 <style scoped>

@@ -1,14 +1,23 @@
 <script setup>
+   import { ref, onMounted } from 'vue';
+
    import CategoryCard from '@/components/CategoryCard.vue';
 
    import { useCategoriesStore } from '@/stores/categories';
 
+   import RainbowLetters from '@/scripts/rainbowLetters';
    const categories = useCategoriesStore();
+
+   const container = ref(null);
+
+   onMounted(function () {
+      RainbowLetters('Choose a category!');
+   });
 </script>
 
 <template>
    <module-header>
-      <h2>Choose a category!</h2>
+      <div id="letters-container" ref="container"></div>
    </module-header>
 
    <ul>

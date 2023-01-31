@@ -29,7 +29,7 @@
 				<button @click.prevent="addToCart(figure.name, figure.quantity, figure.price)">Add to cart</button>
 			</button-wrapper>
 			<div class="more-info">
-				<RouterLink v-bind:to="`/figure/${figure.slug}`">More<br />info</RouterLink>
+				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More<br />info</RouterLink>
 			</div>
 		</div>
 	</figure-card>

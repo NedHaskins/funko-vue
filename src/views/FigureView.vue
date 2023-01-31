@@ -6,7 +6,7 @@
 	const figures = useFigureDataStore();
 
 	const figure = figures.list.find(function (record) {
-		return record.slug == route.params.slug;
+		return record.slug == route.params.figure;
 	});
 </script>
 <template>

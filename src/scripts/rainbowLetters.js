@@ -14,7 +14,9 @@ export default function rainbowLetters(sentence) {
 		let color = colors[i % colors.length];
 
 		// to cycle through the colors array -- using the modulo ensures that we don't go out-of-bounds with the index (there are more letters in the sentence than there are colors)
+		// After this is cycled through, we'll have a list of repeating colors we can pair up with each letter.
 
+		// This is the array that we'll push to letterData[].
 		let item = { letter: letters[i], color: color };
 		letterData.push(item);
 	}
