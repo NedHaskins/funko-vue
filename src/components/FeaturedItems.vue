@@ -55,6 +55,7 @@
 <style scoped>
 	picture {
 		width: 236px;
+		padding: 10px;
 	}
 	ul {
 		display: grid;

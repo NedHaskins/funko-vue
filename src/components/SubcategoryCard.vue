@@ -13,7 +13,7 @@
 	</subcategory-card>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	subcategory-card {
 		display: block;
 		font-family: 'Bangers';

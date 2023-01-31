@@ -68,6 +68,7 @@ const router = createRouter({
 			component: FiguresView,
 		},
 		{
+			//These are the route params! :)
 			path: '/:cat/:sub/:figure', //<--- values here are used to filter down values to match for detail pages
 			name: 'figure',
 			component: FigureView,

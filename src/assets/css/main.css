@@ -96,8 +96,9 @@ figure-card h3 {
 	justify-content: center;
 }
 
-.card-bottom {
+card-bottom {
 	display: flex;
+	flex-direction: row;
 	justify-content: space-evenly;
 }
 

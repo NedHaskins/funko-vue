@@ -100,6 +100,10 @@
 		gap: var(--scaffoldPadding);
 	}
 
+	li {
+		justify-self: center;
+	}
+
 	h3 {
 		text-align: center;
 	}
