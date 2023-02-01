@@ -69,14 +69,6 @@ export const useCategoriesStore = defineStore('categories', function () {
 			slug: 'memes',
 			image: '/images/categories/memes.jpg',
 			blurb: 'Cultural icons from the 2000s - 2010s.',
-			subcategories: [
-				{
-					name: '',
-					slug: '1980s',
-					blurb: "The decade of glam rock, New Wave Punk, and the B52's.",
-					image: '/images/categories/movies/the-matrix.jpg',
-				},
-			],
 		},
 		{
 			name: 'Anime',
