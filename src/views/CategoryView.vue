@@ -16,7 +16,6 @@
 </script>
 
 <template>
-   {{ route }}
    <module-header>
       <h2>{{ category.name }}</h2>
 

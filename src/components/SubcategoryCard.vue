@@ -35,7 +35,7 @@
 
 	picture {
 		width: 236px;
-
+		border: 3px solid var(--ink);
 		padding: 10px;
 	}
 </style>

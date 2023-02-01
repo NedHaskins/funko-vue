@@ -49,34 +49,22 @@
 		}
 	});
 
-	// console.log(subcategory);
-
-	// const object = categories.list.find((item) => item.subcategory == route.params.slug);
-
-	// const category = categories.list.find(function (record) {
-	// 	return record.slug == route.params.slug;
-	// });
-
-	//for each subcategory inside the current category, check against the route.params.  Return the matching one, and assign this value to a variable.
-
-	//The subcategory has to be related, downstream, to the current category.  Otherwise it's a separate reference.
-
-	//Given the store data, how can I relate the subcategory to its parent category?
-
-	const subcategories = categories.list.forEach(function (category) {
-		return category;
+	const category = categories.list.find(function (record) {
+		return record.slug == route.params.cat;
 	});
 
-	//I basically need a way to include both the category and the subcategory in the route params.
+	const subcategory = category.subcategories.find(function (item) {
+		return item.slug == route.params.sub;
+	}); // find needs to be used here -- not filter -- as it'll return an array [] otherwise
 </script>
 
 <template>
-	<code>
-		<pre>{{ subcategories }}</pre>
-	</code>
+	<!-- 	<code>
+		<pre>{{ subcategory }}</pre>
+	</code> -->
 	<module-header>
-		<h2>{{ route.params.slug }}</h2>
-		<!-- <h3>{{ route.params.blurb }}</h3> -->
+		<h2>{{ subcategory.name }}</h2>
+		<h3>{{ subcategory.blurb }}</h3>
 	</module-header>
 	<!-- 	<ul class="figure-list">
 		<li v-for="figureCard in filteredFigures">

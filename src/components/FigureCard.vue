@@ -21,7 +21,7 @@
 			<img v-bind:src="figure.image" />
 		</picture>
 		<h3>{{ figure.name }}</h3>
-		<div class="card-bottom">
+		<card-bottom>
 			<div class="price-wrapper">
 				<p>${{ figure.price }}</p>
 			</div>
@@ -31,7 +31,7 @@
 			<div class="more-info">
 				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More<br />info</RouterLink>
 			</div>
-		</div>
+		</card-bottom>
 	</figure-card>
 </template>
 
@@ -40,6 +40,12 @@
 		width: 236px;
 		justify-self: center;
 		padding: 10px;
+	}
+
+	card-bottom {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
 	}
 
 	@media (min-width: 600px) {

@@ -1,13 +1,26 @@
 <script setup>
 	import { useRoute } from 'vue-router';
 	import { useFigureDataStore } from '@/stores/figureData';
+	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	const route = useRoute();
 	const figures = useFigureDataStore();
+	const shoppingCart = useShoppingCartStore();
 
 	const figure = figures.list.find(function (record) {
 		return record.slug == route.params.figure;
 	});
+
+	function addToCart(name, quantity, price) {
+		const record = {
+			name: name,
+			quantity: 1,
+			price: price,
+		};
+		shoppingCart.add(record);
+		console.log(shoppingCart.list); //check
+		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
+	}
 </script>
 <template>
 	<figure-info>
@@ -52,7 +65,7 @@
 		}
 
 		card-bottom {
-			margin-top: 20px;
+			margin-top: 27px;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-evenly;

@@ -22,6 +22,12 @@
 		gap: var(--scaffoldPadding);
 	}
 
+	card-bottom {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+
 	@media (min-width: 960px) {
 		ul {
 		}
