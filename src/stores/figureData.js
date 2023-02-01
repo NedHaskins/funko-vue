@@ -55,8 +55,7 @@ export const useFigureDataStore = defineStore('figureData', function () {
          slug: 'wolverine',
          name: 'Wolverine',
          category: 'marvel',
-         subcategory: 'x-men',
-         image: '/images/categories/marvel/x-men/wolverine.jpg',
+         image: '/images/categories/marvel/wolverine.jpg',
          price: 14.99,
          description:
             'Powerful mutant with healing abilities and an Adamantium skeleton.  Captured and experimented on in the Weapon X program.',
@@ -90,6 +89,36 @@ export const useFigureDataStore = defineStore('figureData', function () {
          image: '/images/categories/music/1980s/slash.jpg',
          price: 14.99,
          description: "The untamed lead guitarist for Guns 'n' Roses at the beginning of their career.",
+      },
+      {
+         id: '1234983jdd',
+         slug: 'grumpy-cat',
+         name: 'Grumpy Cat',
+         category: 'memes',
+         image: '/images/categories/memes/grumpy-cat.jpg',
+         price: 14.99,
+         description:
+            "This cat (real name Tardar Sauce)'s photo went viral in 2012 after photographs of her sour expression emerged online.",
+      },
+      {
+         id: '1234983jdd',
+         slug: 'this-is-fine-dog',
+         name: 'This is Fine Dog',
+         category: 'memes',
+         image: '/images/categories/memes/this-is-fine-dog.jpg',
+         price: 14.99,
+         description:
+            "The meme comes from KC Green's six-panel comic “On Fire.” In the first, the dog, wearing a small bowler hat, sits at a table, surrounded by flames. In the second, the dog smiles brightly and says, “This is fine.”",
+      },
+      {
+         id: '1234983jdd',
+         slug: 'iron-man',
+         name: 'Iron Man',
+         category: 'marvel',
+         image: '/images/categories/marvel/iron-man.jpg',
+         price: 14.99,
+         description:
+            'Tony Stark, a wealthy business magnate and inventor, suffers a grievous chest injury during a kidnapping. When his captors try to force him to build a weapon of mass destruction, he instead builds a prototype of his fmaous suit to help him escape...',
       },
    ]);
 

@@ -72,7 +72,7 @@
 		</li>
 	</ul> -->
 
-	<FigureList :figures="filteredFigures" />
+	<FigureList v-bind:figures="filteredFigures" />
 </template>
 
 <style scoped>

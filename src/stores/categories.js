@@ -88,7 +88,7 @@ export const useCategoriesStore = defineStore('categories', function () {
 					name: 'Jujutsu Kaisen',
 					slug: 'jujutsu-kaisen',
 					blurb: "A modern mix of horror and fantasy - a boy's journey to rid himself of a terrible curse...",
-					image: '/images/categories/movies/jujutsu-kaisen.jpg',
+					image: '/images/categories/anime/jujutsu-kaisen.jpg',
 				},
 			],
 		},
