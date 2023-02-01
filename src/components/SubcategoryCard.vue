@@ -36,5 +36,12 @@
 	picture {
 		width: 236px;
 		padding: 10px;
+		border: 3px solid var(--ink);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		picture {
+			border: 3px solid var(--paper);
+		}
 	}
 </style>

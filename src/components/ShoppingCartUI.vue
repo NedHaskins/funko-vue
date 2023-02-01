@@ -47,6 +47,10 @@
 			<button-wrapper>
 				<button @click.prevent="clearCart">Clear cart</button>
 			</button-wrapper>
+
+			<button-wrapper>
+				<button>Place order</button>
+			</button-wrapper>
 		</cart-bottom>
 	</inner-column>
 </template>

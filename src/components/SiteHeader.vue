@@ -50,9 +50,9 @@
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
-					<div v-if="users.currentUser == true" class="user-prompts">
-						<span>Hi, {{ users.currentUser.username }}</span
-						><button @click="logOutUser()">Logout</button>
+					<div v-if="users.currentUser" class="user-prompts">
+						<span style="font-family: 'Bangers'; color: gray">Hi, {{ users.currentUser.username }}</span
+						><button class="logout" @click="logOutUser()">Logout</button>
 					</div>
 					<div class="svg-wrapper user-icon">
 						<RouterLink to="/login">
@@ -216,7 +216,7 @@
 			font-family: 'Fredoka One';
 			letter-spacing: 0.1em;
 			font-size: 17px;
-			margin: 1px 0px 0px 2px;
+			margin-left: 2px;
 		}
 	}
 
@@ -301,6 +301,22 @@
 			font-family: 'Bangers';
 			font-size: 32px;
 			padding: 16px;
+		}
+	}
+
+	.user-prompts {
+		// border: 3px dashed red;
+
+		span {
+			// border: 3px solid red;
+			display: block;
+			font-size: 30px;
+			text-align: center;
+		}
+
+		.logout {
+			margin-top: 6px;
+			border: 2px solid var(--ink);
 		}
 	}
 </style>
