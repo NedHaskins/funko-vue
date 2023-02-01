@@ -17,6 +17,8 @@
    });
    //List all the subcategories in a navigation menu below.
 
+   const subcategories = category.subcategories ?? false;
+
    let filteredFigures = [];
 
    figures.list.forEach(function (figure) {
@@ -25,8 +27,6 @@
          filteredFigures.push(figure);
       }
    });
-
-   console.log(route.params);
 </script>
 
 <template>
@@ -38,7 +38,7 @@
 
    <!--the conditional will go here.  If the category currently has subcategories...-->
 
-   <ul class="subcategory-list" v-if="subcategories in category">
+   <ul class="subcategory-list" v-if="subcategories">
       <li v-for="subcategory in category.subcategories">
          <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
       </li>

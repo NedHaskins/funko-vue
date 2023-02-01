@@ -29,23 +29,25 @@
 	<inner-column>
 		<ul class="cart-items">
 			<li v-for="item in shoppingCart.list">
-				<div>{{ item.name }}</div>
+				<div class="name">{{ item.name }}</div>
 				<div class="item-quantity">
 					<button id="remove">-</button>
 					<div>{{ item.quantity }}</div>
 					<button id="add" @click="incrementValue(item)">+</button>
 				</div>
-				<div>${{ item.price }}</div>
+				<div class="price">${{ item.price }}</div>
 			</li>
 		</ul>
 
-		<button-wrapper>
-			<button>Update cart</button>
-		</button-wrapper>
+		<cart-bottom>
+			<button-wrapper>
+				<button>Update cart</button>
+			</button-wrapper>
 
-		<button-wrapper>
-			<button @click.prevent="clearCart">Clear cart</button>
-		</button-wrapper>
+			<button-wrapper>
+				<button @click.prevent="clearCart">Clear cart</button>
+			</button-wrapper>
+		</cart-bottom>
 	</inner-column>
 </template>
 <style lang="scss" scoped>
@@ -54,25 +56,64 @@
 	}
 
 	.cart-items {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 		li {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-evenly;
+			align-items: center;
+			font-family: 'Bangers';
+			font-size: 20px;
+
+			.item-quantity {
+				font-family: 'Bangers';
+				display: flex;
+				align-items: center;
+				flex-direction: row;
+				// border: 3px dashed green;
+				gap: 15px;
+
+				button {
+					background-color: var(--cherokee);
+					padding: 4px 11px;
+				}
+
+				button:hover {
+					background-color: var(--ink);
+					color: var(--cherokee);
+				}
+
+				@media (prefers-color-scheme: dark) {
+					button {
+						border: 3px solid gray;
+					}
+				}
+			}
+
+			.name,
+			.price {
+				flex: 2;
+				text-align: center;
+			}
 		}
 	}
 
-	.item-quantity {
+	cart-bottom {
 		display: flex;
 		flex-direction: row;
+		justify-content: space-evenly;
+		margin-top: 24px;
 	}
 
 	/*SCAFFOLDING*/
-	.cart-items {
-		border: 3px dashed black;
-		padding: 3px;
+	// .cart-items {
+	// 	border: 3px dashed black;
+	// 	padding: 3px;
 
-		li {
-			border: 3px dashed red;
-		}
-	}
+	// 	li {
+	// 		border: 3px dashed red;
+	// 	}
+	// }
 </style>

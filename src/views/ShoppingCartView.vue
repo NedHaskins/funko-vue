@@ -3,8 +3,14 @@
 </script>
 
 <template>
-	<h1>Shopping Cart Page</h1>
+	<module-header>
+		<h2>Shopping Cart</h2>
+	</module-header>
 	<ShoppingCartUI />
 </template>
 
-<style></style>
+<style scoped>
+	h1 {
+		font-family: 'Bangers';
+	}
+</style>
