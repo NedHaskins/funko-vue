@@ -24,7 +24,7 @@
 	//quantity <----> price
 
 	function totalItemPrice(price, quantity) {
-		return (price * quantity).toFixed(2);
+		return Number(price * quantity).toFixed(2);
 	}
 
 	const subtotal = computed(function () {
@@ -32,7 +32,7 @@
 		shoppingCart.list.forEach(function (item) {
 			sub += item.price * item.quantity;
 		});
-		return sub.toFixed(2);
+		return Number(sub.toFixed(2));
 	});
 
 	function cartTotal() {
@@ -71,22 +71,24 @@
 
 <template>
 	<inner-column>
-		<ul class="cart-items">
-			<li v-for="item in shoppingCart.list">
-				<div class="name">{{ item.name }}</div>
-				<div class="item-quantity">
-					<button id="remove" @click="decrementValue(item)">-</button>
-					<div>{{ item.quantity }}</div>
-					<button id="add" @click="incrementValue(item)">+</button>
-				</div>
-				<div id="price" class="price">${{ item.price * item.quantity }}</div>
-			</li>
-			<li class="total">
-				<div></div>
-				<div></div>
-				<div>${{ subtotal }}</div>
-			</li>
-		</ul>
+		<table class="cart">
+			<tbody>
+				<tr v-for="item in shoppingCart.list">
+					<td class="name">{{ item.name }}</td>
+					<td class="item-quantity">
+						<button id="remove" @click="decrementValue(item)">-</button>
+						<div>{{ item.quantity }}</div>
+						<button id="add" @click="incrementValue(item)">+</button>
+					</td>
+					<td id="price" class="price">${{ totalItemPrice(item.price, item.quantity) }}</td>
+				</tr>
+				<tr class="total">
+					<td>TOTAL</td>
+					<td></td>
+					<td>${{ subtotal }}</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<cart-bottom>
 			<button-wrapper>
@@ -106,51 +108,85 @@
 <style lang="scss" scoped>
 	inner-column {
 		max-width: 600px;
+		// border: 3px dashed cyan;
 	}
 
-	.cart-items {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
+	table {
+		font-family: 'Bangers';
+		font-size: 19px;
+	}
 
-		li {
+	table,
+	tbody,
+	tr,
+	td {
+		// border: 3px dashed green;
+		// padding: 10px;
+	}
+
+	table,
+	tbody {
+		width: 100%;
+	}
+
+	tr {
+		display: flex;
+		flex-direction: row;
+		margin-top: 15px;
+
+		td {
 			display: flex;
 			flex-direction: row;
-			justify-content: space-evenly;
+		}
+
+		.name,
+		.price {
+			width: 35%;
 			align-items: center;
-			font-family: 'Bangers';
-			font-size: 20px;
+		}
 
-			.item-quantity {
-				font-family: 'Bangers';
-				display: flex;
-				align-items: center;
-				flex-direction: row;
-				// border: 3px dashed green;
-				gap: 15px;
+		.item-quantity {
+			align-items: center;
+			justify-content: space-evenly;
+			gap: 10px;
+			width: 30%;
 
+			button {
+				background-color: var(--cherokee);
+				padding: 4px 11px;
+			}
+
+			button:hover {
+				background-color: var(--ink);
+				color: var(--cherokee);
+			}
+
+			@media (prefers-color-scheme: dark) {
 				button {
-					background-color: var(--cherokee);
-					padding: 4px 11px;
-				}
-
-				button:hover {
-					background-color: var(--ink);
-					color: var(--cherokee);
-				}
-
-				@media (prefers-color-scheme: dark) {
-					button {
-						border: 3px solid gray;
-					}
+					border: 3px solid gray;
 				}
 			}
+		}
+		.price {
+			justify-content: right;
+		}
+	}
 
-			.name,
-			.price {
-				flex: 2;
-				text-align: center;
-			}
+	.total {
+		td {
+			padding: 11px 0px 11px 0px;
+		}
+		td:nth-of-type(1),
+		td:nth-of-type(3) {
+			width: 35%;
+		}
+
+		td:nth-of-type(2) {
+			width: 30%;
+		}
+
+		td:nth-of-type(3) {
+			justify-content: right;
 		}
 	}
 
@@ -167,7 +203,7 @@
 	}
 
 	.total > * {
-		border: 2px dashed green;
+		// border: 2px dashed green;
 	}
 
 	.total p {
