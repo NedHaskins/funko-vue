@@ -310,12 +310,13 @@
 		span {
 			// border: 3px solid red;
 			display: block;
-			font-size: 30px;
+			font-size: 23px;
 			text-align: center;
 		}
 
 		.logout {
 			margin-top: 6px;
+			padding: 6px;
 			border: 2px solid var(--ink);
 		}
 	}

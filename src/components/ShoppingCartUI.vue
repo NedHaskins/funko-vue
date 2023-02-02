@@ -14,14 +14,58 @@
 	});
 
 	function incrementValue(item) {
-		const quantity = item.quantity;
-		quantity++;
+		item.quantity++; //needs to reference the variable in the cart
+	}
+
+	function decrementValue(item) {
+		item.quantity--;
+	}
+
+	//quantity <----> price
+
+	function totalItemPrice(price, quantity) {
+		return (price * quantity).toFixed(2);
+	}
+
+	const subtotal = computed(function () {
+		let sub = 0;
+		shoppingCart.list.forEach(function (item) {
+			sub += item.price * item.quantity;
+		});
+		return sub.toFixed(2);
+	});
+
+	function cartTotal() {
+		//for each cost in each list item, push the cost to a new array, then sum them all
 	}
 
 	function clearCart() {
 		shoppingCart.list = [];
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 		console.log('Cart was cleared.');
+	}
+
+	function searchCart(newItem) {
+		return items.value.find(function (itemInCart) {
+			return newItem.id == itemInCart.id;
+		});
+	}
+
+	function add(item, quantity) {
+		const newItem = { ...item }; //creating a cuplicate item from the cart store, with perhaps additional params
+
+		const newQty = Number(qty);
+		newItem.quantity = newQty;
+
+		const found = searchCart(newItem);
+
+		if (found) {
+			console.log('Item was found in the list');
+			found.quantity = newQty;
+		} else {
+			console.log('Item was not found in list');
+			items.value.push(newItem);
+		}
 	}
 </script>
 
@@ -31,11 +75,16 @@
 			<li v-for="item in shoppingCart.list">
 				<div class="name">{{ item.name }}</div>
 				<div class="item-quantity">
-					<button id="remove">-</button>
+					<button id="remove" @click="decrementValue(item)">-</button>
 					<div>{{ item.quantity }}</div>
 					<button id="add" @click="incrementValue(item)">+</button>
 				</div>
-				<div class="price">${{ item.price }}</div>
+				<div id="price" class="price">${{ item.price * item.quantity }}</div>
+			</li>
+			<li class="total">
+				<div></div>
+				<div></div>
+				<div>${{ subtotal }}</div>
 			</li>
 		</ul>
 
@@ -63,6 +112,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+
 		li {
 			display: flex;
 			flex-direction: row;
@@ -109,6 +159,20 @@
 		flex-direction: row;
 		justify-content: space-evenly;
 		margin-top: 24px;
+	}
+
+	.total {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.total > * {
+		border: 2px dashed green;
+	}
+
+	.total p {
+		padding: 15px;
+		text-align: right;
 	}
 
 	/*SCAFFOLDING*/
