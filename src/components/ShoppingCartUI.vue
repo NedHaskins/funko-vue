@@ -32,7 +32,7 @@
 		shoppingCart.list.forEach(function (item) {
 			sub += item.price * item.quantity;
 		});
-		return Number(sub.toFixed(2));
+		return Number(sub).toFixed(2);
 	});
 
 	function cartTotal() {
@@ -117,14 +117,6 @@
 	}
 
 	table,
-	tbody,
-	tr,
-	td {
-		// border: 3px dashed green;
-		// padding: 10px;
-	}
-
-	table,
 	tbody {
 		width: 100%;
 	}
@@ -200,6 +192,7 @@
 	.total {
 		display: flex;
 		flex-direction: row;
+		color: var(--vividMulberry);
 	}
 
 	.total > * {
