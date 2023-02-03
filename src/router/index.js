@@ -15,6 +15,8 @@ import FigureView from '../views/FigureView.vue';
 import ShoppingCartView from '../views/ShoppingCartView.vue';
 import CreateItemView from '../views/CreateItemView.vue';
 
+import FirebaseTestView from '../views/FirebaseTestView.vue';
+
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -89,6 +91,12 @@ const router = createRouter({
 					component: CreateItemView,
 				},
 			],
+		},
+
+		{
+			path: '/firebase-test',
+			name: 'firebase-test',
+			component: FirebaseTestView,
 		},
 	],
 });
