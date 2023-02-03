@@ -17,7 +17,7 @@ export const useUserDataStore = defineStore('users', function () {
 		},
 	]);
 
-	const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')) || {}); //Can you explain why this is a ref value?
+	const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')) || false); //Can you explain why this is a ref value?
 
 	const isLoggedIn = computed(function () {
 		if (currentUser.value) {

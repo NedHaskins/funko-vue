@@ -32,13 +32,10 @@
 	});
 
 	function logOutUser() {
-		users.currentUser.value = false;
+		users.currentUser = false;
 		localStorage.setItem('currentUser', false);
 		router.push('/');
-		console.log(users.currentUser.value);
 	}
-
-	console.log(users.currentUser.value);
 </script>
 <template>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
