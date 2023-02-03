@@ -21,8 +21,6 @@
 		item.quantity--;
 	}
 
-	//quantity <----> price
-
 	function totalItemPrice(price, quantity) {
 		return Number(price * quantity).toFixed(2);
 	}
@@ -35,37 +33,10 @@
 		return Number(sub).toFixed(2);
 	});
 
-	function cartTotal() {
-		//for each cost in each list item, push the cost to a new array, then sum them all
-	}
-
 	function clearCart() {
 		shoppingCart.list = [];
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 		console.log('Cart was cleared.');
-	}
-
-	function searchCart(newItem) {
-		return items.value.find(function (itemInCart) {
-			return newItem.id == itemInCart.id;
-		});
-	}
-
-	function add(item, quantity) {
-		const newItem = { ...item }; //creating a cuplicate item from the cart store, with perhaps additional params
-
-		const newQty = Number(qty);
-		newItem.quantity = newQty;
-
-		const found = searchCart(newItem);
-
-		if (found) {
-			console.log('Item was found in the list');
-			found.quantity = newQty;
-		} else {
-			console.log('Item was not found in list');
-			items.value.push(newItem);
-		}
 	}
 </script>
 

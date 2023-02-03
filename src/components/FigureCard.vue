@@ -5,12 +5,23 @@
 	const shoppingCart = useShoppingCartStore();
 
 	function addToCart(name, quantity, price) {
-		const record = {
+		const newItem = {
 			name: name,
 			quantity: 1,
 			price: price,
 		};
-		shoppingCart.add(record);
+
+		const match = shoppingCart.list.find(function (item) {
+			return item.name === newItem.name;
+		});
+
+		if (match) {
+			match.quantity = match.quantity + newItem.quantity;
+		} else {
+			shoppingCart.list = [...shoppingCart.list, newItem];
+		}
+
+		// shoppingCart.add(record);
 		console.log(shoppingCart.list); //check
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
 	}
@@ -21,6 +32,7 @@
 			<img v-bind:src="figure.image" />
 		</picture>
 		<h3>{{ figure.name }}</h3>
+		<!--link this back to the figure detail-->
 		<card-bottom>
 			<div class="price-wrapper">
 				<p>${{ figure.price }}</p>

@@ -21,7 +21,12 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
 	getters: {
 		//anything that returns a value -- not modifies
 		getCount() {
-			return this.list.length;
+			let array = [];
+			this.list.forEach(function (item) {
+				array.push(item.quantity);
+			});
+			return array.reduce((a, b) => a + b, 0);
+			// return this.list.length;
 		},
 	},
 });
