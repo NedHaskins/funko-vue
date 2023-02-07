@@ -5,6 +5,7 @@
 
 	const db = useFirestore();
 	const figures = useCollection(collection(db, 'figures')); //reactive data
+	const subcategories = useCollection(collection(db, 'categories/lotr/subcategories'));
 
 	const form = reactive({
 		name: '',
@@ -45,10 +46,12 @@
 
 <template>
 	<h1>Firebase Test</h1>
-
+	<h2>{{ subcategories }}</h2>
 	<ul>
 		<li v-for="figure in figures" :key="figure.id">
 			<h2>{{ figure.name }}</h2>
+			<picture><img src="figure.image" /></picture>
+			<p>{{ figure.description }}</p>
 			<button type="button" @click="removeFigure(figure.id)">x</button>
 
 			<button @click="editFigure(figure.id)" v-if="editing !== figure.id">Edit</button>

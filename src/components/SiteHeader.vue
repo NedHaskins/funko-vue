@@ -8,12 +8,19 @@
 	import CheeseburgerIcon from '@/components/icons/CheeseburgerIcon.vue';
 
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
+
+	//Firebase imports
+	import { useUserService } from '@/services/UserService';
+	const user = useUserService();
+
 	const shoppingCart = useShoppingCartStore();
 
 	const route = useRoute();
 	const router = useRouter();
 	const ui = useInterfaceStore();
 	const users = useUserDataStore();
+
+	// const isOpen = ref(false); //this would be a component of a UI store maybe?
 
 	var body = document.querySelector('body');
 
@@ -25,9 +32,9 @@
 		if (event.target.matches('.toggle')) {
 			body.classList.toggle('small-menu-open');
 		}
-
-		if (event.target.matches('a')) {
-			body.classList.toggle('small-menu-open');
+		//need some logic in here to close the menu
+		if (event.target.matches('.site-menu a')) {
+			body.classList.remove('small-menu-open');
 		}
 	});
 
@@ -50,11 +57,11 @@
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
-					<div v-if="users.currentUser" class="user-prompts">
-						<span style="font-family: 'Bangers'; color: gray">Hi, {{ users.currentUser.username }}</span
+					<div v-if="user.current" class="user-prompts">
+						<span style="font-family: 'Bangers'; color: gray">Hi, {{ user.current }}</span
 						><button class="logout" @click="logOutUser()">Logout</button>
 					</div>
-					<div class="svg-wrapper user-icon">
+					<div v-if="!user.current" class="svg-wrapper user-icon">
 						<RouterLink to="/login">
 							<UserIcon />
 						</RouterLink>

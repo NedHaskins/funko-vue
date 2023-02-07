@@ -16,6 +16,7 @@ import ShoppingCartView from '../views/ShoppingCartView.vue';
 import CreateItemView from '../views/CreateItemView.vue';
 
 import FirebaseTestView from '../views/FirebaseTestView.vue';
+import SignInPage from '../views/pages/SignInPage.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,11 +93,15 @@ const router = createRouter({
 				},
 			],
 		},
-
 		{
 			path: '/firebase-test',
 			name: 'firebase-test',
 			component: FirebaseTestView,
+		},
+		{
+			path: '/signin-page',
+			name: 'signin-page',
+			component: SignInPage,
 		},
 	],
 });

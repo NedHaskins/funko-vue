@@ -12,31 +12,25 @@
 	});
 
 	function addToCart(name, quantity, price) {
-		const record = {
+		const newItem = {
 			name: name,
 			quantity: 1,
 			price: price,
 		};
-		shoppingCart.add(record);
+
+		const match = shoppingCart.list.find(function (item) {
+			return item.name === newItem.name;
+		});
+
+		if (match) {
+			match.quantity = match.quantity + newItem.quantity;
+		} else {
+			shoppingCart.list = [...shoppingCart.list, newItem];
+		}
+
+		// shoppingCart.add(record);
 		console.log(shoppingCart.list); //check
 		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	}
-
-	function add(name, quantity) {
-		const newItem = { ...item }; //creating a cuplicate item from the cart store, with perhaps additional params
-
-		const newQty = Number(qty);
-		newItem.quantity = newQty;
-
-		const found = searchCart(newItem);
-
-		if (found) {
-			console.log('Item was found in the list');
-			found.quantity = newQty;
-		} else {
-			console.log('Item was not found in list');
-			items.value.push(newItem);
-		}
 	}
 </script>
 <template>
