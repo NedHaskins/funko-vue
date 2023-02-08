@@ -1,10 +1,9 @@
 <script setup>
 	defineProps(['category']);
 </script>
-
 <template>
 	<category-card>
-		<RouterLink v-bind:to="`/${category.slug}`">
+		<RouterLink v-bind:to="`/${category.id}`">
 			<picture>
 				<img v-bind:src="category.image" />
 			</picture>

@@ -59,7 +59,7 @@
 				<space-box class="right">
 					<div v-if="user.current" class="user-prompts">
 						<span style="font-family: 'Bangers'; color: gray">Hi, {{ user.current }}</span
-						><button class="logout" @click="logOutUser()">Logout</button>
+						><button class="logout" @click="user.signOut()">Logout</button>
 					</div>
 					<div v-if="!user.current" class="svg-wrapper user-icon">
 						<RouterLink to="/login">

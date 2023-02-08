@@ -12,6 +12,7 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
 	},
 	"dependencies": {
+		"canvas-confetti": "^1.6.0",
 		"firebase": "^9.17.1",
 		"pinia": "^2.0.28",
 		"surge": "^0.23.1",

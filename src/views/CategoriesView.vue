@@ -6,7 +6,15 @@
    import { useCategoriesStore } from '@/stores/categories';
 
    import RainbowLetters from '@/scripts/rainbowLetters';
-   const categories = useCategoriesStore();
+
+   import { useFirestore, useCollection } from 'vuefire';
+   import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+
+   const db = useFirestore();
+   const figures = useCollection(collection(db, 'figures')); //reactive data
+   const categories = useCollection(collection(db, 'categories'));
+
+   // const categories = useCategoriesStore();
 
    const container = ref(null);
 
@@ -21,7 +29,7 @@
    </module-header>
 
    <ul>
-      <li v-for="item in categories.list">
+      <li v-for="item in categories">
          <CategoryCard v-bind:category="item" />
       </li>
    </ul>

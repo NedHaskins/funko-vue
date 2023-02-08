@@ -1,45 +1,48 @@
 <script setup>
-   //The page needs to check the slug of the page and check it against all of the items that share that category -- and then make them appear on the page.
+   import { onMounted } from 'vue';
 
    import { useRoute } from 'vue-router';
-   import { useCategoriesStore } from '@/stores/categories';
-   import { useFigureDataStore } from '@/stores/figureData';
 
    import SubcategoryCard from '@/components/SubcategoryCard.vue';
    import FigureList from '@/components/FigureList.vue';
 
+   //FIRESTORE IMPORTS
+
+   import { useFirestore, useDocument, useCollection } from 'vuefire';
+   import { collection, doc, getDoc, query, where } from 'firebase/firestore';
+   const db = useFirestore();
+
    const route = useRoute();
-   const categories = useCategoriesStore();
-   const figures = useFigureDataStore();
 
-   const category = categories.list.find(function (record) {
-      return record.slug == route.params.cat; // this references the name of the path in the router file (index.js)
-   });
-   //List all the subcategories in a navigation menu below.
+   const figures = useCollection(collection(db, 'figures'));
+   const categories = useCollection(collection(db, 'categories'));
 
-   const subcategories = category.subcategories ?? false;
+   const category = useDocument(doc(db, 'categories', route.params.cat));
 
-   let filteredFigures = [];
+   const subcategories = useCollection(collection(db, 'categories', route.params.cat, 'subcategories'));
 
-   figures.list.forEach(function (figure) {
-      if (figure.category == route.params.cat) {
-         //this is unique to this page -- it's calling for cat instead of sub
-         filteredFigures.push(figure);
-      }
-   });
+   // if (category.value) {
+   //    console.log('Value detected');
+   // }
+
+   // let filteredFigures = [];
+
+   // for (figure in figures) {
+   //    if (figure.category == route.params.cat) {
+   //       //this is unique to this page -- it's calling for cat instead of sub
+   //       filteredFigures.push(figure);
+   //    }
+   // }
 </script>
 
 <template>
    <module-header>
       <h2>{{ category.name }}</h2>
-
       <h3>{{ category.blurb }}</h3>
    </module-header>
 
-   <!--the conditional will go here.  If the category currently has subcategories...-->
-
    <ul class="subcategory-list" v-if="subcategories">
-      <li v-for="subcategory in category.subcategories">
+      <li v-for="subcategory in subcategories">
          <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
       </li>
    </ul>
@@ -58,5 +61,9 @@
       li {
          justify-self: center;
       }
+   }
+
+   h2 {
+      margin-top: 30px;
    }
 </style>

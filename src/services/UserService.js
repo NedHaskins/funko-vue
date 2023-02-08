@@ -27,7 +27,7 @@ export const useUserService = defineStore('user', function () {
 			})
 			.catch((error) => {
 				if (error.code === 'auth/weak-password') {
-					alert("You'll need at leaset 6 characters for your password.");
+					alert("You'll need at least 6 characters for your password.");
 				}
 				console.log(error.code, error.message);
 			});
