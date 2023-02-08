@@ -7,6 +7,8 @@
 
    import RainbowLetters from '@/scripts/rainbowLetters';
 
+   //FIRESTORE AND VUEFIRE IMPORTS
+
    import { useFirestore, useCollection } from 'vuefire';
    import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
@@ -21,6 +23,8 @@
    onMounted(function () {
       RainbowLetters('Choose a category!');
    });
+
+   console.log(categories);
 </script>
 
 <template>

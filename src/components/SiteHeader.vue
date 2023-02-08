@@ -1,24 +1,36 @@
 <script setup>
+	//Foundational imports
+	import { onMounted } from 'vue';
 	import { RouterLink, useRoute, useRouter } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
-	import { useUserDataStore } from '@/stores/userData';
+	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
+	//Firebase imports
+	import { useFirestore, useCollection } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+	import { useUserService } from '@/services/UserService';
+
+	//File imports
 	import UserIcon from '@/components/icons/UserIcon.vue';
 	import CartIcon from '@/components/icons/CartIcon.vue';
 	import CheeseburgerIcon from '@/components/icons/CheeseburgerIcon.vue';
 
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
-
-	//Firebase imports
-	import { useUserService } from '@/services/UserService';
-	const user = useUserService();
-
-	const shoppingCart = useShoppingCartStore();
-
+	//Router and interface variables
 	const route = useRoute();
 	const router = useRouter();
 	const ui = useInterfaceStore();
-	const users = useUserDataStore();
+
+	//Firebase variables
+
+	const userService = useUserService();
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures')); //reactive data
+	const categories = useCollection(collection(db, 'categories'));
+	const userCollection = useCollection(collection(db, 'users'));
+
+	//Other variables
+
+	const shoppingCart = useShoppingCartStore();
 
 	// const isOpen = ref(false); //this would be a component of a UI store maybe?
 
@@ -43,6 +55,12 @@
 		localStorage.setItem('currentUser', false);
 		router.push('/');
 	}
+
+	userCollection.value.forEach(function (record) {
+		if (record.uniqueID == userService.current.uid) {
+			console.log('They match.');
+		}
+	});
 </script>
 <template>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
@@ -57,11 +75,11 @@
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
-					<div v-if="user.current" class="user-prompts">
-						<span style="font-family: 'Bangers'; color: gray">Hi, {{ user.current }}</span
-						><button class="logout" @click="user.signOut()">Logout</button>
+					<div v-if="userService.current" class="user-prompts">
+						<span style="font-family: 'Bangers'; color: gray">LOGGED IN</span
+						><button class="logout" @click="userService.signOut()">Logout</button>
 					</div>
-					<div v-if="!user.current" class="svg-wrapper user-icon">
+					<div v-if="!userService.current" class="svg-wrapper user-icon">
 						<RouterLink to="/login">
 							<UserIcon />
 						</RouterLink>
@@ -87,7 +105,7 @@
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink v-if="users.isLoggedIn && users.currentUser.role === 'admin'" to="/admin-dashboard"
+					<RouterLink v-if="userService.current && userCollection.role === 'admin'" to="/admin-dashboard"
 						>Dashboard</RouterLink
 					>
 
