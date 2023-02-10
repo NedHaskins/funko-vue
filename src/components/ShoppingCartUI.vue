@@ -1,3 +1,7 @@
+<!--UI notes for this page:
+
+make an [X} option to the left of each item row to remove it from the list if desired.-->
+
 <script setup>
 	import { computed } from 'vue';
 
@@ -18,7 +22,9 @@
 	}
 
 	function decrementValue(item) {
-		item.quantity--;
+		if (item.quantity > 0) {
+			item.quantity--;
+		}
 	}
 
 	function totalItemPrice(price, quantity) {
@@ -32,6 +38,15 @@
 		});
 		return Number(sub).toFixed(2);
 	});
+
+	function updateCart() {
+		//check each item.quantity input value;  if it's 0, remove it from the list.
+		shoppingCart.list.forEach(function (item) {
+			if (item.quantity === 0) {
+				shoppingCart.list.splice(item, 1);
+			}
+		});
+	}
 
 	function clearCart() {
 		shoppingCart.list = [];
@@ -63,7 +78,7 @@
 
 		<cart-bottom>
 			<button-wrapper>
-				<button>Update cart</button>
+				<button @click="updateCart()">Update cart</button>
 			</button-wrapper>
 
 			<button-wrapper>
