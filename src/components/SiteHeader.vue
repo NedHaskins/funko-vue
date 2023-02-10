@@ -56,9 +56,10 @@
 		router.push('/');
 	}
 
-	userCollection.value.forEach(function (record) {
+	const test = userCollection.value.forEach(function (record) {
 		if (record.uniqueID == userService.current.uid) {
-			console.log('They match.');
+			console.log('They match', record.uniqueID, record.name);
+			return record.name;
 		}
 	});
 </script>
@@ -76,8 +77,8 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="userService.current" class="user-prompts">
-						<span style="font-family: 'Bangers'; color: gray">LOGGED IN</span
-						><button class="logout" @click="userService.signOut()">Logout</button>
+						<span style="font-family: 'Bangers'; color: gray">{{ test }}</span>
+						<button class="logout" @click="userService.signOut()">Logout</button>
 					</div>
 					<div v-if="!userService.current" class="svg-wrapper user-icon">
 						<RouterLink to="/login">

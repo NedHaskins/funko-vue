@@ -99,12 +99,23 @@
 
 		td {
 			display: flex;
+			// border: 3px solid lime;
 			flex-direction: row;
+
+			input {
+				background-color: black;
+				border: none;
+				color: white;
+				font-family: 'Bangers';
+				font-size: 19px;
+				text-align: center;
+				width: 20%;
+			}
 		}
 
 		.name,
 		.price {
-			// width: 35%;
+			width: 40%;
 			align-items: center;
 		}
 

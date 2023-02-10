@@ -7,151 +7,124 @@ to every page.-->
 <script setup>
 	import { reactive } from 'vue';
 
-	import { v4 as uuidv4 } from 'uuid';
+	//FIRESTORE AND VUEFIRE IMPORTS
 
-	import { useRoute } from 'vue-router';
-	import { useFigureDataStore } from '@/stores/figureData';
+	import { useFirestore, useCollection } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-	const route = useRoute();
-	const figures = useFigureDataStore();
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures')); //reactive data
+	const categories = useCollection(collection(db, 'categories'));
 
-	const attrs = reactive({
-		name: '',
+	const userInput = reactive({
 		slug: '',
+		name: '',
+		category: '',
+		subcategory: '',
 		image: '',
-		price: '',
 		description: '',
 	});
-
-	// function add() {
-	// 	const item = {
-	// 		name: attrs.name,
-	// 		slug: attrs.slug,
-	// 		image: attrs.image,
-	// 		price: attrs.price,
-	// 		description: attrs.description,
-	// 	};
-	// 	attrss = [...attrss, item];
-	// 	//this can be written in one line using map?
-	// 	clearForm();
-	// }
-
-	//grabbing the add() function from the store file
-	function createRecord() {
-		const record = {
-			id: uuidv4(),
-			name: attrs.name,
-			slug: attrs.slug,
-			image: attrs.image,
-			price: attrs.price,
-			description: attrs.description,
-		};
-		// console.log(record);
-
-		figures.list.push(record);
-		console.log(figures.list);
-		clearForm();
-	}
-
-	function clearForm() {
-		attrs.name = '';
-		attrs.slug = '';
-		attrs.image = '';
-		attrs.price = '';
-		attrs.description = '';
-	}
 </script>
 
 <template>
-	<h1>Create Store Record</h1>
-
-	<!--Need to put some drop-down option menus in here-->
-
-	<div class="record-form">
+	<div class="create-figure-form-wrapper">
 		<form>
-			<input-wrapper>
-				<label for="name">Name</label>
-				<input id="name" type="text" v-model="attrs.name" />
-			</input-wrapper>
+			<h2>Create Figure in Firestore</h2>
 			<input-wrapper>
 				<label for="slug">Slug</label>
-				<input id="slug" type="text" v-model="attrs.slug" />
+				<input id="slug" type="text" v-model="userInput.slug" />
+			</input-wrapper>
+			<input-wrapper>
+				<label for="name">Name</label>
+				<input id="name" type="text" v-model="userInput.name" />
+			</input-wrapper>
+			<input-wrapper>
+				<label for="category">Category</label>
+				<select id="category">
+					<option v-for="category in categories">{{ category.name }}</option>
+				</select>
+			</input-wrapper>
+			<input-wrapper>
+				<label for="subcategory">Subcategory</label>
+				<select id="subcategory">
+					<option v-for="subcategory in category.subcategories">{{ subcategory.name }}</option>
+				</select>
 			</input-wrapper>
 			<input-wrapper>
 				<label for="image">Image</label>
-				<input id="image" type="text" v-model="attrs.image" />
-			</input-wrapper>
-			<input-wrapper>
-				<label for="price">Price</label>
-				<input id="price" type="number" v-model="attrs.price" />
+				<input id="image" type="text" v-model="userInput.image" />
 			</input-wrapper>
 			<input-wrapper>
 				<label for="description">Description</label>
-				<input id="description" type="text" v-model="attrs.description" />
+				<input id="description" type="text" v-model="userInput.description" />
 			</input-wrapper>
-
-			<button-wrapper>
-				<button @click.prevent="createRecord">Create record</button>
-			</button-wrapper>
 		</form>
 	</div>
 </template>
 
 <style lang="scss" scoped>
-	$color: red;
+	.user-signup,
+	.user-login {
+		border: 2px solid var(--ink);
+		box-shadow: 10px 10px var(--ink);
+		background-color: var(--x11gray);
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		margin-top: 60px;
+		padding: 30px 0px 30px 0px;
+		margin: 60px auto 0px auto;
+		width: 80%;
+	}
 
+	@media (prefers-color-scheme: dark) {
+		.user-signup,
+		.user-login {
+			background-color: var(--ink);
+			border: 2px solid var(--paper);
+			box-shadow: 10px 10px var(--paper);
+		}
+	}
+
+	form {
+		// border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	label,
+	input {
+		font-family: 'Bangers';
+		font-size: calc(20px + 1vw);
+	}
+
+	input-wrapper,
 	button-wrapper {
 		display: flex;
-		gap: 20px;
-		margin-top: 20px;
-	}
-
-	.record-form {
-		padding: 20px;
-		margin-top: 40px;
-		background-color: $color;
-	}
-
-	input-wrapper {
-		display: flex;
-		margin-top: 20px;
-		gap: 20px;
-	}
-
-	label {
-		display: block;
-	}
-
-	input,
-	label {
+		justify-content: center;
+		width: 60%;
+		gap: 35px;
 		font-size: 24px;
-	}
-
-	tr {
-		display: flex;
-	}
-
-	td {
-		font-family: 'Lucida Grande';
-		font-size: 14px;
-		flex: 1;
-		border: 1px solid white;
-		background-color: #6f2203;
-		padding: 20px;
-	}
-
-	/* TYPOGRAPHY */
-
-	h1 {
-		font-size: 48px;
-		font-weight: 700;
 		margin-top: 30px;
-		color: white;
 	}
 
-	/*SCAFFOLDING*/
+	@media (max-width: 539px) {
+		input-wrapper {
+			margin-top: 0px;
+			flex-direction: column;
+			gap: 5px;
 
-	* {
-		border: 1px dashed white;
+			label {
+				margin-top: 30px;
+			}
+
+			input {
+				margin-top: 10px;
+				font-size: 3vh;
+			}
+		}
 	}
 </style>
