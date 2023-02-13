@@ -40,12 +40,22 @@ make an [X} option to the left of each item row to remove it from the list if de
 	});
 
 	function updateCart() {
-		//check each item.quantity input value;  if it's 0, remove it from the list.
-		shoppingCart.list.forEach(function (item) {
-			if (item.quantity === 0) {
-				shoppingCart.list.splice(item, 1);
+		//		check each item.quantity input value;  if it's 0, remove it from the list
+		for (let i = 0; i < shoppingCart.list.length; i++) {
+			if (shoppingCart.list[i].quantity === 0) {
+				shoppingCart.list.splice(i, 1);
+				i--;
 			}
-		});
+		}
+
+		// shoppingCart.list.forEach(function (item, index) {
+		// 	if (item.quantity === 0) {
+		// 		shoppingCart.list.splice(index, 1);
+		// 		index--;
+		// 	}
+		// }); //this doesn't reset the VALUE OF THE INDEX BEING CHECKED to 0
+		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
+		console.log('Cart was updated in local storage.');
 	}
 
 	function clearCart() {
