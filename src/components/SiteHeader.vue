@@ -6,8 +6,8 @@
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	//Firebase imports
-	import { useFirestore, useCollection } from 'vuefire';
-	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+	import { useFirestore, useCollection, useDocument } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 	import { useUserService } from '@/services/UserService';
 
 	//File imports
@@ -26,7 +26,12 @@
 	const db = useFirestore();
 	const figures = useCollection(collection(db, 'figures')); //reactive data
 	const categories = useCollection(collection(db, 'categories'));
+
 	const userCollection = useCollection(collection(db, 'users'));
+
+	const q = query(collection(db, 'users'), where('uniqueID', '==', 'MRVtqQQyLNhl3XE47ntRtUFYyYY2'));
+
+	const currentDocument = useCollection(q); //vuefire's using this
 
 	//Other variables
 
@@ -56,14 +61,19 @@
 		router.push('/');
 	}
 
-	const test = userCollection.value.forEach(function (record) {
-		if (record.uniqueID == userService.current.uid) {
-			console.log('They match', record.uniqueID, record.name);
-			return record.name;
-		}
+	const matchingName = userCollection.value.find(function (record) {
+		return record.uniqueID == userService.current.uid;
+		// if (record.uniqueID == userService.current.uid) {
+		// 	console.log('They match', record.uniqueID, record.name);
+		// 	return record;
+		// }
 	});
+
+	// console.log(matchingName.name);
+	// console.log(currentDocument);
 </script>
 <template>
+	<div v-if="userService.current">{{ matchingName }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -77,11 +87,11 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="userService.current" class="user-prompts">
-						<span style="font-family: 'Bangers'; color: gray">{{ test }}</span>
+						<span style="font-family: 'Bangers'; color: gray">Hi, {{ matchingName.name }}</span>
 						<button class="logout" @click="userService.signOut()">Logout</button>
 					</div>
 					<div v-if="!userService.current" class="svg-wrapper user-icon">
-						<RouterLink to="/login">
+						<RouterLink to="/signin-page">
 							<UserIcon />
 						</RouterLink>
 					</div>

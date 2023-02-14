@@ -1,78 +1,71 @@
 <script setup>
 	import { useRoute } from 'vue-router';
-	import { useFigureDataStore } from '@/stores/figureData';
 	import { useCategoriesStore } from '@/stores/categories';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	import FigureList from '@/components/FigureList.vue';
 	import FigureCard from '@/components/FigureCard.vue';
 
+	//FIRESTORE AND VUEFIRE IMPORTS
+
+	import { useFirestore, useCollection, useDocument } from 'vuefire';
+	import { query, where, collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+
+	//VUE VARIABLES
 	const route = useRoute();
 
-	const categories = useCategoriesStore();
-	const figures = useFigureDataStore();
+	//DATABASE VARIABLES
+
+	const db = useFirestore();
+
+	const categories = useCollection(collection(db, 'categories'));
+
+	const q = query(collection(db, 'figures'), where('subcategory', '==', route.params.sub));
+
+	const figures = useCollection(q); //vuefire's using this
+
+	const subcategories = useCollection(collection(db, 'categories', route.params.cat, 'subcategories'));
+
 	const shoppingCart = useShoppingCartStore();
 
-	defineProps(['subcategory']);
-
-	//Prepare local storage to be read by the app.
-	// function setUpCart() {
-	// 	const data = JSON.parse(localStorage.getItem('shoppingCartData')) || [];
-
-	// 	data.forEach((shoppingCartData) => {
-	// 		shoppingCart.list = [...shoppingCart.list, shoppingCartData];
-	// 	});
-
-	// 	console.log(shoppingCart.list);
-	// }
-
-	function addToCart(name, price) {
-		const record = {
-			name: name,
-			price: price,
-		};
-		shoppingCart.add(record);
-		console.log(shoppingCart.list); //check
-		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	}
-
-	// const subcategory = categories.list.find(function(record) {
-	// 	if(record.slug == route.params.slug)
-	// });
+	// defineProps(['category', 'subcategory']);
 
 	//Return only the figures that match the "subcategory" of the route.params.
 	let filteredFigures = [];
 
-	figures.list.forEach(function (figure) {
-		if (figure.subcategory == route.params.sub) {
-			filteredFigures.push(figure);
-		}
-	});
+	//Look at each of the figures in the figure store.
+	//If their subcategory value matches the route.params.sub,
+	//push it to filteredFigures.
 
-	const category = categories.list.find(function (record) {
-		return record.slug == route.params.cat;
-	});
+	// figures.forEach(function (figure) {
+	// 	if (figure.subcategory == route.params.sub) {
+	// 		filteredFigures.push(figure);
+	// 	}
+	// });
 
-	const subcategory = category.subcategories.find(function (item) {
-		return item.slug == route.params.sub;
-	}); // find needs to be used here -- not filter -- as it'll return an array [] otherwise
+	console.log(figures);
+
+	// const category = categories.find(function (record) {
+	// 	return record.slug == route.params.cat;
+	// });
+
+	// const subcategory = subcategories.find(function (item) {
+	// 	return item.id == route.params.sub;
+	// }); // find needs to be used here -- not filter -- as it'll return an array [] otherwise
 </script>
 
 <template>
-	<!-- 	<code>
-		<pre>{{ subcategory }}</pre>
-	</code> -->
-	<module-header>
-		<h2>{{ subcategory.name }}</h2>
-		<h3>{{ subcategory.blurb }}</h3>
-	</module-header>
+	<code>
+		<pre></pre>
+	</code>
+	<module-header> </module-header>
 	<!-- 	<ul class="figure-list">
 		<li v-for="figureCard in filteredFigures">
 			<FigureCard v-bind:figure="figureCard" />
 		</li>
 	</ul> -->
 
-	<FigureList v-bind:figures="filteredFigures" />
+	<FigureList v-bind:figures="figures" />
 </template>
 
 <style scoped>

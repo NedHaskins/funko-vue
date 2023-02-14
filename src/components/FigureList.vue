@@ -1,5 +1,5 @@
 <script setup>
-	import { useFigureDataStore } from '@/stores/figureData';
+	// import { useFigureDataStore } from '@/stores/figureData';
 
 	import { onMounted } from 'vue';
 

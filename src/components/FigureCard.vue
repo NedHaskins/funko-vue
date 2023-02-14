@@ -1,5 +1,6 @@
 <script setup>
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
+
 	defineProps(['figure']);
 
 	const shoppingCart = useShoppingCartStore();

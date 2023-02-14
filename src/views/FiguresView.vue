@@ -1,16 +1,22 @@
 <script setup>
+	//Vue imports
 	import FigureList from '@/components/FigureList.vue';
 
-	import { useFigureDataStore } from '@/stores/figureData';
+	//Firebase imports
+	import { useFirestore, useCollection } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-	const figures = useFigureDataStore();
+	//Firebase variables
+
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures')); //reactive data
 </script>
 <template>
 	<module-header>
 		<h2>Choose a figure from the list below!</h2>
 		<h3>To filter figures down by category, click on the "Categories" link above.</h3>
 	</module-header>
-	<FigureList v-bind:figures="figures.list" />
+	<FigureList v-bind:figures="figures" />
 </template>
 
 <style scoped></style>

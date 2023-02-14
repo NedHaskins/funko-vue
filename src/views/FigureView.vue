@@ -1,15 +1,29 @@
 <script setup>
 	import { useRoute } from 'vue-router';
-	import { useFigureDataStore } from '@/stores/figureData';
 	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
-	const route = useRoute();
-	const figures = useFigureDataStore();
-	const shoppingCart = useShoppingCartStore();
+	//FIRESTORE AND VUEFIRE IMPORTS
 
-	const figure = figures.list.find(function (record) {
-		return record.slug == route.params.figure;
-	});
+	import { useFirestore, useCollection, useDocument } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+
+	//DATABASE VARIABLES
+
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures')); //reactive data
+	const categories = useCollection(collection(db, 'categories'));
+
+	const route = useRoute();
+
+	//Return the singular figure document in the database.
+
+	// const figure = figures.list.find(function (record) {
+	// 	return record.slug == route.params.figure;
+	// });
+
+	const figure = useDocument(doc(collection(db, 'figures'), route.params.figure));
+
+	console.log(figure);
 
 	function addToCart(name, quantity, price) {
 		const newItem = {

@@ -5,59 +5,104 @@ The entries will be stored in the figure data store, universally available
 to every page.-->
 
 <script setup>
-	import { reactive } from 'vue';
+	// console.clear();
+	import { ref, reactive, computed, watch } from 'vue';
 
 	//FIRESTORE AND VUEFIRE IMPORTS
 
-	import { useFirestore, useCollection } from 'vuefire';
+	import { useFirestore, useCollection, useDocument } from 'vuefire';
 	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+
+	//DATABASE VARIABLES
 
 	const db = useFirestore();
 	const figures = useCollection(collection(db, 'figures')); //reactive data
 	const categories = useCollection(collection(db, 'categories'));
 
+	let chosenCategoryId = ref(null);
+
+	const subcategoriesCollection = computed(function () {
+		if (chosenCategoryId.value) {
+			return collection(db, 'categories', chosenCategoryId.value, 'subcategories');
+		} else {
+			console.log("There's no subcats collection!");
+		}
+	});
+
+	const subcategories = useCollection(subcategoriesCollection);
+	let chosenSubcategoryId = ref(null);
+
+	watch(chosenCategoryId, function (a, b) {
+		console.log('category changed');
+		chosenSubcategoryId.value = null;
+	});
+
+	watch(chosenSubcategoryId, function (a, b) {
+		console.log('subcategory changed');
+	});
+
 	const userInput = reactive({
 		slug: '',
 		name: '',
-		category: '',
-		subcategory: '',
 		image: '',
 		description: '',
 	});
+
+	function createItem() {
+		addDoc(collection(db, 'figures'), {
+			slug: userInput.slug,
+			name: userInput.name,
+			category: chosenCategoryId.value,
+			subcategory: chosenSubcategoryId.value,
+			image: userInput.image,
+			description: userInput.description,
+		});
+		console.log(slug, name, category, subcategory, image, description);
+		console.log(`${userInput.name} added to Firestore!`);
+	}
 </script>
 
 <template>
+	<pre v-if="chosenCategoryId">{{ typeof chosenCategoryId }}</pre>
+	<pre>{{ chosenCategoryId }}</pre>
 	<div class="create-figure-form-wrapper">
-		<form>
+		<form @submit.prevent="createItem()">
 			<h2>Create Figure in Firestore</h2>
 			<input-wrapper>
-				<label for="slug">Slug</label>
+				<label>Slug</label>
 				<input id="slug" type="text" v-model="userInput.slug" />
 			</input-wrapper>
+
 			<input-wrapper>
-				<label for="name">Name</label>
+				<label>Name</label>
 				<input id="name" type="text" v-model="userInput.name" />
 			</input-wrapper>
+
 			<input-wrapper>
-				<label for="category">Category</label>
-				<select id="category">
-					<option v-for="category in categories">{{ category.name }}</option>
+				<label>Category</label>
+				<select v-if="categories" v-model="chosenCategoryId">
+					<option v-for="category in categories" :value="category.id">{{ category.name }}</option>
 				</select>
 			</input-wrapper>
+
 			<input-wrapper>
-				<label for="subcategory">Subcategory</label>
-				<select id="subcategory">
-					<option v-for="subcategory in category.subcategories">{{ subcategory.name }}</option>
+				<label>Subcategory</label>
+				<select v-if="chosenCategoryId" v-model="chosenSubcategoryId">
+					<option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.name }}</option>
 				</select>
 			</input-wrapper>
+
 			<input-wrapper>
-				<label for="image">Image</label>
+				<label>Image</label>
 				<input id="image" type="text" v-model="userInput.image" />
 			</input-wrapper>
+
 			<input-wrapper>
-				<label for="description">Description</label>
+				<label>Description</label>
 				<input id="description" type="text" v-model="userInput.description" />
 			</input-wrapper>
+
+			<button type="submit">Create item</button>
 		</form>
 	</div>
 </template>
@@ -95,10 +140,14 @@ to every page.-->
 		align-items: center;
 	}
 
-	label,
-	input {
+	label {
 		font-family: 'Bangers';
 		font-size: calc(20px + 1vw);
+	}
+
+	input {
+		font-family: 'Courier', sans-serif;
+		font-size: 18px;
 	}
 
 	input-wrapper,

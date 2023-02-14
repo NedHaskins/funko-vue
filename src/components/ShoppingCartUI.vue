@@ -44,7 +44,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 		for (let i = 0; i < shoppingCart.list.length; i++) {
 			if (shoppingCart.list[i].quantity === 0) {
 				shoppingCart.list.splice(i, 1);
-				i--;
+				i--; //needed to reset the counting position(the object being looked at) to an index of [0]
 			}
 		}
 
