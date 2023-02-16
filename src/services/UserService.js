@@ -1,3 +1,5 @@
+import { computed } from 'vue';
+
 import { defineStore } from 'pinia';
 
 import {
@@ -7,17 +9,47 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-import { useCurrentUser } from 'vuefire';
+import { doc, collection, query, where, getDocs } from 'firebase/firestore';
+
+import { useCurrentUser, useFirestore, useDocument, useCollection } from 'vuefire';
+//these are all ref objects
+
+function useUser() {
+	const db = useFirestore();
+	const authUser = useCurrentUser();
+
+	const docReference = computed(function () {
+		if (authUser.value) {
+			console.log(authUser.value.uid);
+			return doc(collection(db, 'users'), authUser.value.uid);
+		} else {
+			return false;
+		}
+	});
+	console.log(docReference);
+	const userDoc = useDocument(docReference);
+	const role = computed(() => userDoc.value?.role);
+	const name = computed(() => userDoc.value?.name);
+	// const isAdmin = computed(function () {
+	// 	return userDoc.roles.admin;
+	// });
+
+	return { userDoc, name };
+}
 
 export const useUserService = defineStore('user', function () {
 	const auth = getAuth();
 
 	const current = useCurrentUser();
 
+	// const info = useUser();
+
 	function clearForm(form) {
 		form.email = '';
 		form.password = '';
 	}
+
+	const { userDoc, name } = useUser();
 
 	function signUp(form) {
 		createUserWithEmailAndPassword(auth, form.email, form.password)
@@ -59,6 +91,8 @@ export const useUserService = defineStore('user', function () {
 		signUp,
 		signIn,
 		signOut,
+		name,
 		current,
+		userDoc,
 	};
 });
