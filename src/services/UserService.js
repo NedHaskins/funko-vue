@@ -42,8 +42,6 @@ export const useUserService = defineStore('user', function () {
 
 	const current = useCurrentUser();
 
-	// const info = useUser();
-
 	function clearForm(form) {
 		form.email = '';
 		form.password = '';

@@ -24,14 +24,8 @@
 
 	const userService = useUserService();
 	const db = useFirestore();
-	const figures = useCollection(collection(db, 'figures')); //reactive data
 	const categories = useCollection(collection(db, 'categories'));
-
 	const userCollection = useCollection(collection(db, 'users'));
-
-	// const q = query(collection(db, 'users'), where('uniqueID', '==', 'MRVtqQQyLNhl3XE47ntRtUFYyYY2'));
-
-	// const currentDocument = useCollection(q); //vuefire's using this
 
 	//Other variables
 
@@ -44,8 +38,6 @@
 	// set up a "listener" that will
 	// listen for "clicks" (and taps) on the whole page!
 	document.addEventListener('click', function (event) {
-		// console.log(event.target); //showed up on the login page
-
 		if (event.target.matches('.toggle')) {
 			body.classList.toggle('small-menu-open');
 		}
@@ -60,40 +52,9 @@
 		localStorage.setItem('currentUser', false);
 		router.push('/');
 	}
-
-	// async function findMatchingRecord(userCollection, userService) {
-	// 	return new Promise((resolve, reject) => {
-	// 		if (userCollection && userService) {
-	// 			const matchingRecord = userCollection.value.find(function (record) {
-	// 				if (record.uniqueID == userService.current.uid) {
-	// 					return record.name;
-	// 				}
-	// 			});
-	// 			resolve(matchingRecord);
-	// 		} else {
-	// 			reject('Required values not available');
-	// 		}
-	// 	});
-	// }
-
-	// async function getMatchingRecord() {
-	// 	try {
-	// 		const matchingRecord = await findMatchingRecord(userCollection, userService);
-	// 		document.getElementById('result').textContent = `Hi, ${matchingRecord.name}`;
-	// 		alert('Matching record found.');
-	// 	} catch (error) {
-	// 		alert('Houston, we have a problem.');
-	// 	}
-	// }
-
-	// getMatchingRecord();
-
-	// console.log(matchingName.name);
-	// console.log(currentDocument);
 </script>
 <template>
 	<div v-if="userService.current">Signed in as: {{ userService.current.email }}</div>
-	<div v-if="userService.current">{{ userService?.name }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -107,7 +68,7 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="userService.current" class="user-prompts">
-						<span id="result" style="font-family: 'Bangers'; color: gray">Hi, {{ userService.name }}</span>
+						<span id="result" style="font-family: 'Bangers'; color: gray">Hi, {{ userService?.name }}</span>
 						<button class="logout" @click="userService.signOut()">Logout</button>
 					</div>
 					<div v-if="!userService.current" class="svg-wrapper user-icon">

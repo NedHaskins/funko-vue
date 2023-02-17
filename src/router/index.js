@@ -5,6 +5,7 @@ import ContactView from '../views/ContactView.vue';
 
 import UserLoginView from '../views/UserLoginView.vue';
 import AdminDashboardView from '../views/AdminDashboard.vue';
+import UserProfileView from '../views/UserProfileView.vue';
 
 import CategoriesView from '../views/CategoriesView.vue';
 import CategoryView from '../views/CategoryView.vue';
@@ -26,14 +27,6 @@ const router = createRouter({
 			name: 'home',
 			component: () => import('../views/HomeView.vue'),
 		},
-		// {
-		//    path: '/about',
-		//    name: 'about',
-		//    // route level code-splitting
-		//    // this generates a separate chunk (About.[hash].js) for this route
-		//    // which is lazy-loaded when the route is visited.
-		//    component: () => import('../views/AboutView.vue'),
-		// },
 		{
 			path: '/about',
 			name: 'about',
@@ -93,6 +86,11 @@ const router = createRouter({
 				},
 			],
 		},
+		// {
+		// 	path: '/user-profile',
+		// 	name: 'user-profile',
+		// 	component: UserProfileView,
+		// },
 		{
 			path: '/firebase-test',
 			name: 'firebase-test',

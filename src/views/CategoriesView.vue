@@ -23,8 +23,6 @@
    onMounted(function () {
       RainbowLetters('Choose a category!');
    });
-
-   console.log(categories);
 </script>
 
 <template>
