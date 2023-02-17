@@ -108,8 +108,7 @@ to every page.-->
 </template>
 
 <style lang="scss" scoped>
-	.user-signup,
-	.user-login {
+	.create-figure-form-wrapper {
 		border: 2px solid var(--ink);
 		box-shadow: 10px 10px var(--ink);
 		background-color: var(--x11gray);
@@ -125,8 +124,7 @@ to every page.-->
 	}
 
 	@media (prefers-color-scheme: dark) {
-		.user-signup,
-		.user-login {
+		.create-figure-form-wrapper {
 			background-color: var(--ink);
 			border: 2px solid var(--paper);
 			box-shadow: 10px 10px var(--paper);

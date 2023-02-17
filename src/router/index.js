@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
 
-import UserLoginView from '../views/UserLoginView.vue';
 import AdminDashboardView from '../views/AdminDashboard.vue';
 import UserProfileView from '../views/UserProfileView.vue';
 
@@ -36,11 +35,6 @@ const router = createRouter({
 			path: '/contact',
 			name: 'contact',
 			component: ContactView,
-		},
-		{
-			path: '/login',
-			name: 'login',
-			component: UserLoginView,
 		},
 		{
 			path: '/categories',

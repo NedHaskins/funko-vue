@@ -1,26 +1,33 @@
 <script setup>
 	import { ref, reactive } from 'vue';
-	// import { updateDoc } from 'firebase/firestore';
+	import { doc, setDoc } from 'firebase/firestore';
+	import { useFirestore } from 'vuefire';
 	import { useUserService } from '@/services/UserService';
 
+	const db = useFirestore();
 	const user = useUserService();
 
-	const form = reactive({
+	let form = reactive({
 		name: user?.name,
 		role: user?.role,
 	});
 
-	// watch(user, function(a,b) {
-	// 	form.firstName = user.info.firstName;
-	// })
+	function updateProfile(id, newName, newRole) {
+		setDoc(doc(db, 'users', id), {
+			name: newName,
+			role: newRole,
+		});
+		console.log('Profile updated.');
+		console.log(user.userDoc);
+	}
 </script>
 
 <template>
-	<!-- <form v-if="editingUserName"></form> -->
+	<div v-if="user">{{ user.userDoc.id }}</div>
 
 	<div class="profile-info">
 		<h2 class="loud-voice">Profile Info</h2>
-		<form @submit-prevent="user.updateProfile(form)">
+		<form @submit.prevent="updateProfile(user.userDoc.id, form.name, form.role)">
 			<input-wrapper>
 				<label>First Name</label>
 				<input type="text" v-model="form.name" />
@@ -29,6 +36,10 @@
 				<label>Role</label>
 				<input type="text" v-model="form.role" />
 			</input-wrapper>
+
+			<button-wrapper>
+				<button type="submit">Update profile</button>
+			</button-wrapper>
 		</form>
 	</div>
 </template>
