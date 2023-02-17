@@ -75,8 +75,8 @@ const router = createRouter({
 			component: ShoppingCartView,
 		},
 		{
-			path: '/admin-dashboard',
-			name: 'admin-dashboard',
+			path: '/admin',
+			name: 'user-dashboard',
 			component: AdminDashboardView,
 			children: [
 				{
@@ -86,11 +86,11 @@ const router = createRouter({
 				},
 			],
 		},
-		// {
-		// 	path: '/user-profile',
-		// 	name: 'user-profile',
-		// 	component: UserProfileView,
-		// },
+		{
+			path: '/admin/user-profile',
+			name: 'user-profile',
+			component: UserProfileView,
+		},
 		{
 			path: '/firebase-test',
 			name: 'firebase-test',

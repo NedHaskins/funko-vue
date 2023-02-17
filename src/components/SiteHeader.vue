@@ -55,6 +55,7 @@
 </script>
 <template>
 	<div v-if="userService.current">Signed in as: {{ userService.current.email }}</div>
+	<div v-if="userService.current">{{ userService.role }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -97,9 +98,7 @@
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink v-if="userService.current && userCollection.role === 'admin'" to="/admin-dashboard"
-						>Dashboard</RouterLink
-					>
+					<RouterLink v-if="userService.current && userService.role === 'admin'" to="/admin">Dashboard</RouterLink>
 
 					<button class="toggle small-screen">Close</button>
 				</nav>

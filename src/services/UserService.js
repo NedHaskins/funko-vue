@@ -34,7 +34,7 @@ function useUser() {
 	// 	return userDoc.roles.admin;
 	// });
 
-	return { userDoc, name };
+	return { userDoc, role, name };
 }
 
 export const useUserService = defineStore('user', function () {
@@ -47,7 +47,7 @@ export const useUserService = defineStore('user', function () {
 		form.password = '';
 	}
 
-	const { userDoc, name } = useUser();
+	const { userDoc, role, name } = useUser();
 
 	function signUp(form) {
 		createUserWithEmailAndPassword(auth, form.email, form.password)
@@ -92,5 +92,6 @@ export const useUserService = defineStore('user', function () {
 		name,
 		current,
 		userDoc,
+		role,
 	};
 });

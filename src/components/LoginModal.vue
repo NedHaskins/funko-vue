@@ -111,7 +111,7 @@
 
 			input {
 				margin-top: 10px;
-				font-size: 3vh;
+				font-size: 3vw;
 			}
 		}
 	}
