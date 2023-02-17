@@ -23,7 +23,7 @@
 </script>
 
 <template>
-	<div v-if="user">{{ user.userDoc.id }}</div>
+	<div v-if="user.current">{{ user.userDoc.id }}</div>
 
 	<div class="profile-info">
 		<h2 class="loud-voice">Profile Info</h2>
