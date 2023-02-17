@@ -1,13 +1,9 @@
 <script setup>
-	// import { useFigureDataStore } from '@/stores/figureData';
-
 	import { onMounted } from 'vue';
 
 	import confetti from 'canvas-confetti';
 
 	import FigureCard from '@/components/FigureCard.vue';
-
-	// const figures = useFigureDataStore();
 
 	var myCanvas = document.getElementById('canvas');
 

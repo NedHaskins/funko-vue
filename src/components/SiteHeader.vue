@@ -22,7 +22,7 @@
 
 	//Firebase variables
 
-	const userService = useUserService();
+	const user = useUserService();
 	const db = useFirestore();
 	const categories = useCollection(collection(db, 'categories'));
 	const userCollection = useCollection(collection(db, 'users'));
@@ -54,8 +54,8 @@
 	}
 </script>
 <template>
-	<div v-if="userService.current">Signed in as: {{ userService.current.email }}</div>
-	<div v-if="userService.current">{{ userService.role }}</div>
+	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
+	<div v-if="user.current">{{ user.role }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -68,11 +68,11 @@
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
 				</title-wrapper>
 				<space-box class="right">
-					<div v-if="userService.current" class="user-prompts">
-						<span id="result" style="font-family: 'Bangers'; color: gray">Hi, {{ userService?.name }}</span>
-						<button class="logout" @click="userService.signOut()">Logout</button>
+					<div v-if="user.current" class="user-prompts">
+						<span id="result" style="font-family: 'Bangers'; color: gray">Hi, {{ user?.name }}</span>
+						<button class="logout" @click="user.signOut()">Logout</button>
 					</div>
-					<div v-if="!userService.current" class="svg-wrapper user-icon">
+					<div v-if="!user.current" class="svg-wrapper user-icon">
 						<RouterLink to="/signin-page">
 							<UserIcon />
 						</RouterLink>
@@ -98,7 +98,7 @@
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink v-if="userService.current && userService.role === 'admin'" to="/admin">Dashboard</RouterLink>
+					<RouterLink v-if="user.current && user.role === 'admin'" to="/admin">Dashboard</RouterLink>
 
 					<button class="toggle small-screen">Close</button>
 				</nav>
