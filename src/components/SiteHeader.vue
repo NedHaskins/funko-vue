@@ -1,9 +1,8 @@
 <script setup>
 	//Foundational imports
-	import { onMounted } from 'vue';
+	import { onMounted, computed } from 'vue';
 	import { RouterLink, useRoute, useRouter } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	//Firebase imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
@@ -27,9 +26,17 @@
 	const categories = useCollection(collection(db, 'categories'));
 	const userCollection = useCollection(collection(db, 'users'));
 
-	//Other variables
+	const cartReference = computed(function () {
+		if (user.current) {
+			return collection(db, 'users', user.current.uid, 'cart');
+		} else {
+			return false;
+		}
+	});
+	const cart = useDocument(cartReference);
+	console.log(cart);
 
-	const shoppingCart = useShoppingCartStore();
+	//Other variables
 
 	// const isOpen = ref(false); //this would be a component of a UI store maybe?
 
@@ -55,7 +62,8 @@
 </script>
 <template>
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
-	<div v-if="user.current">{{ user.role }}</div>
+	<div v-if="user.current">{{ user.current.uid }}</div>
+	<div v-if="user.current">{{ cart }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -81,7 +89,8 @@
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
 							<div class="cart-count">
-								<p>{{ shoppingCart.getCount }}</p>
+								<p v-if="cart">{{ cart[0].quantity }}</p>
+								<p v-else>0</p>
 							</div>
 
 							<CartIcon />
