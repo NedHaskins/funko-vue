@@ -14,6 +14,9 @@
 	import CartIcon from '@/components/icons/CartIcon.vue';
 	import CheeseburgerIcon from '@/components/icons/CheeseburgerIcon.vue';
 
+	import { useCartService } from '@/services/CartService';
+	const cart = useCartService();
+
 	//Router and interface variables
 	const route = useRoute();
 	const router = useRouter();
@@ -25,18 +28,6 @@
 	const db = useFirestore();
 	const categories = useCollection(collection(db, 'categories'));
 	const userCollection = useCollection(collection(db, 'users'));
-
-	const cartReference = computed(function () {
-		if (user.current) {
-			return collection(db, 'users', user.current.uid, 'cart');
-		} else {
-			return false;
-		}
-	});
-	const cart = useDocument(cartReference);
-	console.log(cart);
-
-	//Other variables
 
 	// const isOpen = ref(false); //this would be a component of a UI store maybe?
 
@@ -59,11 +50,17 @@
 		localStorage.setItem('currentUser', false);
 		router.push('/');
 	}
+	// console.log(cart[0].quantity);
+	// for (let i = 0; i < cart.length; i++) {
+	// 	console.log(cart[0].quantity);
+	// }
 </script>
 <template>
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
 	<div v-if="user.current">{{ user.current.uid }}</div>
-	<div v-if="user.current">{{ cart }}</div>
+	<!-- <div v-for="item in cart">{{ item }}</div> -->
+	<div v-for="item in cart.cartGrouping">{{ item }}</div>
+	<div v-if="cart">{{ cart.totalPrice?.toFixed(2) }}</div>
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -77,7 +74,7 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="user.current" class="user-prompts">
-						<span id="result" style="font-family: 'Bangers'; color: gray">Hi, {{ user?.name }}</span>
+						<span id="result" style="font-family: 'Bangers', color: gray">Hi, {{ user?.name }}</span>
 						<button class="logout" @click="user.signOut()">Logout</button>
 					</div>
 					<div v-if="!user.current" class="svg-wrapper user-icon">
@@ -89,7 +86,7 @@
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
 							<div class="cart-count">
-								<p v-if="cart">{{ cart[0].quantity }}</p>
+								<p v-if="cart">{{ cart.totalItems }}</p>
 								<p v-else>0</p>
 							</div>
 

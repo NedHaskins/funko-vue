@@ -1,7 +1,6 @@
 <script setup>
 	import { useRoute } from 'vue-router';
 	import { useCategoriesStore } from '@/stores/categories';
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 	import FigureList from '@/components/FigureList.vue';
 	import FigureCard from '@/components/FigureCard.vue';
@@ -25,8 +24,6 @@
 	const figures = useCollection(q); //vuefire's using this
 
 	const subcategories = useCollection(collection(db, 'categories', route.params.cat, 'subcategories'));
-
-	const shoppingCart = useShoppingCartStore();
 
 	// defineProps(['category', 'subcategory']);
 

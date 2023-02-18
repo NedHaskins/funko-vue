@@ -38,14 +38,6 @@
 	function clearEdit() {
 		editing.value = false;
 	}
-
-	async function removeFigure(docId) {
-		//look up why this needs to be async
-		const record = doc(db, 'figures', docId);
-		if (confirm('Are you sure?')) {
-			await deleteDoc(record);
-		}
-	}
 </script>
 
 <template>

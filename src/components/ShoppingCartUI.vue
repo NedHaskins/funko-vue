@@ -5,83 +5,28 @@ make an [X} option to the left of each item row to remove it from the list if de
 <script setup>
 	import { computed } from 'vue';
 
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
-
-	const shoppingCart = useShoppingCartStore();
-
-	const total = computed(function () {
-		let total = 0;
-		shoppingCart.list.forEach(function (item) {
-			total = total + Number(item.price);
-		});
-		return total;
-	});
-
-	function incrementValue(item) {
-		item.quantity++; //needs to reference the variable in the cart
-	}
-
-	function decrementValue(item) {
-		if (item.quantity > 0) {
-			item.quantity--;
-		}
-	}
-
-	function totalItemPrice(price, quantity) {
-		return Number(price * quantity).toFixed(2);
-	}
-
-	const subtotal = computed(function () {
-		let sub = 0;
-		shoppingCart.list.forEach(function (item) {
-			sub += item.price * item.quantity;
-		});
-		return Number(sub).toFixed(2);
-	});
-
-	function updateCart() {
-		//		check each item.quantity input value;  if it's 0, remove it from the list
-		for (let i = 0; i < shoppingCart.list.length; i++) {
-			if (shoppingCart.list[i].quantity === 0) {
-				shoppingCart.list.splice(i, 1);
-				i--; //needed to reset the counting position(the object being looked at) to an index of [0]
-			}
-		}
-
-		// shoppingCart.list.forEach(function (item, index) {
-		// 	if (item.quantity === 0) {
-		// 		shoppingCart.list.splice(index, 1);
-		// 		index--;
-		// 	}
-		// }); //this doesn't reset the VALUE OF THE INDEX BEING CHECKED to 0
-		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-		console.log('Cart was updated in local storage.');
-	}
-
-	function clearCart() {
-		shoppingCart.list = [];
-		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-		console.log('Cart was cleared.');
-	}
+	defineProps(['user', 'cart']);
 </script>
 
 <template>
 	<inner-column>
+		<pre><div v-if="cart">{{ cart.cartGrouping }}</div></pre>
 		<table class="cart">
 			<tbody>
-				<tr v-for="item in shoppingCart.list">
-					<td class="name">{{ item.name }}</td>
+				<tr v-for="group in cart.cartGrouping">
+					<td class="name">{{ group[0].name }}</td>
 					<td class="item-quantity">
-						<button id="remove" @click="decrementValue(item)">-</button>
-						<input type="number" v-model="item.quantity" />
-						<button id="add" @click="incrementValue(item)">+</button>
+						<button id="remove" @click="cart.removeItem(group[0])">-</button>
+						<input type="number" :value="group.length" />
+						<!--place v-model here-->
+						<button id="add" @click="cart.addItem(group[0])">+</button>
 					</td>
-					<td id="price" class="price">${{ totalItemPrice(item.price, item.quantity) }}</td>
+					<td id="price" class="price">${{ group[0].price }}</td>
 				</tr>
 				<tr class="total">
 					<td>TOTAL</td>
 					<td></td>
-					<td>${{ subtotal }}</td>
+					<td>${{ cart.totalPrice }}</td>
 				</tr>
 			</tbody>
 		</table>

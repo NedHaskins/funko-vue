@@ -1,9 +1,18 @@
 <script setup>
-	// import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
-	import FirestoreShoppingCartUI from '@/components/FirestoreShoppingCartUI.vue';
-	import { useUserService } from '@/services/UserService';
+	import { computed } from 'vue';
 
+	import { collection } from 'firebase/firestore';
+	import { useFirestore, useCollection } from 'vuefire';
+
+	// import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
+	import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
+	import { useUserService } from '@/services/UserService';
+	import { useCartService } from '@/services/CartService';
+
+	const db = useFirestore();
 	const user = useUserService();
+
+	const cart = useCartService();
 </script>
 
 <template>
@@ -11,8 +20,7 @@
 		<module-header>
 			<h2 v-if="user.current">{{ user.name }}'s Shopping Cart</h2>
 		</module-header>
-		<!-- <ShoppingCartUI /> -->
-		<FirestoreShoppingCartUI v-bind:user="user" />
+		<ShoppingCartUI v-bind:user="user" v-bind:cart="cart" />
 	</section>
 </template>
 

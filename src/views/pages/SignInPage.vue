@@ -88,7 +88,7 @@
 
 	label,
 	input {
-		font-family: 'Bangers';
+		font-family: 'Courier';
 		font-size: calc(20px + 1vw);
 	}
 

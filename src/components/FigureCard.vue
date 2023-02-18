@@ -1,31 +1,19 @@
 <script setup>
-	import { useShoppingCartStore } from '@/stores/shoppingCart';
+	import { computed } from 'vue';
+	import { useUserService } from '@/services/UserService';
+
+	//Firestore / Vuefire imports
+	import { useFirestore, useCollection } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
 	defineProps(['figure']);
 
-	const shoppingCart = useShoppingCartStore();
+	import { useCartService } from '@/services/CartService';
+	const cart = useCartService();
 
-	function addToCart(name, quantity, price) {
-		const newItem = {
-			name: name,
-			quantity: 1,
-			price: price,
-		};
-
-		const match = shoppingCart.list.find(function (item) {
-			return item.name === newItem.name;
-		});
-
-		if (match) {
-			match.quantity = match.quantity + newItem.quantity;
-		} else {
-			shoppingCart.list = [...shoppingCart.list, newItem];
-		}
-
-		// shoppingCart.add(record);
-		console.log(shoppingCart.list); //check
-		localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	}
+	//Firestore / Vuefire variables
+	const db = useFirestore();
+	const user = useUserService();
 </script>
 <template>
 	<figure-card>
@@ -39,7 +27,7 @@
 				<p>${{ figure.price }}</p>
 			</div>
 			<button-wrapper class="add-to-cart">
-				<button @click.prevent="addToCart(figure.name, figure.quantity, figure.price)">Add to cart</button>
+				<button @click.prevent="cart.addItem(figure)">Add to cart</button>
 			</button-wrapper>
 			<div class="more-info">
 				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More<br />info</RouterLink>
