@@ -26,7 +26,7 @@
 
 <style lang="scss" scoped>
 	.shopping-cart-view {
-		border: 3px solid lime;
+		// border: 3px solid lime;
 	}
 	h1 {
 		font-family: 'Bangers';

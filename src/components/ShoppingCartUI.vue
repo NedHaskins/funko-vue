@@ -10,7 +10,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 <template>
 	<inner-column>
-		<pre><div v-if="cart">{{ cart.cartGrouping }}</div></pre>
+		<!-- <pre><div v-if="cart">{{ cart.cartGrouping }}</div></pre> -->
 		<table class="cart">
 			<tbody>
 				<tr v-for="group in cart.cartGrouping">
@@ -26,7 +26,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 				<tr class="total">
 					<td>TOTAL</td>
 					<td></td>
-					<td>${{ cart.totalPrice }}</td>
+					<td>${{ cart.totalPrice?.toFixed(2) }}</td>
 				</tr>
 			</tbody>
 		</table>

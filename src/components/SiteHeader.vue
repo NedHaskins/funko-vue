@@ -59,7 +59,7 @@
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
 	<!-- <div v-for="item in cart">{{ item }}</div> -->
 	<!-- <div v-for="item in cart.cartGrouping">{{ item }}</div> -->
-	<!-- <div v-if="cart">{{ cart.totalPrice?.toFixed(2) }}</div> -->
+
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -73,7 +73,7 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="user.current" class="user-prompts">
-						<span id="result" style="font-family: 'Bangers', color: gray">Hi, {{ user?.name }}</span>
+						<span id="result">Hi, {{ user?.name }}</span>
 						<button class="logout" @click="user.signOut()">Logout</button>
 					</div>
 					<div v-if="!user.current" class="svg-wrapper user-icon">
@@ -329,7 +329,8 @@
 		// border: 3px dashed red;
 
 		span {
-			// border: 3px solid red;
+			font-family: 'Bangers';
+			color: gray;
 			display: block;
 			font-size: 23px;
 			text-align: center;

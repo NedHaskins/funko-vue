@@ -1,38 +1,25 @@
 <script setup>
+   //Vue imports
    import { onMounted } from 'vue';
-
    import { useRoute } from 'vue-router';
 
+   //Vue components
    import SubcategoryCard from '@/components/SubcategoryCard.vue';
    import FigureList from '@/components/FigureList.vue';
 
-   //FIRESTORE IMPORTS
-
+   //Firestore / Vuefire imports
    import { useFirestore, useDocument, useCollection } from 'vuefire';
    import { collection, doc, getDoc, query, where } from 'firebase/firestore';
-   const db = useFirestore();
 
+   //Vuefire variables
+   const db = useFirestore();
    const route = useRoute();
 
+   //Firestore variables
    const figures = useCollection(collection(db, 'figures'));
    const categories = useCollection(collection(db, 'categories'));
-
    const category = useDocument(doc(db, 'categories', route.params.cat));
-
    const subcategories = useCollection(collection(db, 'categories', route.params.cat, 'subcategories'));
-
-   // if (category.value) {
-   //    console.log('Value detected');
-   // }
-
-   // let filteredFigures = [];
-
-   // for (figure in figures) {
-   //    if (figure.category == route.params.cat) {
-   //       //this is unique to this page -- it's calling for cat instead of sub
-   //       filteredFigures.push(figure);
-   //    }
-   // }
 </script>
 
 <template>
@@ -45,10 +32,6 @@
       <li v-for="subcategory in subcategories">
          <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
       </li>
-   </ul>
-
-   <ul class="figure-list" v-else>
-      <FigureList v-bind:figures="filteredFigures" />
    </ul>
 </template>
 
