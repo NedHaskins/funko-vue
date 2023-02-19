@@ -28,7 +28,6 @@
 <template>
    <module-header>
       <div id="letters-container" ref="container"></div>
-      <div v-if="cart">{{ cart.totalPrice }}</div>
    </module-header>
 
    <ul>

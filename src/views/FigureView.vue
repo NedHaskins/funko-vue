@@ -23,7 +23,7 @@
 </script>
 <template>
 	<figure-info>
-		<picture> <img :src="figure.image" /></picture>
+		<picture> <img v-bind:src="figure.image" /></picture>
 		<text-block>
 			<h1>{{ figure.name }}</h1>
 			<p>{{ figure.description }}</p>
@@ -33,7 +33,7 @@
 				<p>${{ figure.price }}</p>
 			</div>
 			<button-wrapper class="add-to-cart">
-				<button @click.prevent="cart.addToCart(figure)">Add to cart</button>
+				<button @click.prevent="cart.addItem(figure)">Add to cart</button>
 			</button-wrapper>
 		</card-bottom>
 	</figure-info>

@@ -57,10 +57,9 @@
 </script>
 <template>
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
-	<div v-if="user.current">{{ user.current.uid }}</div>
 	<!-- <div v-for="item in cart">{{ item }}</div> -->
-	<div v-for="item in cart.cartGrouping">{{ item }}</div>
-	<div v-if="cart">{{ cart.totalPrice?.toFixed(2) }}</div>
+	<!-- <div v-for="item in cart.cartGrouping">{{ item }}</div> -->
+	<!-- <div v-if="cart">{{ cart.totalPrice?.toFixed(2) }}</div> -->
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
@@ -175,7 +174,7 @@
 	}
 
 	.site-title {
-		font-size: calc(36px + 1.3vw);
+		font-size: calc(36px + 0.7vw);
 	}
 
 	@media (max-width: 729px) {

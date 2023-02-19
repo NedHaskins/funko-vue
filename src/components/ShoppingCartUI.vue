@@ -21,7 +21,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 						<!--place v-model here-->
 						<button id="add" @click="cart.addItem(group[0])">+</button>
 					</td>
-					<td id="price" class="price">${{ group[0].price }}</td>
+					<td id="price" class="price">${{ group[0].price * group.length }}</td>
 				</tr>
 				<tr class="total">
 					<td>TOTAL</td>
@@ -33,11 +33,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 		<cart-bottom>
 			<button-wrapper>
-				<button @click="updateCart()">Update cart</button>
-			</button-wrapper>
-
-			<button-wrapper>
-				<button @click.prevent="clearCart">Clear cart</button>
+				<button @click.prevent="cart.clearCart">Clear cart</button>
 			</button-wrapper>
 
 			<button-wrapper>

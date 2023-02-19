@@ -27,6 +27,7 @@ export const useCartService = defineStore('cart', function () {
 	});
 	const list = useCollection(cartReference);
 
+	//used to group objects that have the same .name value together in an array
 	const cartGrouping = computed(function () {
 		return list.value?.reduce(function (group, item) {
 			group[item.name] = group[item.name] ?? [];
@@ -55,6 +56,7 @@ export const useCartService = defineStore('cart', function () {
 
 	async function removeItem(figure) {
 		//look up why this needs to be async
+		//if number of objects is greater than 0...put a check in....
 		const trash = await doc(collection(db, 'users', user.current.uid, 'cart'), figure.id);
 		// console.log('Are you sure?');
 		if (confirm('Are you sure?')) {
@@ -62,6 +64,12 @@ export const useCartService = defineStore('cart', function () {
 			// 	}
 		}
 	}
+
+	function clearCart() {
+		// console.log(list.value);
+		list.value = [];
+	}
+
 	return {
 		user,
 		list,
@@ -70,56 +78,6 @@ export const useCartService = defineStore('cart', function () {
 		totalPrice,
 		addItem,
 		removeItem,
+		clearCart,
 	};
 });
-
-const total = computed(function () {
-	let total = 0;
-	shoppingCart.list.forEach(function (item) {
-		total = total + Number(item.price);
-	});
-	return total;
-});
-
-function incrementValue(item) {
-	item.quantity++; //needs to reference the variable in the cart
-}
-
-function decrementValue(item) {
-	if (item.quantity > 0) {
-		item.quantity--;
-	}
-}
-
-const subtotal = computed(function () {
-	let sub = 0;
-	shoppingCart.list.forEach(function (item) {
-		sub += item.price * item.quantity;
-	});
-	return Number(sub).toFixed(2);
-});
-
-function updateCart() {
-	//		check each item.quantity input value;  if it's 0, remove it from the list
-	for (let i = 0; i < shoppingCart.list.length; i++) {
-		if (shoppingCart.list[i].quantity === 0) {
-			shoppingCart.list.splice(i, 1);
-			i--; //needed to reset the counting position(the object being looked at) to an index of [0]
-		}
-	}
-
-	// shoppingCart.list.forEach(function (item, index) {
-	// 	if (item.quantity === 0) {
-	// 		shoppingCart.list.splice(index, 1);
-	// 		index--;
-	// 	}
-	// }); //this doesn't reset the VALUE OF THE INDEX BEING CHECKED to 0
-	localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	console.log('Cart was updated in local storage.');
-}
-
-function clearCart() {
-	shoppingCart.list = [];
-	localStorage.setItem('shoppingCartData', JSON.stringify(shoppingCart.list));
-	console.log('Cart was cleared.');
-}

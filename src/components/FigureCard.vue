@@ -8,35 +8,44 @@
 
 	defineProps(['figure']);
 
-	import { useCartService } from '@/services/CartService';
-	const cart = useCartService();
-
 	//Firestore / Vuefire variables
 	const db = useFirestore();
 	const user = useUserService();
 </script>
 <template>
 	<figure-card>
-		<picture>
-			<img v-bind:src="figure.image" />
-		</picture>
+		<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">
+			<picture>
+				<img v-bind:src="figure.image" />
+			</picture>
+		</RouterLink>
+
 		<h3>{{ figure.name }}</h3>
 		<!--link this back to the figure detail-->
 		<card-bottom>
 			<div class="price-wrapper">
 				<p>${{ figure.price }}</p>
 			</div>
-			<button-wrapper class="add-to-cart">
-				<button @click.prevent="cart.addItem(figure)">Add to cart</button>
-			</button-wrapper>
 			<div class="more-info">
-				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More<br />info</RouterLink>
+				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More info</RouterLink>
 			</div>
 		</card-bottom>
 	</figure-card>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+	figure-card {
+		display: block;
+
+		a:hover {
+			filter: hue-rotate(225deg);
+		}
+
+		h3,
+		card-bottom {
+			margin-top: 12px;
+		}
+	}
 	picture {
 		width: 236px;
 		justify-self: center;
@@ -47,6 +56,12 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-evenly;
+		gap: 30px;
+
+		p,
+		button {
+			font-size: 27px;
+		}
 	}
 
 	@media (min-width: 600px) {

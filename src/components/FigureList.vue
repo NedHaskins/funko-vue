@@ -33,21 +33,14 @@
 	<div id="canvas"></div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 	ul {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: var(--scaffoldPadding);
-	}
 
-	card-bottom {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-	}
-
-	@media (min-width: 960px) {
-		ul {
+		li {
+			justify-self: center;
 		}
 	}
 
