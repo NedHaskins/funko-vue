@@ -1,5 +1,7 @@
 import { computed } from 'vue';
 
+import { useRouter } from 'vue-router';
+
 import { defineStore } from 'pinia';
 
 import {
@@ -49,6 +51,8 @@ export const useUserService = defineStore('user', function () {
 
 	const { userDoc, role, name } = useUser();
 
+	const router = useRouter();
+
 	function signUp(form) {
 		createUserWithEmailAndPassword(auth, form.email, form.password)
 			.then((userCredential) => {
@@ -78,6 +82,7 @@ export const useUserService = defineStore('user', function () {
 	function signOut() {
 		fbSignOut(auth)
 			.then(() => {
+				router.push('/');
 				console.log('user.signOut');
 			})
 			.catch((error) => {

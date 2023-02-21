@@ -17,7 +17,9 @@
 	const user = useUserService();
 	const cart = useCartService();
 
-	const figureRef = query(collection(db, 'figures'), where('slug', '==', route.params.figure));
+	const figureRef = computed(function () {
+		return query(collection(db, 'figures'), where('slug', '==', route.params.figure));
+	});
 
 	const figure = useCollection(figureRef);
 </script>
@@ -34,7 +36,7 @@
 				<p>${{ figure[0].price }}</p>
 			</div>
 			<button-wrapper class="add-to-cart">
-				<button @click.prevent="cart.addItem(figure)">Add to cart</button>
+				<button @click="cart.addItem(figure[0])">Add to cart</button>
 			</button-wrapper>
 		</card-bottom>
 	</figure-info>

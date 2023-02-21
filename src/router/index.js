@@ -1,27 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { getCurrentUser } from 'vuefire';
 
-import AboutView from '../views/AboutView.vue';
-import ContactView from '../views/ContactView.vue';
+import AboutView from '@/views/AboutView.vue';
+import ContactView from '@/views/ContactView.vue';
 
-import CategoriesView from '../views/CategoriesView.vue';
-import CategoryView from '../views/CategoryView.vue';
-import SubcategoryView from '../views/SubcategoryView.vue';
+import CategoriesView from '@/views/CategoriesView.vue';
+import CategoryView from '@/views/CategoryView.vue';
+import SubcategoryView from '@/views/SubcategoryView.vue';
 
-import FiguresView from '../views/FiguresView.vue';
-import FigureView from '../views/FigureView.vue';
-import ShoppingCartView from '../views/ShoppingCartView.vue';
+import FiguresView from '@/views/FiguresView.vue';
+import FigureView from '@/views/FigureView.vue';
+import ShoppingCartView from '@/views/ShoppingCartView.vue';
 
-import AdminDashboardView from '../views/AdminDashboard.vue';
-import UserProfileView from '../views/UserProfileView.vue';
-import CreateItemView from '../views/CreateItemView.vue';
-import CreateCategoryView from '../views/CreateCategoryView.vue';
-import CreateSubcategoryView from '../views/CreateSubcategoryView.vue';
+import AdminDashboardView from '@/views/AdminDashboard.vue';
+import UserProfileView from '@/views/UserProfileView.vue';
+import CreateItemView from '@/views/CreateItemView.vue';
+import CreateCategoryView from '@/views/CreateCategoryView.vue';
+import CreateSubcategoryView from '@/views/CreateSubcategoryView.vue';
 
-import FirebaseTestView from '../views/FirebaseTestView.vue';
-import SignInPage from '../views/pages/SignInPage.vue';
+import FirebaseTestView from '@/views/FirebaseTestView.vue';
+import SignInPage from '@/views/pages/SignInPage.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
+
 	routes: [
 		{
 			path: '/',
@@ -80,6 +82,7 @@ const router = createRouter({
 			path: '/admin',
 			name: 'user-dashboard',
 			component: AdminDashboardView,
+			meta: { requiresAuth: true },
 			children: [
 				{
 					path: '/admin/user-profile',
@@ -119,6 +122,24 @@ const router = createRouter({
 			component: SignInPage,
 		},
 	],
+});
+
+router.beforeEach(async (to) => {
+	// routes with `meta: { requiresAuth: true }` will check for the users, others won't
+	if (to.meta.requiresAuth) {
+		const currentUser = await getCurrentUser();
+		// if the user is not logged in, redirect to the login page
+		if (!currentUser) {
+			return {
+				path: '/signin-page',
+				query: {
+					// we keep the current path in the query so we can redirect to it after login
+					// with `router.push(route.query.redirect || '/')`
+					redirect: to.fullPath,
+				},
+			};
+		}
+	}
 });
 
 export default router;

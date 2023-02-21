@@ -45,11 +45,6 @@
 		}
 	});
 
-	function logOutUser() {
-		users.currentUser = false;
-		localStorage.setItem('currentUser', false);
-		router.push('/');
-	}
 	// console.log(cart[0].quantity);
 	// for (let i = 0; i < cart.length; i++) {
 	// 	console.log(cart[0].quantity);
@@ -88,7 +83,7 @@
 								<p v-if="cart">{{ cart.totalItems }}</p>
 								<p v-else>0</p>
 							</div>
-
+							<!--Show the current cart object attached to the current user.  If the user is logged out(if there is no current user) do not show any Firebase cart data.-->
 							<CartIcon />
 						</RouterLink>
 					</div>
