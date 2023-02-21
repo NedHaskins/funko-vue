@@ -7,7 +7,7 @@
 
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
-	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
 	//Vue variables
 	const route = useRoute();
@@ -17,20 +17,21 @@
 	const user = useUserService();
 	const cart = useCartService();
 
-	const categories = useCollection(collection(db, 'categories'));
-	const figures = useCollection(collection(db, 'figures'));
-	const figure = useDocument(doc(collection(db, 'figures'), route.params.figure));
+	const figureRef = query(collection(db, 'figures'), where('slug', '==', route.params.figure));
+
+	const figure = useCollection(figureRef);
 </script>
 <template>
+	<div v-if="figure">{{ figure }}</div>
 	<figure-info>
-		<picture> <img v-bind:src="figure.image" /></picture>
+		<picture> <img v-bind:src="figure[0].image" /></picture>
 		<text-block>
-			<h1>{{ figure.name }}</h1>
-			<p>{{ figure.description }}</p>
+			<h1>{{ figure[0].name }}</h1>
+			<p>{{ figure[0].description }}</p>
 		</text-block>
 		<card-bottom>
 			<div class="price-wrapper">
-				<p>${{ figure.price }}</p>
+				<p>${{ figure[0].price }}</p>
 			</div>
 			<button-wrapper class="add-to-cart">
 				<button @click.prevent="cart.addItem(figure)">Add to cart</button>

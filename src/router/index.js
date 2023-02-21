@@ -60,9 +60,15 @@ const router = createRouter({
 			component: FiguresView,
 		},
 		{
+			//used for when a figure has no subcategory
+			path: '/:cat/:figure',
+			name: 'figure-no-sub',
+			component: FigureView,
+		},
+		{
 			//These are the route params! :)
 			path: '/:cat/:sub/:figure', //<--- values here are used to filter down values to match for detail pages
-			name: 'figure',
+			name: 'figure-with-sub',
 			component: FigureView,
 		},
 		{

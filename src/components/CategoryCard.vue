@@ -8,6 +8,10 @@
 				<img v-bind:src="category.image" />
 			</picture>
 		</RouterLink>
+
+		<!--SubcategoriesView if there are subcategories
+			if not, it'll go straight to a filtered figure list-->
+
 		<h3>{{ category.name }}</h3>
 	</category-card>
 </template>

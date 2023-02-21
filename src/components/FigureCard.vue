@@ -33,12 +33,20 @@
 				<p>${{ figure.price }}</p>
 			</div>
 
-			<div v-if="!figure.subcategory" class="more-info">
-				<RouterLink :to="`/${figure.category}/${figure.slug}`">More info</RouterLink>
+			<div v-if="figure.subcategory == null" class="more-info">
+				<RouterLink v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.slug } }"
+					>More info</RouterLink
+				>
 			</div>
 
 			<div v-else class="more-info">
-				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More info</RouterLink>
+				<RouterLink
+					v-bind:to="{
+						name: 'figure-with-sub',
+						params: { cat: figure.category, sub: figure.subcategory, figure: figure.slug },
+					}"
+					>More info</RouterLink
+				>
 			</div>
 		</card-bottom>
 	</figure-card>

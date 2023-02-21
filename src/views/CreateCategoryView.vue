@@ -27,10 +27,14 @@
 		addDoc(collection(db, 'categories'), {
 			slug: userInput.slug,
 			name: userInput.name,
+			blurb: userInput.blurb,
+			image: userInput.image,
 		});
 		alert(`The category ${userInput.name} has been added to Firestore.`);
 		userInput.slug = '';
 		userInput.name = '';
+		userInput.blurb = '';
+		userInput.image = '';
 	}
 </script>
 
@@ -47,6 +51,14 @@
 		<input-wrapper>
 			<label>Name</label>
 			<input id="name" type="text" v-model="userInput.name" />
+		</input-wrapper>
+		<input-wrapper>
+			<label>Blurb</label>
+			<input id="blurb" type="text" v-model="userInput.blurb" />
+		</input-wrapper>
+		<input-wrapper>
+			<label>Image</label>
+			<input id="image" type="text" v-model="userInput.image" />
 		</input-wrapper>
 		<button type="submit">Create category</button>
 	</form>
