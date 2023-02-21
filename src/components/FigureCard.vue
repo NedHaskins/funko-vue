@@ -14,7 +14,13 @@
 </script>
 <template>
 	<figure-card>
-		<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">
+		<RouterLink v-if="!figure.subcategory" :to="`/${figure.category}/${figure.slug}`">
+			<picture>
+				<img v-bind:src="figure.image" />
+			</picture>
+		</RouterLink>
+
+		<RouterLink v-else :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">
 			<picture>
 				<img v-bind:src="figure.image" />
 			</picture>
@@ -26,7 +32,12 @@
 			<div class="price-wrapper">
 				<p>${{ figure.price }}</p>
 			</div>
-			<div class="more-info">
+
+			<div v-if="!figure.subcategory" class="more-info">
+				<RouterLink :to="`/${figure.category}/${figure.slug}`">More info</RouterLink>
+			</div>
+
+			<div v-else class="more-info">
 				<RouterLink :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">More info</RouterLink>
 			</div>
 		</card-bottom>

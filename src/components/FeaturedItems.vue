@@ -1,21 +1,32 @@
 <script setup>
-	import { useFigureDataStore } from '@/stores/figureData';
+	//Vue imports
+	import { onMounted, ref } from 'vue';
+	import { useRoute } from 'vue-router';
 
+	//Vue components
+	import SubcategoryCard from '@/components/SubcategoryCard.vue';
+	import FigureList from '@/components/FigureList.vue';
+	import FigureCard from '@/components/FigureCard.vue';
+
+	//Firestore / Vuefire imports
+	import { useFirestore, useDocument, useCollection } from 'vuefire';
+	import { collection, doc, getDoc, query, where } from 'firebase/firestore';
+
+	//Special script imports :)
 	import RainbowLetters from '@/scripts/rainbowLetters';
 
-	import FigureCard from '@/components/FigureCard.vue';
-	import { onMounted, ref } from 'vue';
-	const figures = useFigureDataStore();
-
-	//Phase 1:  Write out code that will pair up each letter in an array with a color in the colors array.
+	//Firestore / Vuefire variables
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures'));
 
 	let figuresFromStore = [];
 
 	let featuredFigures = [];
 
-	figures.list.forEach(function (figure) {
+	figures.value.forEach(function (figure) {
 		figuresFromStore.push(figure);
 	});
+
 	//this is needed to not permanently change the actual store list, which will affect other components rendering during the session
 
 	function get3Random(items) {
@@ -23,10 +34,11 @@
 			let randomIndex = Math.floor(Math.random() * figuresFromStore.length);
 			let randomItem = figuresFromStore[randomIndex];
 			featuredFigures.push(randomItem);
-			figuresFromStore.splice(randomIndex, 1); //ensures that the same element won't be selected twice -- and reduces the amount of memory the initial array takes up, as the items are being removed from it
+			figuresFromStore.splice(randomIndex, 1);
+			//ensures that the same element won't be selected twice -- and reduces the amount of memory the initial array takes up, as the items are being removed from it
 		}
 	}
-	get3Random(figures);
+	get3Random(figures.value);
 
 	const container = ref(null);
 
@@ -37,11 +49,10 @@
 	onMounted(function () {
 		RainbowLetters(phrase);
 	});
-
-	// :to="{ name: routeName: params: { item: item }"
 </script>
 
 <template>
+	<pre v-if="figures">{{ figures }}</pre>
 	<module-header>
 		<div id="letters-container" ref="container"></div>
 	</module-header>

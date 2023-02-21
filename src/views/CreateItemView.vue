@@ -45,6 +45,7 @@ to every page.-->
 		slug: '',
 		name: '',
 		image: '',
+		price: '',
 		description: '',
 	});
 
@@ -55,6 +56,7 @@ to every page.-->
 			category: chosenCategoryId.value,
 			subcategory: chosenSubcategoryId.value,
 			image: userInput.image,
+			image: userInput.price,
 			description: userInput.description,
 		});
 		console.log(slug, name, category, subcategory, image, description);
@@ -95,6 +97,11 @@ to every page.-->
 			<input-wrapper>
 				<label>Image</label>
 				<input id="image" type="text" v-model="userInput.image" />
+			</input-wrapper>
+
+			<input-wrapper>
+				<label>Price</label>
+				<input id="price" type="number" v-model="userInput.price" />
 			</input-wrapper>
 
 			<input-wrapper>

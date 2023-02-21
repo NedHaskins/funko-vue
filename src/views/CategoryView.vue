@@ -20,19 +20,26 @@
    const categories = useCollection(collection(db, 'categories'));
    const category = useDocument(doc(db, 'categories', route.params.cat));
    const subcategories = useCollection(collection(db, 'categories', route.params.cat, 'subcategories'));
+
+   const filterFiguresByCategoryRef = query(collection(db, 'figures'), where('category', '==', route.params.cat));
+   const filterFiguresByCategory = useDocument(filterFiguresByCategoryRef);
 </script>
 
 <template>
    <module-header>
+      <p>{{ filterFiguresByCategory }}</p>
       <h2>{{ category.name }}</h2>
       <h3>{{ category.blurb }}</h3>
    </module-header>
 
+   <!--if the current category selected has any subcategories-->
    <ul class="subcategory-list" v-if="subcategories">
       <li v-for="subcategory in subcategories">
          <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
       </li>
    </ul>
+
+   <FigureList v-else v-bind:figures="filterFiguresByCategory" />
 </template>
 
 <style lang="scss" scoped>

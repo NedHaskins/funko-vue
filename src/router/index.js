@@ -3,9 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from '../views/AboutView.vue';
 import ContactView from '../views/ContactView.vue';
 
-import AdminDashboardView from '../views/AdminDashboard.vue';
-import UserProfileView from '../views/UserProfileView.vue';
-
 import CategoriesView from '../views/CategoriesView.vue';
 import CategoryView from '../views/CategoryView.vue';
 import SubcategoryView from '../views/SubcategoryView.vue';
@@ -13,7 +10,12 @@ import SubcategoryView from '../views/SubcategoryView.vue';
 import FiguresView from '../views/FiguresView.vue';
 import FigureView from '../views/FigureView.vue';
 import ShoppingCartView from '../views/ShoppingCartView.vue';
+
+import AdminDashboardView from '../views/AdminDashboard.vue';
+import UserProfileView from '../views/UserProfileView.vue';
 import CreateItemView from '../views/CreateItemView.vue';
+import CreateCategoryView from '../views/CreateCategoryView.vue';
+import CreateSubcategoryView from '../views/CreateSubcategoryView.vue';
 
 import FirebaseTestView from '../views/FirebaseTestView.vue';
 import SignInPage from '../views/pages/SignInPage.vue';
@@ -74,9 +76,24 @@ const router = createRouter({
 			component: AdminDashboardView,
 			children: [
 				{
+					path: '/admin/user-profile',
+					name: 'create-item',
+					component: UserProfileView,
+				},
+				{
 					path: '/admin/create-item',
 					name: 'create-item',
 					component: CreateItemView,
+				},
+				{
+					path: '/admin/create-category',
+					name: 'create-category',
+					component: CreateCategoryView,
+				},
+				{
+					path: '/admin/create-subcategory',
+					name: 'create-subcategory',
+					component: CreateSubcategoryView,
 				},
 			],
 		},
