@@ -53,17 +53,21 @@
 	// }
 	//lodash call to deal with the random card sorting on the home page.
 
-	function makeRandomList(list) {
-		let randomArray = [];
-		let randomList = _.shuffle(list);
-		for (let i = 0; i < 3; i++) {
-			randomArray.push(randomList[i]);
-		}
-		console.log('Random array created.', randomArray);
-		return randomArray;
-	}
+	const originalList = useCollection(collection(db, 'figures'));
 
-	const randomFigureList = makeRandomList(figures.value);
+	const randomList = computed(function () {
+		return _.shuffle(originalList.value).slice(0, 3);
+	});
+
+	// function makeRandomList(list) {
+	// 	let randomArray = [];
+	// 	let randomList = _.shuffle(list);
+	// 	for (let i = 0; i < 3; i++) {
+	// 		randomArray.push(randomList[i]);
+	// 	}
+	// 	console.log('Random array created.', randomArray);
+	// 	return randomArray;
+	// }
 
 	const active = ref(true);
 
@@ -76,25 +80,25 @@
 
 <template>
 	<section class="featured-items">
-		<pre v-if="figures" style="color: green">{{ figures }}</pre>
-		<pre v-if="figures" style="color: blue">{{ makeRandomList(figures) }}</pre>
+		<pre v-if="figures" style="color: cyan">{{ randomList }}</pre>
+		<!-- <pre v-if="figures" style="color: blue">{{}}</pre> -->
 
 		<module-header>
 			<div id="letters-container" ref="container"></div>
 		</module-header>
-		<!-- <ul :class="{ party: active }"> -->
-		<!-- 	<li v-for="card in featuredFigures">
-				<FigureCard v-bind:figures="randomArray" />
+		<ul :class="{ party: active }">
+			<li v-for="item in randomList">
+				<FigureCard v-bind:figure="item" />
 			</li>
- -->
-		<FigureList v-bind:figures="figuresCopy" />
-		<!-- </ul>  -->
+		</ul>
+
+		<!-- <FigureList v-bind:figures="makeRandomList(figures)" /> -->
 	</section>
 </template>
 
 <style scoped>
 	.featured-items {
-		border: 3px solid red;
+		/*		border: 3px solid red;*/
 	}
 	picture {
 		width: 236px;
