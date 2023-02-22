@@ -1,5 +1,7 @@
 <script setup>
 	//Vue imports
+	import { onMounted } from 'vue';
+
 	import FigureList from '@/components/FigureList.vue';
 
 	//Firebase imports

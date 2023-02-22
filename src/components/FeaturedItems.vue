@@ -1,6 +1,12 @@
 <script setup>
-	// console.clear();
+	//NPM packages
 	import _ from 'lodash';
+
+	//Animation packages
+	import confetti from 'canvas-confetti';
+
+	//Special script imports
+	import RainbowLetters from '@/scripts/rainbowLetters';
 
 	//Vue imports
 	import { onMounted, ref, computed } from 'vue';
@@ -15,62 +21,38 @@
 	import { useFirestore, useDocument, useCollection } from 'vuefire';
 	import { collection, doc, getDoc, query, where } from 'firebase/firestore';
 
-	//Special script imports :)
-	import RainbowLetters from '@/scripts/rainbowLetters';
-
 	//Firestore / Vuefire variables
 	const db = useFirestore();
 
-	// const figuresRef = computed(function () {
-	// 	return collection(db, 'figures');
-	// });
+	//Confetti instructions
 
-	const figures = useCollection(collection(db, 'figures')); //WHY DOES THIS WORK
+	var myCanvas = document.getElementById('canvas');
+	var myConfetti = confetti.create(myCanvas, {
+		resize: true,
+		useWorker: true,
+	});
 
-	let figuresCopy = [];
-
-	if (figures) {
-		figures.value.forEach(function (figure) {
-			figuresCopy.push(figure);
+	onMounted(function () {
+		// confetti();
+		myConfetti({
+			particleCount: 500,
+			spread: 300,
+			// any other options from the global
+			// confetti function
 		});
-	}
+	});
 
-	//It appears that if a foreach method is used to grab data from a reactive object,
-
-	// function get3Random(items) {
-	// 	if (items) {
-	// 		let randomArray = [];
-	// 		for (let i = 0; i < 3; i++) {
-	// 			let randomIndex = Math.floor(Math.random() * items.length);
-	// 			let randomItem = items[randomIndex];
-	// 			randomArray.push(randomItem);
-	// 			items.splice(randomIndex, 1);
-	// 		}
-
-	// 		return randomArray;
-	// 		//ensures that the same element won't be selected twice -- and reduces the amount of memory the initial array takes up, as the items are being removed from it
-	// 	}
-	// }
-	//lodash call to deal with the random card sorting on the home page.
-
+	//Making a random list for the featured items.
 	const originalList = useCollection(collection(db, 'figures'));
 
 	const randomList = computed(function () {
 		return _.shuffle(originalList.value).slice(0, 3);
 	});
 
-	// function makeRandomList(list) {
-	// 	let randomArray = [];
-	// 	let randomList = _.shuffle(list);
-	// 	for (let i = 0; i < 3; i++) {
-	// 		randomArray.push(randomList[i]);
-	// 	}
-	// 	console.log('Random array created.', randomArray);
-	// 	return randomArray;
-	// }
-
+	//An example of a toggle with true/false.
 	const active = ref(true);
 
+	//Running the rainbow letters import.
 	const container = ref(null);
 	const phrase = 'Featured Items';
 	onMounted(function () {
@@ -80,7 +62,7 @@
 
 <template>
 	<section class="featured-items">
-		<pre v-if="figures" style="color: cyan">{{ randomList }}</pre>
+		<!-- <pre v-if="figures" style="color: cyan">{{ randomList }}</pre> -->
 		<!-- <pre v-if="figures" style="color: blue">{{}}</pre> -->
 
 		<module-header>
@@ -93,12 +75,13 @@
 		</ul>
 
 		<!-- <FigureList v-bind:figures="makeRandomList(figures)" /> -->
+		<div id="canvas"></div>
 	</section>
 </template>
 
 <style scoped>
-	.featured-items {
-		/*		border: 3px solid red;*/
+	#canvas {
+		display: none;
 	}
 	picture {
 		width: 236px;

@@ -21,10 +21,9 @@
 		return query(collection(db, 'figures'), where('slug', '==', route.params.figure));
 	});
 
-	const figure = useCollection(figureRef);
+	const figure = useDocument(figureRef);
 </script>
 <template>
-	<div v-if="figure">{{ figure }}</div>
 	<figure-info>
 		<picture> <img v-bind:src="figure[0].image" /></picture>
 		<text-block>

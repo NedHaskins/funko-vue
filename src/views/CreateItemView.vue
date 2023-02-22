@@ -83,14 +83,14 @@ to every page.-->
 			<input-wrapper>
 				<label>Category</label>
 				<select v-if="categories" v-model="chosenCategoryId">
-					<option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+					<option v-for="category in categories" :value="category.slug">{{ category.name }}</option>
 				</select>
 			</input-wrapper>
 
 			<input-wrapper>
 				<label>Subcategory</label>
 				<select v-if="chosenCategoryId" v-model="chosenSubcategoryId">
-					<option v-for="subcategory in subcategories" :value="subcategory.id">{{ subcategory.name }}</option>
+					<option v-for="subcategory in subcategories" :value="subcategory.slug">{{ subcategory.name }}</option>
 				</select>
 			</input-wrapper>
 

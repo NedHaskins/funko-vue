@@ -22,13 +22,13 @@ function useUser() {
 
 	const docReference = computed(function () {
 		if (authUser.value) {
-			console.log(authUser.value.uid);
+			// console.log(authUser.value.uid);
 			return doc(collection(db, 'users'), authUser.value.uid);
 		} else {
 			return false;
 		}
 	});
-	console.log(docReference);
+	// console.log(docReference);
 	const userDoc = useDocument(docReference);
 	const role = computed(() => userDoc.value?.role);
 	const name = computed(() => userDoc.value?.name);
@@ -82,6 +82,7 @@ export const useUserService = defineStore('user', function () {
 	function signOut() {
 		fbSignOut(auth)
 			.then(() => {
+				//check that the user is disconnected -- and reload corresponding cart data -- or all user data
 				router.push('/');
 				console.log('user.signOut');
 			})

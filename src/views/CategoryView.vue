@@ -27,7 +27,7 @@
 
 <template>
    <module-header>
-      <p>{{ subcategories }}</p>
+      <!-- <p>{{ subcategories }}</p> -->
       <h2>{{ category.name }}</h2>
       <h3>{{ category.blurb }}</h3>
    </module-header>

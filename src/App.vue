@@ -7,18 +7,6 @@
 	import { onMounted, watch } from 'vue';
 
 	const route = useRoute();
-
-	// function checkRoute() {
-	// 	let name = route.name;
-	// 	if (name.includes('intro')) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// }
-
-	// checkRoute();
-
 	// onMounted(function () {
 	// 	if (localStorage.getItem('shoppingCartData')) {
 	// 		shoppingCart.list = JSON.parse(localStorage.getItem('shoppingCartData'));
@@ -34,7 +22,7 @@
 </script>
 
 <template>
-	<pre><code>{{route.name}}</code></pre>
+	<pre class="route-display"><code>{{route.name}}</code></pre>
 	<SiteHeader v-if="!route.name?.includes('intro')" />
 	<!-- the question mark here allows the `skip` that happens in the route value during rendering.  This fixed the problem of the pages not loading successfully during this check.-->
 	<main class="outlet">
@@ -45,4 +33,8 @@
 	<SiteFooter v-if="!route.name?.includes('intro')" />
 </template>
 
-<style scoped></style>
+<style scoped>
+	.route-display {
+		display: none;
+	}
+</style>

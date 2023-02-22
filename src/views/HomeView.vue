@@ -1,13 +1,17 @@
 <script setup>
    import FeaturedItems from '@/components/FeaturedItems.vue';
-   import { useUserDataStore } from '@/stores/userData';
-   const users = useUserDataStore();
+
+   import { collection } from 'firebase/firestore';
+   import { useFirestore, useCollection } from 'vuefire';
+
+   const db = useFirestore();
+   const figures = useCollection(collection(db, 'figures'));
 </script>
 
 <template>
    <!--if user is loggedin and they have an admin role-->
 
-   <FeaturedItems />
+   <FeaturedItems v-if="figures" />
 </template>
 
 <style scoped></style>

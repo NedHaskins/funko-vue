@@ -26,6 +26,26 @@ const router = createRouter({
 
 	routes: [
 		{
+			path: '/intro/1',
+			name: 'intro-1',
+			component: () => import('@/views/page-intro/IntroView1.vue'),
+		},
+		{
+			path: '/intro/2',
+			name: 'intro-2',
+			component: () => import('@/views/page-intro/IntroView2.vue'),
+		},
+		{
+			path: '/intro/3',
+			name: 'intro-3',
+			component: () => import('@/views/page-intro/IntroView3.vue'),
+		},
+		{
+			path: '/intro/4',
+			name: 'intro-4',
+			component: () => import('@/views/page-intro/IntroView4.vue'),
+		},
+		{
 			path: '/',
 			name: 'home',
 			component: () => import('../views/HomeView.vue'),
@@ -50,11 +70,6 @@ const router = createRouter({
 			name: 'category',
 			component: CategoryView,
 		},
-		{
-			path: '/:cat/:sub',
-			name: 'subcategory',
-			component: SubcategoryView,
-		},
 
 		{
 			path: '/figures',
@@ -63,13 +78,20 @@ const router = createRouter({
 		},
 		{
 			//used for when a figure has no subcategory
-			path: '/:cat/:figure',
+			//Order matters here.  This one must be listed first so that figures with no subcategories can be properly loaded.
+			//The best solution may be to use a completely different URL.
+			path: '/figure/:cat/:figure',
 			name: 'figure-no-sub',
 			component: FigureView,
 		},
 		{
+			path: '/:cat/:sub',
+			name: 'subcategory',
+			component: SubcategoryView,
+		},
+		{
 			//These are the route params! :)
-			path: '/:cat/:sub/:figure', //<--- values here are used to filter down values to match for detail pages
+			path: '/figure/:cat/:sub/:figure', //<--- values here are used to filter down values to match for detail pages
 			name: 'figure-with-sub',
 			component: FigureView,
 		},
