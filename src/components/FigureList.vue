@@ -45,7 +45,6 @@
 	}
 
 	#canvas {
-		border: 3px solid lime;
-		padding: 50px;
+		display: none;
 	}
 </style>
