@@ -1,26 +1,54 @@
 <script setup>
-	import { computed } from 'vue';
+	import { computed, onMounted } from 'vue';
+	import { useRoute } from 'vue-router';
 	import { useUserService } from '@/services/UserService';
 
 	//Firestore / Vuefire imports
-	import { useFirestore, useCollection } from 'vuefire';
-	import { collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+	import { useFirestore, useCollection, useDocument } from 'vuefire';
+	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
-	defineProps(['figure']);
+	//Vue variables
+	const route = useRoute();
 
 	//Firestore / Vuefire variables
 	const db = useFirestore();
 	const user = useUserService();
+
+	defineProps(['figure']);
+
+	function redirect() {
+		window.location.href = `figure/${figure.name}`;
+	}
+
+	// onMounted(function () {
+	// 	console.log(figure);
+	// });
+
+	//Trying a different way to bring the figures into the figure card.
+
+	// 	const figureRef = query(collection(db, 'figures'), where('slug', '==', route.params.figure));
+
+	// 	const figure = useDocument(figureRef);
+	//
 </script>
 <template>
-	<figure-card>
-		<RouterLink v-if="!figure.subcategory" :to="`/${figure.category}/${figure.slug}`">
+	<figure-card v-if="figure">
+		<RouterLink
+			v-if="!figure.subcategory"
+			v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.slug } }"
+		>
 			<picture>
 				<img v-bind:src="figure.image" />
 			</picture>
 		</RouterLink>
 
-		<RouterLink v-else :to="`/${figure.category}/${figure.subcategory}/${figure.slug}`">
+		<RouterLink
+			v-else
+			v-bind:to="{
+				name: 'figure-with-sub',
+				params: { cat: figure.category, sub: figure.subcategory, figure: figure.slug },
+			}"
+		>
 			<picture>
 				<img v-bind:src="figure.image" />
 			</picture>
@@ -33,7 +61,7 @@
 				<p>${{ figure.price }}</p>
 			</div>
 
-			<div v-if="figure.subcategory == null" class="more-info">
+			<div v-if="!figure.subcategory" class="more-info">
 				<RouterLink v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.slug } }"
 					>More info</RouterLink
 				>
