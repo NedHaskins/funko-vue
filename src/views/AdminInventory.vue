@@ -18,6 +18,11 @@
 <template>
 	<h1>Admin Inventory</h1>
 
+	<RouterLink to="/inventory/create-category">Create / view / edit category</RouterLink>
+	<RouterLink to="/inventory/create-subcategory">Create / view / edit subcategory</RouterLink>
+
+	<RouterLink to="/inventory/create">Create figure</RouterLink>
+
 	<ul v-if="figures" v-for="figure in figures">
 		<li><RouterLink :to="`/inventory/edit/${figure.slug}`">Edit</RouterLink>{{ figure.name }}</li>
 	</ul>
