@@ -3,25 +3,39 @@
 	import { ref, reactive, computed, watch } from 'vue';
 	import { useRoute, RouterLink } from 'vue-router';
 
-	//FIRESTORE AND VUEFIRE IMPORTS
+	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
 	import { query, where, collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-	//DATABASE VARIABLES
-	const db = useFirestore();
+	//Vue variables
 	const route = useRoute();
-	const categories = useCollection(collection(db, 'categories'));
 
-	const figures = useCollection(collection(db, 'figures'));
-
+	//Reactive objects to hold user-chosen values from the dropdown menus.
 	let chosenCategoryId = ref(null);
 	let chosenSubcategoryId = ref(null);
 
+	//Vuefire variables
+	const db = useFirestore();
+	const figures = useCollection(collection(db, 'figures'));
+
+	const categories = useCollection(collection(db, 'categories'));
+
+	const subcategoriesRef = computed(function () {
+		if (chosenCategoryId.value) {
+			return collection(db, 'categories', chosenCategoryId.value, 'subcategories');
+		} else {
+			console.log('There are no subcategories in this collection.');
+		}
+	});
+
+	const subcategories = useCollection(subcategoriesRef);
+
+	//Stores the user inputs from the form
 	const userInput = reactive({
-		//stores the user inputs from the form
 		id: '',
 		name: '',
 		category: '',
+		subcategory: '',
 		image: '',
 		price: '',
 		description: '',
@@ -31,6 +45,7 @@
 		setDoc(doc(db, 'figures', id), {
 			name: userInput.name,
 			category: chosenCategoryId.value,
+			subcategory: chosenSubcategoryId.value,
 			image: userInput.image,
 			price: userInput.price,
 			description: userInput.description,
@@ -50,6 +65,7 @@
 			userInput.id,
 			userInput.name,
 			userInput.category,
+			userInput.subcategory,
 			userInput.image,
 			userInput.price,
 			userInput.description,
@@ -86,14 +102,14 @@
 				</select>
 			</input-wrapper>
 
-			<!-- 	<input-wrapper>
+			<input-wrapper>
 				<label>Subcategory</label>
-				<select v-model="tempFigure.subcategory">
+				<select v-if="chosenCategoryId" v-model="chosenSubcategoryId">
 					<option v-if="subcategories" v-for="subcat in subcategories" :value="subcat.id">
 						{{ subcat.name }}
 					</option>
 				</select>
-			</input-wrapper> -->
+			</input-wrapper>
 
 			<input-wrapper>
 				<label>Image</label>
