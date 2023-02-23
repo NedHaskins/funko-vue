@@ -22,16 +22,16 @@
 		name: '',
 	});
 
-	function addCategory() {
+	function addCategory(id) {
 		// alert(`Add ${form.name}`);
-		addDoc(collection(db, 'categories'), {
-			slug: userInput.slug,
+		setDoc(doc(db, 'categories', id), {
 			name: userInput.name,
 			blurb: userInput.blurb,
 			image: userInput.image,
 		});
+
 		alert(`The category ${userInput.name} has been added to Firestore.`);
-		userInput.slug = '';
+		userInput.id = '';
 		userInput.name = '';
 		userInput.blurb = '';
 		userInput.image = '';
@@ -39,13 +39,13 @@
 </script>
 
 <template>
-	<form @submit.prevent="addCategory()">
+	<form @submit.prevent="addCategory(userInput.id)">
 		<h2>Create new category</h2>
 		<h3>Add a new a category of figures to the Firebase store.</h3>
 
 		<input-wrapper>
-			<label>Slug</label>
-			<input id="slug" type="text" v-model="userInput.slug" />
+			<label>Firestore Document ID</label>
+			<input id="slug" type="text" v-model="userInput.id" />
 		</input-wrapper>
 
 		<input-wrapper>
