@@ -20,6 +20,8 @@ import CreateSubcategoryView from '@/views/CreateSubcategoryView.vue';
 
 import FirebaseTestView from '@/views/FirebaseTestView.vue';
 import SignInPage from '@/views/pages/SignInPage.vue';
+import AdminInventoryView from '@/views/AdminInventory.vue';
+import EditFigureView from '@/views/EditFigure.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,7 +82,7 @@ const router = createRouter({
 			//used for when a figure has no subcategory
 			//Order matters here.  This one must be listed first so that figures with no subcategories can be properly loaded.
 			//The best solution may be to use a completely different URL.
-			path: '/figure/:cat/:figure',
+			path: '/:cat/:figure',
 			name: 'figure-no-sub',
 			component: FigureView,
 		},
@@ -142,6 +144,16 @@ const router = createRouter({
 			path: '/signin-page',
 			name: 'signin-page',
 			component: SignInPage,
+		},
+		{
+			path: '/inventory',
+			name: 'inventory',
+			component: AdminInventoryView,
+		},
+		{
+			path: '/inventory/edit/:slug',
+			name: 'edit-figure',
+			component: EditFigureView,
 		},
 	],
 });

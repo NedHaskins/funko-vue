@@ -45,13 +45,13 @@
 		<input-wrapper>
 			<label>Choose a category.</label>
 			<select v-if="categories" v-model="chosenCategoryId">
-				<option v-for="category in categories" :value="category">{{ category.name }}</option>
+				<option v-for="category in categories" :value="category.id">{{ category.name }}</option>
 			</select>
 		</input-wrapper>
 
 		<input-wrapper>
 			<label>Slug</label>
-			<input id="slug" type="text" v-model="userInput.slug" />
+			<input id="slug" type="text" v-model="userInput.slug" value />
 		</input-wrapper>
 
 		<input-wrapper>
