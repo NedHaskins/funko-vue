@@ -18,8 +18,10 @@
 	let chosenCategoryId = ref(null);
 
 	const userInput = reactive({
-		slug: '',
+		id: '',
 		name: '',
+		blurb: '',
+		image: '',
 	});
 
 	function addCategory(id) {

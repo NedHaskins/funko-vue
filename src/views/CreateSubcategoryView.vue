@@ -18,19 +18,22 @@
 	let chosenCategoryId = ref(null);
 
 	const userInput = reactive({
-		slug: '',
+		category: chosenCategoryId,
+		id: '',
 		name: '',
+		blurb: '',
+		image: '',
 	});
 
-	async function addSubcategory(category) {
-		await addDoc(collection(db, 'categories', category.id, 'subcategories'), {
-			slug: userInput.slug,
+	function addSubcategory(id, category) {
+		setDoc(doc(db, 'categories', category, 'subcategories', id), {
 			name: userInput.name,
 			blurb: userInput.blurb,
 			image: userInput.image,
 		});
-		alert(`The subcategory ${userInput.name} has been added to the ${category.name} document.`);
-		userInput.slug = '';
+
+		alert(`The subcategory ${userInput.name} has been added to ${category}.`);
+		userInput.id = '';
 		userInput.name = '';
 		userInput.blurb = '';
 		userInput.image = '';
@@ -38,7 +41,7 @@
 </script>
 
 <template>
-	<form @submit.prevent="addSubcategory(chosenCategoryId)">
+	<form @submit.prevent="addSubcategory(userInput.id, chosenCategoryId)">
 		<h2>Create new subcategory</h2>
 		<h3>Add a new subcategory collection to one of the existing category documents in the Firebase store.</h3>
 
@@ -50,8 +53,8 @@
 		</input-wrapper>
 
 		<input-wrapper>
-			<label>Slug</label>
-			<input id="slug" type="text" v-model="userInput.slug" value />
+			<label>Firestore Document ID</label>
+			<input id="slug" type="text" v-model="userInput.id" value />
 		</input-wrapper>
 
 		<input-wrapper>
