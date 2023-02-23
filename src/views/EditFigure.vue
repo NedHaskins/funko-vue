@@ -3,11 +3,11 @@
 	import { ref, reactive, computed, watch } from 'vue';
 	import { useRoute, RouterLink } from 'vue-router';
 
-	//FIRESTORE AND VUEFIRE IMPORTS
+	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
 	import { query, where, collection, doc, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-	//DATABASE VARIABLES
+	//Database variables
 	const db = useFirestore();
 	const route = useRoute();
 	const categories = useCollection(collection(db, 'categories'));
@@ -18,19 +18,19 @@
 
 	const tempFigure = ref(figure); //allows for walking back edits
 
-	// const subcategories = useCollection(collection(db, 'categories', tempFigure.value.category, 'subcategories'));
+	//Reactive objects to hold user-chosen values from the dropdown menus.
+	const chosenCategoryId = ref(null);
+	let chosenSubcategoryId = ref(null);
 
-	// const subcategoriesReference = computed(function () {
-	// 	if (tempFigure.value.category) {
-	// 		//check for the dynamic value that the main variable value depends on
-	// 		return collection(db, 'categories', tempFigure.value.category, 'subcategories');
-	// 		console.log('Collection returned.');
-	// 	} else {
-	// 		return false;
-	// 	}
-	// });
+	const subcategoriesRef = computed(function () {
+		if (chosenCategoryId.value) {
+			return collection(db, 'categories', chosenCategoryId.value, 'subcategories');
+		} else {
+			console.log('There are no subcategories in this collection.');
+		}
+	});
 
-	// const subcategories = useCollection(subcategoriesReference);
+	const subcategories = useCollection(subcategoriesRef);
 
 	// let updateForm = reactive({
 	// 	slug: tempFigure?.slug,
@@ -42,7 +42,7 @@
 	// 	description: tempFigure?.description,
 	// });
 
-	function updateFigure(id, newName, newRole) {
+	function updateFigure(id) {
 		setDoc(doc(db, 'figures', tempFigure.value), {
 			slug: newSlug,
 			name: newName,
@@ -59,53 +59,54 @@
 </script>
 
 <template>
-	<div style="color: cyan" v-if="figure">{{ tempFigure }}</div>
-	<div style="color: lime" v-if="figure">{{ tempFigure }}</div>
-	<div style="color: red" v-if="figure">{{}}</div>
+	<pre style="color: orange" v-if="figure">{{ figure }}</pre>
+	<pre style="color: cyan" v-if="figure">{{ tempFigure.category }}</pre>
+	<pre style="color: lime" v-if="figure">{{ route.params.slug }}</pre>
+	<div style="color: red" v-if="figure">{{ subcategories }}</div>
 	<div v-if="tempFigure?.category" class="view-edit-figure-form-wrapper">
 		<h2>View / Edit Figure Info</h2>
 		<form>
 			<input-wrapper>
 				<label>Slug</label>
-				<input id="slug" type="text" :value="tempFigure.slug" />
+				<input id="slug" type="text" v-model="tempFigure.slug" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label>Name</label>
-				<input id="name" type="text" :value="tempFigure.name" />
+				<input id="name" type="text" v-model="tempFigure.name" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label>Category</label>
-				<select v-model="tempFigure.category">
+				<select v-model="chosenCategoryId">
 					<option v-if="categories" v-for="category in categories" :value="category.id">
 						{{ category.name }}
 					</option>
 				</select>
 			</input-wrapper>
 
-			<input-wrapper>
+			<!-- 			<input-wrapper>
 				<label>Subcategory</label>
 				<select v-model="tempFigure.subcategory">
 					<option v-if="subcategories" v-for="subcat in subcategories" :value="subcat.id">
 						{{ subcat.name }}
 					</option>
 				</select>
-			</input-wrapper>
+			</input-wrapper> -->
 
 			<input-wrapper>
 				<label>Image</label>
-				<input :value="tempFigure.image" />
+				<input v-model="tempFigure.image" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label>Price</label>
-				<input :value="tempFigure.price" />
+				<input v-model="tempFigure.price" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label>Description</label>
-				<input :value="tempFigure.description" />
+				<input v-model="tempFigure.description" />
 			</input-wrapper>
 
 			<button-wrapper>
