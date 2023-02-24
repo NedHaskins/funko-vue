@@ -18,7 +18,7 @@ import { useCurrentUser, useFirestore, useDocument, useCollection } from 'vuefir
 
 export const useUserService = defineStore('user', function () {
 	const auth = getAuth();
-	const db = useFirebase();
+	const db = useFirestore();
 	const current = useCurrentUser();
 
 	function clearForm(form) {
@@ -29,7 +29,7 @@ export const useUserService = defineStore('user', function () {
 	const docReference = computed(function () {
 		if (current.value) {
 			// console.log(authUser.value.uid);
-			return doc(collection(db, 'users'), authUser.value.uid);
+			return doc(collection(db, 'users'), current.value.uid);
 		} else {
 			return false;
 		}
