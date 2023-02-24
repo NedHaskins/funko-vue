@@ -33,6 +33,7 @@
 	//Stores the user inputs from the form
 	const userInput = reactive({
 		id: '',
+		slug: '',
 		name: '',
 		category: '',
 		subcategory: '',
@@ -44,6 +45,7 @@
 	function addFigure(id) {
 		setDoc(doc(db, 'figures', id), {
 			name: userInput.name,
+			slug: userInput.slug,
 			category: chosenCategoryId.value,
 			subcategory: chosenSubcategoryId.value,
 			image: userInput.image,
@@ -54,6 +56,8 @@
 		alert(`The figure ${userInput.name} has been added to Firestore.`);
 		userInput.id = '';
 		userInput.name = '';
+		userInput.category = '';
+		userInput.subcategory = '';
 		userInput.image = '';
 		userInput.price = '';
 		userInput.description = '';
@@ -86,6 +90,11 @@
 			<input-wrapper>
 				<label>Firestore Document ID</label>
 				<input type="text" v-model="userInput.id" />
+			</input-wrapper>
+
+			<input-wrapper>
+				<label>URL Slug</label>
+				<input type="text" v-model="userInput.slug" />
 			</input-wrapper>
 
 			<input-wrapper>

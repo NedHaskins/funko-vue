@@ -45,16 +45,16 @@
 	// });
 
 	function updateFigure(id) {
-		setDoc(doc(db, 'figures', tempFigure.value), {
-			slug: newSlug,
-			name: newName,
-			category: newCategory,
-			subcategory: newSubcategory,
-			image: newImage,
-			price: newPrice,
-			description: newDescription,
+		setDoc(doc(db, 'figures', tempFigure.value.id), {
+			slug: tempFigure.value.slug,
+			name: tempFigure.value.name,
+			category: tempFigure.value.category,
+			subcategory: tempFigure.value.subcategory,
+			image: tempFigure.value.image,
+			price: tempFigure.value.price,
+			description: tempFigure.value.description,
 		});
-		console.log('Figure updated');
+		alert('Figure updated');
 	}
 
 	function revertFigure() {}
@@ -67,7 +67,7 @@
 	<div style="color: red" v-if="figure">{{ subcategories }}</div>
 	<div v-if="tempFigure" class="view-edit-figure-form-wrapper">
 		<h2>View / Edit Figure Info</h2>
-		<form>
+		<form @submit.prevent="updateFigure(tempFigure.id)">
 			<input-wrapper>
 				<label>Slug</label>
 				<input id="slug" type="text" v-model="tempFigure.slug" />

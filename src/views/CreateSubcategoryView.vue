@@ -30,8 +30,8 @@
 			name: userInput.name,
 			blurb: userInput.blurb,
 			image: userInput.image,
+			//the category field isn't needed here because it won't appear in the inside document
 		});
-
 		alert(`The subcategory ${userInput.name} has been added to ${category}.`);
 		userInput.id = '';
 		userInput.name = '';
@@ -54,7 +54,7 @@
 
 		<input-wrapper>
 			<label>Firestore Document ID</label>
-			<input id="slug" type="text" v-model="userInput.id" value />
+			<input type="text" v-model="userInput.id" />
 		</input-wrapper>
 
 		<input-wrapper>
