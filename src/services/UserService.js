@@ -16,12 +16,18 @@ import { doc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useCurrentUser, useFirestore, useDocument, useCollection } from 'vuefire';
 //these are all ref objects
 
-function useUser() {
-	const db = useFirestore();
-	const authUser = useCurrentUser();
+export const useUserService = defineStore('user', function () {
+	const auth = getAuth();
+	const db = useFirebase();
+	const current = useCurrentUser();
+
+	function clearForm(form) {
+		form.email = '';
+		form.password = '';
+	}
 
 	const docReference = computed(function () {
-		if (authUser.value) {
+		if (current.value) {
 			// console.log(authUser.value.uid);
 			return doc(collection(db, 'users'), authUser.value.uid);
 		} else {
@@ -32,24 +38,6 @@ function useUser() {
 	const userDoc = useDocument(docReference);
 	const role = computed(() => userDoc.value?.role);
 	const name = computed(() => userDoc.value?.name);
-	// const isAdmin = computed(function () {
-	// 	return userDoc.roles.admin;
-	// });
-
-	return { userDoc, role, name };
-}
-
-export const useUserService = defineStore('user', function () {
-	const auth = getAuth();
-
-	const current = useCurrentUser();
-
-	function clearForm(form) {
-		form.email = '';
-		form.password = '';
-	}
-
-	const { userDoc, role, name } = useUser();
 
 	const router = useRouter();
 
