@@ -5,7 +5,11 @@ make an [X} option to the left of each item row to remove it from the list if de
 <script setup>
 	import { computed } from 'vue';
 
-	defineProps(['user', 'cart']);
+	import { useCartService } from '@/services/CartService';
+
+	// defineProps(['user', 'cart']);
+
+	const cart = useCartService();
 </script>
 
 <template>
@@ -26,7 +30,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 				<tr class="total">
 					<td>TOTAL</td>
 					<td></td>
-					<td>${{ cart.totalPrice?.toFixed(2) }}</td>
+					<td>${{ cart.prettyTotal }}</td>
 				</tr>
 			</tbody>
 		</table>
