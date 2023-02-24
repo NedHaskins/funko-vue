@@ -11,49 +11,55 @@
 </script>
 
 <template>
+	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
 	<button type="button" @click="user.signOut()" v-if="user.current">signout</button>
 
-	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
-	<div class="user-signup">
-		<form @submit.prevent="user.signUp(form)" v-if="!user.current">
-			<h2 class="attention-voice">Sign up</h2>
-			<input-wrapper>
-				<label for="email1">email</label>
-				<input id="email1" type="text" v-model="form.email" />
-			</input-wrapper>
+	<forms-outerbox>
+		<div class="user-login">
+			<form @submit.prevent="user.signIn(form)" v-if="!user.current">
+				<h2 class="attention-voice">Login</h2>
 
-			<input-wrapper>
-				<label for="password1">password</label>
-				<input id="password1" type="text" v-model="form.password" />
-			</input-wrapper>
-			<button-wrapper>
-				<button type="submit">Sign up</button>
-			</button-wrapper>
-		</form>
-	</div>
+				<input-wrapper>
+					<label for="email2">email</label>
+					<input id="email2" type="text" v-model="form.email" />
+				</input-wrapper>
 
-	<div class="user-login">
-		<form @submit.prevent="user.signIn(form)" v-if="!user.current">
-			<h2 class="attention-voice">Login</h2>
+				<input-wrapper>
+					<label for="password2">password</label>
+					<input id="password2" type="text" v-model="form.password" />
+				</input-wrapper>
 
-			<input-wrapper>
-				<label for="email2">email</label>
-				<input id="email2" type="text" v-model="form.email" />
-			</input-wrapper>
+				<button-wrapper>
+					<button type="submit">Log in</button>
+				</button-wrapper>
+			</form>
+		</div>
+		<div class="user-signup">
+			<form @submit.prevent="user.signUp(form)" v-if="!user.current">
+				<h2 class="attention-voice">Sign up</h2>
+				<input-wrapper>
+					<label for="email1">email</label>
+					<input id="email1" type="text" v-model="form.email" />
+				</input-wrapper>
 
-			<input-wrapper>
-				<label for="password2">password</label>
-				<input id="password2" type="text" v-model="form.password" />
-			</input-wrapper>
-
-			<button-wrapper>
-				<button type="submit">Log in</button>
-			</button-wrapper>
-		</form>
-	</div>
+				<input-wrapper>
+					<label for="password1">password</label>
+					<input id="password1" type="text" v-model="form.password" />
+				</input-wrapper>
+				<button-wrapper>
+					<button type="submit">Sign up</button>
+				</button-wrapper>
+			</form>
+		</div>
+	</forms-outerbox>
 </template>
 
 <style lang="scss" scoped>
+	forms-outerbox {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.user-signup,
 	.user-login {
 		border: 2px solid var(--ink);
@@ -66,6 +72,7 @@
 		justify-content: center;
 		margin-top: 60px;
 		padding: 30px 0px 30px 0px;
+		// max-width: 630px;
 		// margin: 60px auto 0px auto;
 		// width: 80%;
 	}
@@ -87,7 +94,7 @@
 		display: flex;
 
 		justify-content: center;
-		margin-top: 40px;
+		margin-top: 30px;
 	}
 
 	button-wrapper {
@@ -107,29 +114,34 @@
 	}
 
 	@media (min-width: 540px) {
-		form {
-			// border: 1px solid black;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-
-		label,
-		input {
-			font-family: 'Courier';
-
-			text-align: left;
-		}
-
-		input-wrapper,
-		button-wrapper {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			justify-content: center;
-
-			gap: 35px;
-			font-size: 24px;
+		forms-outerbox {
+			flex-direction: row;
+			justify-content: space-evenly;
 		}
 	}
+	// 	form {
+	// 		// border: 1px solid black;
+	// 		display: flex;
+	// 		flex-direction: column;
+	// 		align-items: center;
+	// 	}
+
+	// 	label,
+	// 	input {
+	// 		font-family: 'Courier';
+
+	// 		text-align: left;
+	// 	}
+
+	// 	input-wrapper,
+	// 	button-wrapper {
+	// 		display: flex;
+	// 		flex-direction: column;
+	// 		width: 100%;
+	// 		justify-content: center;
+
+	// 		gap: 35px;
+	// 		font-size: 24px;
+	// 	}
+	// }
 </style>
