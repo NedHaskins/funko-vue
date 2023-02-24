@@ -29,7 +29,7 @@
 		margin-top: 20px;
 		display: block;
 		background-color: gray;
-		width: 50%;
+		width: 80%;
 		padding: 20px;
 
 		ul {
@@ -54,7 +54,7 @@
 
 				figure-name {
 					display: flex;
-					border: 3px solid red;
+					// border: 3px solid red;
 					align-items: center;
 					font-family: 'Bangers';
 					font-size: 22px;

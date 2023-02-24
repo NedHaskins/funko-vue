@@ -127,7 +127,7 @@
 
 			<input-wrapper>
 				<label>Price</label>
-				<input v-model="userInput.price" />
+				<input type="number" v-model="userInput.price" />
 			</input-wrapper>
 
 			<input-wrapper>

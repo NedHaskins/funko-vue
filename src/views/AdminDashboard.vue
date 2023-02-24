@@ -7,12 +7,9 @@
 	<h1>Admin Dashboard</h1>
 	<!-- </div> -->
 
-	<RouterLink to="/admin/user-profile">View / edit profile</RouterLink>
-	<!-- <RouterLink to="/admin/create-user">Create user</RouterLink> -->
+	<RouterLink to="/inventory">Inventory UI</RouterLink>
 
-	<RouterLink to="/admin/create-item">Create / view / edit item</RouterLink>
-	<RouterLink to="/admin/create-category">Create / view / edit category</RouterLink>
-	<RouterLink to="/admin/create-subcategory">Create / view / edit subcategory</RouterLink>
+	<RouterLink to="/admin/user-profile">View / edit profile</RouterLink>
 
 	<RouterView />
 </template>
