@@ -33,9 +33,10 @@
 </script>
 <template>
 	<figure-card v-if="figure">
+		<div>{{ figure.id }}</div>
 		<RouterLink
 			v-if="!figure.subcategory"
-			v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.slug } }"
+			v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.id } }"
 		>
 			<picture>
 				<img v-bind:src="figure.image" />
@@ -46,7 +47,7 @@
 			v-else
 			v-bind:to="{
 				name: 'figure-with-sub',
-				params: { cat: figure.category, sub: figure.subcategory, figure: figure.slug },
+				params: { cat: figure.category, sub: figure.subcategory, figure: figure.id },
 			}"
 		>
 			<picture>
@@ -62,7 +63,7 @@
 			</div>
 
 			<div v-if="!figure.subcategory" class="more-info">
-				<RouterLink v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.slug } }"
+				<RouterLink v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.id } }"
 					>More info</RouterLink
 				>
 			</div>
@@ -71,7 +72,7 @@
 				<RouterLink
 					v-bind:to="{
 						name: 'figure-with-sub',
-						params: { cat: figure.category, sub: figure.subcategory, figure: figure.slug },
+						params: { cat: figure.category, sub: figure.subcategory, figure: figure.id },
 					}"
 					>More info</RouterLink
 				>

@@ -20,8 +20,10 @@ import CreateSubcategoryView from '@/views/CreateSubcategoryView.vue';
 
 import FirebaseTestView from '@/views/FirebaseTestView.vue';
 import SignInPage from '@/views/pages/SignInPage.vue';
+
 import AdminInventoryView from '@/views/AdminInventory.vue';
 import EditFigureView from '@/views/EditFigure.vue';
+import CreateFigureView from '@/views/CreateFigure.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -118,16 +120,6 @@ const router = createRouter({
 					name: 'create-item',
 					component: CreateItemView,
 				},
-				{
-					path: '/admin/create-category',
-					name: 'create-category',
-					component: CreateCategoryView,
-				},
-				{
-					path: '/admin/create-subcategory',
-					name: 'create-subcategory',
-					component: CreateSubcategoryView,
-				},
 			],
 		},
 		{
@@ -149,6 +141,22 @@ const router = createRouter({
 			path: '/inventory',
 			name: 'inventory',
 			component: AdminInventoryView,
+		},
+
+		{
+			path: '/inventory/create-category',
+			name: 'create-category',
+			component: CreateCategoryView,
+		},
+		{
+			path: '/inventory/create-subcategory',
+			name: 'create-subcategory',
+			component: CreateSubcategoryView,
+		},
+		{
+			path: '/inventory/create',
+			name: 'create-figure',
+			component: CreateFigureView,
 		},
 		{
 			path: '/inventory/edit/:slug',
