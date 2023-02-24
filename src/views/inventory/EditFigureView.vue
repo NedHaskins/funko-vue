@@ -17,7 +17,6 @@
 	const figure = useDocument(figureRef);
 
 	const tempFigure = ref(figure); //allows for walking back edits
-	console.log(tempFigure.value.category);
 	//Reactive objects to hold user-chosen values from the dropdown menus.
 	// const chosenCategoryId = ref(null);
 	// const chosenSubcategoryId = ref(null);
@@ -61,10 +60,10 @@
 </script>
 
 <template>
-	<pre style="color: orange" v-if="figure">{{ figure }}</pre>
-	<pre style="color: cyan" v-if="figure">{{ tempFigure.subcategory }}</pre>
+	<!-- 	<pre style="color: orange" v-if="figure">{{ figure }}</pre>
+	<pre style="color: cyan" v-if="figure">{{ tempFigure.subcategory }}</pre> -->
 	<!-- <pre style="color: lime" v-if="figure">{{ route.params.slug }}</pre> -->
-	<div style="color: red" v-if="figure">{{ subcategories }}</div>
+	<!-- <div style="color: red" v-if="figure">{{ subcategories }}</div> -->
 	<div v-if="tempFigure" class="view-edit-figure-form-wrapper">
 		<h2>View / Edit Figure Info</h2>
 		<form @submit.prevent="updateFigure(tempFigure.id)">

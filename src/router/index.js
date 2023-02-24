@@ -15,15 +15,17 @@ import ShoppingCartView from '@/views/ShoppingCartView.vue';
 import AdminDashboardView from '@/views/AdminDashboard.vue';
 import UserProfileView from '@/views/UserProfileView.vue';
 import CreateItemView from '@/views/CreateItemView.vue';
-import CreateCategoryView from '@/views/CreateCategoryView.vue';
-import CreateSubcategoryView from '@/views/CreateSubcategoryView.vue';
 
 import FirebaseTestView from '@/views/FirebaseTestView.vue';
 import SignInPage from '@/views/pages/SignInPage.vue';
 
-import AdminInventoryView from '@/views/AdminInventory.vue';
-import EditFigureView from '@/views/EditFigure.vue';
-import CreateFigureView from '@/views/CreateFigure.vue';
+//Admin inventory views
+import AdminInventoryView from '@/views/inventory/AdminInventoryView.vue';
+import InventoryListView from '@/views/inventory/InventoryListView.vue';
+import CreateFigureView from '@/views/inventory/CreateFigureView.vue';
+import EditFigureView from '@/views/inventory/EditFigureView.vue';
+import CreateCategoryView from '@/views/inventory/CreateCategoryView.vue';
+import CreateSubcategoryView from '@/views/inventory/CreateSubcategoryView.vue';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -141,27 +143,33 @@ const router = createRouter({
 			path: '/inventory',
 			name: 'inventory',
 			component: AdminInventoryView,
-		},
-
-		{
-			path: '/inventory/create-category',
-			name: 'create-category',
-			component: CreateCategoryView,
-		},
-		{
-			path: '/inventory/create-subcategory',
-			name: 'create-subcategory',
-			component: CreateSubcategoryView,
-		},
-		{
-			path: '/inventory/create',
-			name: 'create-figure',
-			component: CreateFigureView,
-		},
-		{
-			path: '/inventory/edit/:slug',
-			name: 'edit-figure',
-			component: EditFigureView,
+			children: [
+				{
+					path: '/inventory/figure-list',
+					name: 'figure-list',
+					component: InventoryListView,
+				},
+				{
+					path: '/inventory/create-figure',
+					name: 'create-figure',
+					component: CreateFigureView,
+				},
+				{
+					path: '/inventory/edit/:slug',
+					name: 'edit-figure',
+					component: EditFigureView,
+				},
+				{
+					path: '/inventory/create-category',
+					name: 'create-category',
+					component: CreateCategoryView,
+				},
+				{
+					path: '/inventory/create-subcategory',
+					name: 'create-subcategory',
+					component: CreateSubcategoryView,
+				},
+			],
 		},
 	],
 });
