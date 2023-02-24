@@ -14,9 +14,6 @@ import { useUserService } from '@/services/UserService';
 export const useCartService = defineStore('cart', function () {
 	const user = useUserService();
 	const db = useFirestore();
-	const categories = useCollection(collection(db, 'categories'));
-	const userCollection = useCollection(collection(db, 'users'));
-	const figures = useCollection(collection(db, 'figures'));
 
 	const cartReference = computed(function () {
 		if (user.current) {
@@ -25,9 +22,15 @@ export const useCartService = defineStore('cart', function () {
 			return false; //this needs to be a "guest" cart object - maybe local storage?
 		}
 	});
+
 	const list = useCollection(cartReference);
 
+	// await promise;
+
+	console.log(list, list.value);
+
 	//used to group objects that have the same .name value together in an array
+
 	const cartGrouping = computed(function () {
 		return list.value?.reduce(function (group, item) {
 			group[item.name] = group[item.name] ?? [];
@@ -41,7 +44,11 @@ export const useCartService = defineStore('cart', function () {
 	});
 
 	const totalPrice = computed(function () {
-		return list.value.reduce((total, item) => item.price + total, 0);
+		return list.value.reduce((total, item) => Number(item.price) + total, 0);
+	});
+
+	const prettyTotal = computed(function () {
+		return totalPrice.value.toFixed(2);
 	});
 
 	async function addItem(figure) {
@@ -79,5 +86,6 @@ export const useCartService = defineStore('cart', function () {
 		addItem,
 		removeItem,
 		clearCart,
+		prettyTotal,
 	};
 });
