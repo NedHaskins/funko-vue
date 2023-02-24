@@ -17,14 +17,16 @@
 	const figure = useDocument(figureRef);
 
 	const tempFigure = ref(figure); //allows for walking back edits
-
+	console.log(tempFigure.value.category);
 	//Reactive objects to hold user-chosen values from the dropdown menus.
+	// const chosenCategoryId = ref(null);
+	// const chosenSubcategoryId = ref(null);
+
 	const chosenCategoryId = ref(null);
-	let chosenSubcategoryId = ref(null);
 
 	const subcategoriesRef = computed(function () {
-		if (chosenCategoryId.value) {
-			return collection(db, 'categories', chosenCategoryId.value, 'subcategories');
+		if (tempFigure.value) {
+			return collection(db, 'categories', tempFigure.value.category, 'subcategories');
 		} else {
 			console.log('There are no subcategories in this collection.');
 		}
@@ -60,10 +62,10 @@
 
 <template>
 	<pre style="color: orange" v-if="figure">{{ figure }}</pre>
-	<pre style="color: cyan" v-if="figure">{{ tempFigure.category }}</pre>
-	<pre style="color: lime" v-if="figure">{{ route.params.slug }}</pre>
+	<pre style="color: cyan" v-if="figure">{{ tempFigure.subcategory }}</pre>
+	<!-- <pre style="color: lime" v-if="figure">{{ route.params.slug }}</pre> -->
 	<div style="color: red" v-if="figure">{{ subcategories }}</div>
-	<div v-if="tempFigure?.category" class="view-edit-figure-form-wrapper">
+	<div v-if="tempFigure" class="view-edit-figure-form-wrapper">
 		<h2>View / Edit Figure Info</h2>
 		<form>
 			<input-wrapper>
@@ -78,21 +80,21 @@
 
 			<input-wrapper>
 				<label>Category</label>
-				<select v-model="chosenCategoryId">
-					<option v-if="categories" v-for="category in categories" :value="category.id">
-						{{ category.name }}
+				<select v-model="tempFigure.category">
+					<option v-for="choice in categories" :value="choice.id">
+						{{ choice.name }}
 					</option>
 				</select>
 			</input-wrapper>
 
-			<!-- 			<input-wrapper>
+			<input-wrapper>
 				<label>Subcategory</label>
 				<select v-model="tempFigure.subcategory">
 					<option v-if="subcategories" v-for="subcat in subcategories" :value="subcat.id">
 						{{ subcat.name }}
 					</option>
 				</select>
-			</input-wrapper> -->
+			</input-wrapper>
 
 			<input-wrapper>
 				<label>Image</label>
