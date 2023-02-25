@@ -80,10 +80,12 @@
 		userInput.price = '';
 		userInput.description = '';
 	}
+
+	//form fields populated by current figure... if user submits, pass updateDoc with tempFigure if cancel -- reset tempFigure back to temp
 </script>
 
 <template>
-	<pre style="color: cyan" v-if="figures">{{ figures }}</pre>
+	<!-- <pre style="color: cyan" v-if="figures">{{ figures }}</pre> -->
 	<div class="create-figure-form-wrapper">
 		<form @submit.prevent="addFigure(userInput.id)">
 			<h2>Create Figure</h2>
@@ -142,9 +144,95 @@
 	</div>
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+	.create-figure-form-wrapper {
+		margin-top: 31px;
+		display: block;
+		background-color: gray;
+		padding: 26px;
+		box-shadow: 10px 10px var(--ink);
+		form {
+			input-wrapper {
+				display: flex;
+				flex-direction: column;
+				margin-top: 16px;
+				input {
+					margin-top: 6px;
+				}
+			}
 
-form fields populated by current figure... if user submits, pass updateDoc with tempFigure if cancel -- reset tempFigure
-back to tem
+			button-wrapper {
+				display: block;
+				margin-top: 16px;
+			}
 
-<style></style>
+			label,
+			input,
+			select {
+				font-size: 32px;
+			}
+		}
+
+		ul {
+			margin-top: 20px;
+			li {
+				display: flex;
+				flex-direction: row;
+				gap: 20px;
+				// border: 3px solid black;
+
+				link-wrapper,
+				figure-name {
+					display: block;
+				}
+
+				link-wrapper,
+				button {
+					border: 3px solid black;
+					padding: 10px;
+					font-family: 'Bangers';
+					background-color: white;
+				}
+
+				button,
+				a {
+					font-size: 20px;
+				}
+
+				figure-name {
+					display: flex;
+					// border: 3px solid red;
+					align-items: center;
+					font-family: 'Bangers';
+					font-size: 22px;
+				}
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		a {
+			color: black;
+		}
+	}
+
+	@media (min-width: 600px) {
+		figure-list {
+			max-width: 520px;
+		}
+
+		.create-figure-form-wrapper {
+			width: 60%;
+			form {
+				input-wrapper {
+					width: 80%;
+					label,
+					input,
+					select {
+						font-size: 24px;
+					}
+				}
+			}
+		}
+	}
+</style>

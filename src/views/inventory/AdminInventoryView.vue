@@ -58,7 +58,7 @@
 		a {
 			display: inline-block;
 			font-family: 'Bangers';
-			font-size: 21px;
+			font-size: 28px;
 		}
 
 		.router-link-active {
@@ -74,6 +74,12 @@
 
 		a {
 			color: black;
+		}
+	}
+
+	@media (min-width: 600px) {
+		inventory-ui-navbar a {
+			font-size: 21px;
 		}
 	}
 </style>
