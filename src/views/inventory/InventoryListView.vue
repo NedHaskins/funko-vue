@@ -18,6 +18,7 @@
 				<link-wrapper>
 					<RouterLink :to="`/inventory/edit/${figure.slug}`">Edit</RouterLink>
 				</link-wrapper>
+				<button>Delete</button>
 				<figure-name>{{ figure.name }}</figure-name>
 			</li>
 		</ul>
@@ -26,10 +27,9 @@
 
 <style lang="scss" scoped>
 	figure-list {
-		margin-top: 20px;
+		margin-top: 31px;
 		display: block;
 		background-color: gray;
-		width: 80%;
 		padding: 20px;
 
 		ul {
@@ -45,11 +45,17 @@
 					display: block;
 				}
 
-				link-wrapper {
+				link-wrapper,
+				button {
 					border: 3px solid black;
 					padding: 10px;
 					font-family: 'Bangers';
 					background-color: white;
+				}
+
+				button,
+				a {
+					font-size: 20px;
 				}
 
 				figure-name {
@@ -60,6 +66,18 @@
 					font-size: 22px;
 				}
 			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		a {
+			color: black;
+		}
+	}
+
+	@media (min-width: 600px) {
+		figure-list {
+			max-width: 520px;
 		}
 	}
 </style>

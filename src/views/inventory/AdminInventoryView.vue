@@ -24,16 +24,56 @@
 	<module-header>
 		<div id="letters-container" ref="container"></div>
 	</module-header>
-	<RouterLink to="/inventory/figure-list">View figure list</RouterLink>
-	<RouterLink to="/inventory/create-figure">Create new figure</RouterLink>
-	<RouterLink to="/inventory/create-category">Create / view / edit category</RouterLink>
-	<RouterLink to="/inventory/create-subcategory">Create / view / edit subcategory</RouterLink>
+	<inventory-ui-navbar>
+		<RouterLink to="/inventory/figure-list">View figure list</RouterLink>
+		<RouterLink to="/inventory/create-figure">Create new figure</RouterLink>
+		<RouterLink to="/inventory/create-category">Create / view / edit category</RouterLink>
+		<RouterLink to="/inventory/create-subcategory">Create / view / edit subcategory</RouterLink>
+	</inventory-ui-navbar>
 
 	<RouterView />
 </template>
 
 <style lang="scss" scoped>
+	inner-column {
+		display: block;
+		margin: 0 auto;
+		width: 70%;
+	}
+
 	h1 {
 		font-family: 'Bangers';
+	}
+
+	inventory-ui-navbar {
+		border: 3px solid black;
+		background-color: var(--melon);
+		display: flex;
+		justify-content: space-evenly;
+		text-align: center;
+		flex-wrap: wrap;
+		padding: 10px;
+		gap: 10px;
+
+		a {
+			display: inline-block;
+			font-family: 'Bangers';
+			font-size: 21px;
+		}
+
+		.router-link-active {
+			font-weight: 700;
+			color: green;
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		inventory-ui-navbar {
+			border: none;
+		}
+
+		a {
+			color: black;
+		}
 	}
 </style>
