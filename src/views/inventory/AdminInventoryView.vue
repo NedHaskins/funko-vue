@@ -61,6 +61,10 @@
 			font-size: 28px;
 		}
 
+		a:hover {
+			color: green;
+		}
+
 		.router-link-active {
 			font-weight: 700;
 			color: green;
