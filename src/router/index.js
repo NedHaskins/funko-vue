@@ -32,7 +32,7 @@ const router = createRouter({
 
 	routes: [
 		{
-			path: '/intro/1',
+			path: '/',
 			name: 'intro-1',
 			component: () => import('@/views/page-intro/IntroView1.vue'),
 		},
@@ -52,7 +52,7 @@ const router = createRouter({
 			component: () => import('@/views/page-intro/IntroView4.vue'),
 		},
 		{
-			path: '/',
+			path: '/home',
 			name: 'home',
 			component: () => import('../views/HomeView.vue'),
 		},
@@ -105,6 +105,7 @@ const router = createRouter({
 			path: '/shopping-cart',
 			name: 'shopping-cart',
 			component: ShoppingCartView,
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/admin',
@@ -114,7 +115,7 @@ const router = createRouter({
 			children: [
 				{
 					path: '/admin/user-profile',
-					name: 'create-item',
+					name: 'user-profile',
 					component: UserProfileView,
 				},
 				{

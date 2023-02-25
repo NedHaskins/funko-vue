@@ -23,8 +23,6 @@
 </script>
 
 <template>
-	<div v-if="user.current">{{ user.userDoc.id }}</div>
-
 	<div class="profile-info">
 		<h2 class="loud-voice">Profile Info</h2>
 		<form @submit.prevent="updateProfile(user.userDoc.id, form.name, form.role)">

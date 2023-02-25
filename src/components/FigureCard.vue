@@ -33,7 +33,6 @@
 </script>
 <template>
 	<figure-card v-if="figure">
-		<div>{{ figure.id }}</div>
 		<RouterLink
 			v-if="!figure.subcategory"
 			v-bind:to="{ name: 'figure-no-sub', params: { cat: figure.category, figure: figure.id } }"

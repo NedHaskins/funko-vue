@@ -80,7 +80,7 @@
 					<div class="svg-wrapper cart">
 						<RouterLink to="/shopping-cart">
 							<div class="cart-count">
-								<p v-if="cart">{{ cart.totalItems }}</p>
+								<p v-if="user.current">{{ cart.totalItems }}</p>
 								<p v-else>0</p>
 							</div>
 							<!--Show the current cart object attached to the current user.  If the user is logged out(if there is no current user) do not show any Firebase cart data.-->
@@ -94,7 +94,7 @@
 				<!-- {{ ui.menuClass }}  -->
 
 				<nav class="site-menu">
-					<RouterLink to="/">Home</RouterLink>
+					<RouterLink to="/home">Home</RouterLink>
 
 					<RouterLink to="/figures">Figures</RouterLink>
 					<RouterLink to="/categories">Categories</RouterLink>
