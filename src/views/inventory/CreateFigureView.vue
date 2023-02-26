@@ -1,4 +1,6 @@
 <script setup>
+	//Add handleFileUpload later.
+
 	// console.clear();
 	import { ref, reactive, computed, watch } from 'vue';
 	import { useRoute, RouterLink } from 'vue-router';

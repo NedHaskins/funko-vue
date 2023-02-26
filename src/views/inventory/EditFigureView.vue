@@ -60,10 +60,6 @@
 </script>
 
 <template>
-	<!-- 	<pre style="color: orange" v-if="figure">{{ figure }}</pre>
-	<pre style="color: cyan" v-if="figure">{{ tempFigure.subcategory }}</pre> -->
-	<!-- <pre style="color: lime" v-if="figure">{{ route.params.slug }}</pre> -->
-	<!-- <div style="color: red" v-if="figure">{{ subcategories }}</div> -->
 	<div v-if="tempFigure" class="view-edit-figure-form-wrapper">
 		<h2>View / Edit Figure Info</h2>
 		<form @submit.prevent="updateFigure(tempFigure.id)">
@@ -121,7 +117,7 @@
 </template>
 
 <style lang="scss" scoped>
-	.edit-figure-form-wrapper {
+	.view-edit-figure-form-wrapper {
 		margin-top: 31px;
 		display: block;
 		background-color: gray;
@@ -174,14 +170,6 @@
 				a {
 					font-size: 20px;
 				}
-
-				figure-name {
-					display: flex;
-					// border: 3px solid red;
-					align-items: center;
-					font-family: 'Bangers';
-					font-size: 22px;
-				}
 			}
 		}
 	}
@@ -193,11 +181,7 @@
 	}
 
 	@media (min-width: 600px) {
-		figure-list {
-			max-width: 520px;
-		}
-
-		.edit-figure-form-wrapper {
+		.view-edit-figure-form-wrapper {
 			width: 60%;
 			form {
 				input-wrapper {

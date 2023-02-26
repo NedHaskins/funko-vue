@@ -14,7 +14,6 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 <template>
 	<inner-column>
-		<pre><div v-if="cart">{{ cart.list }}</div></pre>
 		<table class="cart">
 			<tbody>
 				<tr v-for="group in cart.cartGrouping">
