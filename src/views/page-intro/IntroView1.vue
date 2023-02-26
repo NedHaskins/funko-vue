@@ -15,39 +15,39 @@
 
 	const heartbeat = ref(null);
 
-	onMounted(function () {
-		// var heartbeat = '.heartbeat';
+	// onMounted(function () {
+	// 	// var heartbeat = '.heartbeat';
 
-		var timeline = gsap.timeline();
+	// 	var timeline = gsap.timeline();
 
-		timeline
-			.to(heartbeat.value, {
-				scale: 1.5,
-				duration: 1,
-			})
-			.to(heartbeat.value, {
-				scale: 1,
+	// 	timeline
+	// 		.to(heartbeat.value, {
+	// 			scale: 1.5,
+	// 			duration: 1,
+	// 		})
+	// 		.to(heartbeat.value, {
+	// 			scale: 1,
 
-				duration: 1,
-			});
+	// 			duration: 1,
+	// 		});
 
-		timeline.timeScale(1);
-		timeline.repeat(-1);
-		//allows for retroactive editing of event speed
-	});
+	// 	timeline.timeScale(1);
+	// 	timeline.repeat(-1);
+	// 	//allows for retroactive editing of event speed
+	// });
 </script>
 
 <template>
 	<section class="intro-module">
 		<intro-text><h1>Welcome to the Funko Pop Store.</h1></intro-text>
 
-		<div class="animation">
-			<RouterLink class="picture-wrapper" to="/intro/2">
-				<picture ref="heartbeat">
-					<img src="https://peprojects.dev/images/portrait.jpg" />
-				</picture>
-			</RouterLink>
-		</div>
+		<!-- <div class="animation"> -->
+		<RouterLink class="picture-wrapper" to="/intro/2">
+			<picture ref="heartbeat">
+				<img src="https://peprojects.dev/images/portrait.jpg" />
+			</picture>
+		</RouterLink>
+		<!-- </div> -->
 
 		<button-wrapper>
 			<RouterLink to="/home">Home Page</RouterLink>
@@ -60,6 +60,7 @@
 		position: fixed;
 		background-color: black;
 		display: grid;
+
 		place-items: center;
 	}
 
