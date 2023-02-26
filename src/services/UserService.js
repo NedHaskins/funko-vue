@@ -11,7 +11,7 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-import { doc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, addDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
 import { useCurrentUser, useFirestore, useDocument, useCollection } from 'vuefire';
 //these are all ref objects
@@ -43,9 +43,24 @@ export const useUserService = defineStore('user', function () {
 	function signUp(form) {
 		createUserWithEmailAndPassword(auth, form.email, form.password)
 			.then((userCredential) => {
-				console.log('user.signUp');
-				clearForm(form);
+				const newUser = userCredential.user;
+				console.log('Current user using Vuefire function: ', current.value.uid);
+				console.log('New user id: ', newUser.uid);
+				setDoc(doc(db, 'users', newUser.uid), {
+					firstName: form.firstName,
+					lastName: form.lastName,
+					email: form.email,
+					password: form.password,
+					role: 'user',
+				});
+				alert('New user created.');
 			})
+
+			.then((userCredential) => {
+				router.push('/home');
+				// clearForm(form);
+			})
+
 			.catch((error) => {
 				if (error.code === 'auth/weak-password') {
 					alert("You'll need at least 6 characters for your password.");
@@ -58,7 +73,7 @@ export const useUserService = defineStore('user', function () {
 		const { email, password } = form; // you could destructure the object like this too
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				router.push('/');
+				router.push('/home');
 				console.log('user.signIn');
 				clearForm(form);
 			})
@@ -71,7 +86,7 @@ export const useUserService = defineStore('user', function () {
 		fbSignOut(auth)
 			.then(() => {
 				//check that the user is disconnected -- and reload corresponding cart data -- or all user data
-				router.push('/');
+				router.push('/home');
 				console.log('user.signOut');
 			})
 			.catch((error) => {
@@ -87,5 +102,6 @@ export const useUserService = defineStore('user', function () {
 		current,
 		userDoc,
 		role,
+		auth,
 	};
 });
