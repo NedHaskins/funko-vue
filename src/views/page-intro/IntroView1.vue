@@ -1,6 +1,6 @@
 <script setup>
 	//Foundational imports
-	import { onMounted, computed } from 'vue';
+	import { onMounted, computed, ref } from 'vue';
 	import { RouterLink, useRoute, useRouter } from 'vue-router';
 	import { useInterfaceStore } from '@/stores/interface';
 
@@ -9,17 +9,46 @@
 	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 	import { useUserService } from '@/services/UserService';
 
+	import gsap from 'gsap';
+
 	const route = useRoute();
+
+	const heartbeat = ref(null);
+
+	onMounted(function () {
+		// var heartbeat = '.heartbeat';
+
+		var timeline = gsap.timeline();
+
+		timeline
+			.to(heartbeat.value, {
+				scale: 1.5,
+				duration: 1,
+			})
+			.to(heartbeat.value, {
+				scale: 1,
+
+				duration: 1,
+			});
+
+		timeline.timeScale(1);
+		timeline.repeat(-1);
+		//allows for retroactive editing of event speed
+	});
 </script>
 
 <template>
 	<section class="intro-module">
 		<intro-text><h1>Welcome to the Funko Pop Store.</h1></intro-text>
-		<RouterLink class="picture-wrapper" to="/intro/2">
-			<picture>
-				<img src="https://peprojects.dev/images/portrait.jpg" />
-			</picture>
-		</RouterLink>
+
+		<div class="animation">
+			<RouterLink class="picture-wrapper" to="/intro/2">
+				<picture ref="heartbeat">
+					<img src="https://peprojects.dev/images/portrait.jpg" />
+				</picture>
+			</RouterLink>
+		</div>
+
 		<button-wrapper>
 			<RouterLink to="/home">Home Page</RouterLink>
 		</button-wrapper>
@@ -27,6 +56,13 @@
 </template>
 
 <style lang="scss" scoped>
+	.animation {
+		position: fixed;
+		background-color: black;
+		display: grid;
+		place-items: center;
+	}
+
 	.intro-module {
 		border: 3px solid var(--vermilion);
 		display: flex;

@@ -4,7 +4,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 <script setup>
 	import { computed } from 'vue';
-
+	import { useUserService } from '@/services/UserService';
 	import { useCartService } from '@/services/CartService';
 
 	// defineProps(['user', 'cart']);
@@ -14,7 +14,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 <template>
 	<inner-column>
-		<!-- <pre><div v-if="cart">{{ cart.cartGrouping }}</div></pre> -->
+		<pre><div v-if="cart">{{ cart.list }}</div></pre>
 		<table class="cart">
 			<tbody>
 				<tr v-for="group in cart.cartGrouping">
@@ -37,7 +37,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 		<cart-bottom>
 			<button-wrapper>
-				<button @click.prevent="cart.clearCart">Clear cart</button>
+				<button type="button" @click="cart.deleteCollection()">Clear cart</button>
 			</button-wrapper>
 
 			<button-wrapper>

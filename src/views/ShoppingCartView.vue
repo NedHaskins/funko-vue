@@ -3,16 +3,11 @@
 
 	import { collection } from 'firebase/firestore';
 	import { useFirestore, useCollection } from 'vuefire';
-
-	// import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
-	import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
 	import { useUserService } from '@/services/UserService';
-	import { useCartService } from '@/services/CartService';
+	import ShoppingCartUI from '@/components/ShoppingCartUI.vue';
 
 	const db = useFirestore();
 	const user = useUserService();
-
-	const cart = useCartService();
 </script>
 
 <template>
@@ -20,7 +15,7 @@
 		<module-header>
 			<h2 v-if="user.current">{{ user.name }}'s Shopping Cart</h2>
 		</module-header>
-		<ShoppingCartUI v-bind:user="user" v-bind:cart="cart" />
+		<ShoppingCartUI />
 	</section>
 </template>
 

@@ -191,6 +191,14 @@ router.beforeEach(async (to) => {
 			};
 		}
 	}
+
+	// if (to.name === 'intro-1') {
+	// 	alert(`Going to intro 1`);
+	// }
+
+	// if (to.name === 'intro-2') {
+	// 	alert(`Going to intro 2`);
+	// }
 });
 
 export default router;

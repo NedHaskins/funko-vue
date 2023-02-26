@@ -20,6 +20,7 @@ export const useUserService = defineStore('user', function () {
 	const auth = getAuth();
 	const db = useFirestore();
 	const current = useCurrentUser();
+	const router = useRouter();
 
 	function clearForm(form) {
 		form.email = '';
@@ -39,8 +40,6 @@ export const useUserService = defineStore('user', function () {
 	const role = computed(() => userDoc.value?.role);
 	const name = computed(() => userDoc.value?.name);
 
-	const router = useRouter();
-
 	function signUp(form) {
 		createUserWithEmailAndPassword(auth, form.email, form.password)
 			.then((userCredential) => {
@@ -59,6 +58,7 @@ export const useUserService = defineStore('user', function () {
 		const { email, password } = form; // you could destructure the object like this too
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
+				router.push('/');
 				console.log('user.signIn');
 				clearForm(form);
 			})
