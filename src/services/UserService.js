@@ -40,33 +40,54 @@ export const useUserService = defineStore('user', function () {
 	const role = computed(() => userDoc.value?.role);
 	const name = computed(() => userDoc.value?.name);
 
-	function signUp(form) {
-		createUserWithEmailAndPassword(auth, form.email, form.password)
-			.then((userCredential) => {
-				const newUser = userCredential.user;
-				console.log('Current user using Vuefire function: ', current.value.uid);
-				console.log('New user id: ', newUser.uid);
-				setDoc(doc(db, 'users', newUser.uid), {
-					firstName: form.firstName,
-					lastName: form.lastName,
-					email: form.email,
-					password: form.password,
-					role: 'user',
-				});
-				alert('New user created.');
-			})
+	// function signUp(form) {
+	// 	createUserWithEmailAndPassword(auth, form.email, form.password)
+	// 		.then((userCredential) => {
+	// 			const newUser = userCredential.user;
+	// 			console.log('Current user using Vuefire function: ', current.value.uid);
+	// 			console.log('New user id: ', newUser.uid);
+	// 			setDoc(doc(db, 'users', newUser.uid), {
+	// 				firstName: form.firstName,
+	// 				lastName: form.lastName,
+	// 				email: form.email,
+	// 				password: form.password,
+	// 				role: 'user',
+	// 			});
+	// 			alert('New user created.');
+	// 		})
 
-			.then((userCredential) => {
-				router.push('/home');
-				// clearForm(form);
-			})
+	// 		.then((userCredential) => {
+	// 			router.push('/home');
+	// 			// clearForm(form);
+	// 		})
 
-			.catch((error) => {
-				if (error.code === 'auth/weak-password') {
-					alert("You'll need at least 6 characters for your password.");
-				}
-				console.log(error.code, error.message);
+	// 		.catch((error) => {
+	// 			if (error.code === 'auth/weak-password') {
+	// 				alert("You'll need at least 6 characters for your password.");
+	// 			}
+	// 			console.log(error.code, error.message);
+	// 		});
+	// }
+
+	async function signUp(form) {
+		try {
+			let userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
+			const newUser = userCredential.user;
+			await setDoc(doc(db, 'users', newUser.uid), {
+				firstName: form.firstName,
+				lastName: form.lastName,
+				email: form.email,
+				password: form.password,
+				role: 'user',
 			});
+			alert('New user created.');
+			router.push('/home');
+		} catch (ex) {
+			if (error.code === 'auth/weak-password') {
+				alert("You'll need at least 6 characters for your password.");
+			}
+			console.log(error.code, error.message);
+		}
 	}
 
 	function signIn(form) {
