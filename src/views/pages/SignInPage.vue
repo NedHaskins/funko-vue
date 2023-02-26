@@ -74,14 +74,15 @@
 
 <style lang="scss" scoped>
 	forms-outerbox {
-		border: 3px solid lime;
 		display: flex;
 		flex-direction: column;
+		margin-top: 20px;
+		align-items: center;
+		gap: 50px;
 	}
 
 	.user-signup,
 	.user-login {
-		align-self: start;
 		border: 2px solid var(--ink);
 		box-shadow: 10px 10px var(--ink);
 		background-color: var(--x11gray);
@@ -89,20 +90,21 @@
 		flex-direction: column;
 		text-align: center;
 		align-items: center;
-		margin-top: 60px;
+		justify-content: center;
 		padding: 30px 0px 30px 0px;
 		// max-width: 630px;
 		// margin: 60px auto 0px auto;
-		// width: 80%;
+		width: 80%;
 	}
 
-	.user-signup {
+	.user-signup,
+	.user-login {
 		justify-content: center;
 	}
 
-	.user-login {
-		justify-content: space-between;
-	}
+	// .user-login {
+	// 	justify-content: space-between;
+	// }
 
 	@media (prefers-color-scheme: dark) {
 		.user-signup,
@@ -144,6 +146,31 @@
 		forms-outerbox {
 			flex-direction: row;
 			justify-content: space-evenly;
+		}
+
+		.user-signup,
+		.user-login {
+			padding: 26px;
+		}
+
+		.user-login {
+			align-self: start;
+		}
+
+		form {
+			width: 100%;
+		}
+
+		button-wrapper {
+			margin-top: 19px;
+		}
+
+		input-wrapper {
+			margin-top: 9px;
+			label,
+			input {
+				font-size: 19px;
+			}
 		}
 	}
 </style>
