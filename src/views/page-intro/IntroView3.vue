@@ -1,4 +1,32 @@
-<script setup></script>
+<script setup>
+	//Foundational imports
+	import { onMounted, ref } from 'vue';
+	import { RouterLink } from 'vue-router';
+
+	//GSAP imports
+	import gsap from 'gsap';
+	const heartbeat = ref(null);
+	onMounted(function () {
+		// var heartbeat = '.heartbeat';
+
+		var timeline = gsap.timeline();
+
+		timeline
+			.to(heartbeat.value, {
+				scale: 1.25,
+				duration: 1,
+			})
+			.to(heartbeat.value, {
+				scale: 1,
+
+				duration: 1,
+			});
+
+		timeline.timeScale(1);
+		timeline.repeat(-1);
+		//allows for retroactive editing of event speed
+	});
+</script>
 
 <template>
 	<section class="intro-module">
@@ -6,8 +34,8 @@
 			<h1>it's possible you may be one not too long from now...</h1>
 		</intro-text>
 		<RouterLink class="picture-wrapper" to="/intro/4">
-			<picture>
-				<img src="https://peprojects.dev/images/portrait.jpg" />
+			<picture ref="heartbeat">
+				<img src="https://peprojects.dev/alpha-4/ned/images/funko-fire/tekken-king.jpg" />
 			</picture>
 		</RouterLink>
 		<button-wrapper>
@@ -39,8 +67,13 @@
 			justify-content: center;
 			flex: 2;
 			picture {
+				padding: 10px;
 				max-width: 223px;
 			}
+		}
+
+		.picture-wrapper:hover {
+			filter: hue-rotate(225deg);
 		}
 
 		button-wrapper {

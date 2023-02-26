@@ -1,40 +1,31 @@
 <script setup>
 	//Foundational imports
-	import { onMounted, computed, ref } from 'vue';
-	import { RouterLink, useRoute, useRouter } from 'vue-router';
-	import { useInterfaceStore } from '@/stores/interface';
+	import { onMounted, ref } from 'vue';
+	import { RouterLink } from 'vue-router';
 
-	//Firebase imports
-	import { useFirestore, useCollection, useDocument } from 'vuefire';
-	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
-	import { useUserService } from '@/services/UserService';
-
+	//GSAP imports
 	import gsap from 'gsap';
-
-	const route = useRoute();
-
 	const heartbeat = ref(null);
+	onMounted(function () {
+		// var heartbeat = '.heartbeat';
 
-	// onMounted(function () {
-	// 	// var heartbeat = '.heartbeat';
+		var timeline = gsap.timeline();
 
-	// 	var timeline = gsap.timeline();
+		timeline
+			.to(heartbeat.value, {
+				scale: 1.25,
+				duration: 1,
+			})
+			.to(heartbeat.value, {
+				scale: 1,
 
-	// 	timeline
-	// 		.to(heartbeat.value, {
-	// 			scale: 1.5,
-	// 			duration: 1,
-	// 		})
-	// 		.to(heartbeat.value, {
-	// 			scale: 1,
+				duration: 1,
+			});
 
-	// 			duration: 1,
-	// 		});
-
-	// 	timeline.timeScale(1);
-	// 	timeline.repeat(-1);
-	// 	//allows for retroactive editing of event speed
-	// });
+		timeline.timeScale(1);
+		timeline.repeat(-1);
+		//allows for retroactive editing of event speed
+	});
 </script>
 
 <template>
@@ -44,7 +35,7 @@
 		<!-- <div class="animation"> -->
 		<RouterLink class="picture-wrapper" to="/intro/2">
 			<picture ref="heartbeat">
-				<img src="https://peprojects.dev/images/portrait.jpg" />
+				<img src="https://peprojects.dev/alpha-4/ned/images/funko-fire/square-soldier.jpg" />
 			</picture>
 		</RouterLink>
 		<!-- </div> -->
@@ -86,10 +77,13 @@
 			justify-content: center;
 			flex: 2;
 			picture {
+				padding: 10px;
 				max-width: 223px;
 			}
 		}
-
+		.picture-wrapper:hover {
+			filter: hue-rotate(225deg);
+		}
 		button-wrapper {
 			a {
 				border: 3px solid black;
