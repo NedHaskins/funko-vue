@@ -52,6 +52,7 @@
 </script>
 <template>
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
+	<pre v-if="user.current">Signed in as: {{ user.userDoc }}</pre>
 	<!-- <div v-for="item in cart">{{ item }}</div> -->
 	<!-- <div v-for="item in cart.cartGrouping">{{ item }}</div> -->
 
@@ -68,7 +69,7 @@
 				</title-wrapper>
 				<space-box class="right">
 					<div v-if="user.current" class="user-prompts">
-						<span id="result">Hi, {{ user?.name }}</span>
+						<span id="result">Hi, {{ user.userDoc?.firstName }}</span>
 						<button class="logout" @click="user.signOut()">Logout</button>
 					</div>
 					<div v-if="!user.current" class="svg-wrapper user-icon">
