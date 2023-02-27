@@ -39,16 +39,11 @@
 		if (event.target.matches('.toggle')) {
 			body.classList.toggle('small-menu-open');
 		}
-		//need some logic in here to close the menu
-		if (event.target.matches('.site-menu a')) {
-			body.classList.remove('small-menu-open');
-		}
+		// need some logic in here to close the menu
+		// if (event.target.matches('.toggle.small-screen')) {
+		// 	body.classList.remove('small-menu-open');
+		// }
 	});
-
-	// console.log(cart[0].quantity);
-	// for (let i = 0; i < cart.length; i++) {
-	// 	console.log(cart[0].quantity);
-	// }
 </script>
 <template>
 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
@@ -60,9 +55,9 @@
 		<inner-column>
 			<header-top>
 				<space-box class="left">
-					<div @click="ui.toggleMenu()" class="svg-wrapper hamburger">
-						<CheeseburgerIcon class="toggle" />
-					</div>
+					<svg-wrapper @click="ui.toggleMenu()" class="toggle">
+						<CheeseburgerIcon />
+					</svg-wrapper>
 				</space-box>
 				<title-wrapper>
 					<h1 class="site-title normal-voice">Funko Pop East Coast</h1>
@@ -72,13 +67,13 @@
 						<span id="result">Hi, {{ user.userDoc?.firstName }}</span>
 						<button class="logout" @click="user.signOut()">Logout</button>
 					</div>
-					<div v-if="!user.current" class="svg-wrapper user-icon">
+					<svg-wrapper v-if="!user.current" class="user-icon">
 						<RouterLink to="/signin-page">
 							<UserIcon />
 						</RouterLink>
-					</div>
+					</svg-wrapper>
 
-					<div class="svg-wrapper cart">
+					<svg-wrapper class="cart">
 						<RouterLink to="/shopping-cart">
 							<div class="cart-count">
 								<p v-if="user.current">{{ cart.totalItems }}</p>
@@ -87,7 +82,7 @@
 							<!--Show the current cart object attached to the current user.  If the user is logged out(if there is no current user) do not show any Firebase cart data.-->
 							<CartIcon />
 						</RouterLink>
-					</div>
+					</svg-wrapper>
 				</space-box>
 			</header-top>
 
@@ -101,7 +96,7 @@
 					<RouterLink to="/categories">Categories</RouterLink>
 					<RouterLink v-if="user.current && user.role === 'admin'" to="/admin">Dashboard</RouterLink>
 
-					<button class="toggle small-screen">Close</button>
+					<button @click="ui.toggleMenu()" class="toggle small-screen">Close</button>
 				</nav>
 			</menu-wrapper>
 		</inner-column>
@@ -109,9 +104,18 @@
 </template>
 
 <style lang="scss" scoped>
+	div.svg-wrapper.hamburger {
+		svg {
+		}
+	}
+
 	/*	*:focus {
 	 outline: 20px solid black;}*/
 
+	menu-wrapper {
+		display: flex;
+		justify-content: space-evenly;
+	}
 	.site-menu {
 		display: flex;
 		flex-direction: row;
@@ -130,22 +134,6 @@
 		}
 	}
 
-	.small-menu-open .router-link-active {
-		// color: var(--ink);
-	}
-
-	@media (max-width: 599px) {
-		.site-menu {
-			display: none;
-		}
-	}
-
-	@media (min-width: 600px) {
-		.svg-wrapper.hamburger,
-		button.toggle.small-screen {
-			display: none;
-		}
-	}
 	inner-column {
 		display: flex;
 		flex-direction: column;
@@ -155,11 +143,6 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: stretch;
-	}
-
-	space-box {
-		display: block;
-		flex: 1;
 	}
 
 	title-wrapper {
@@ -173,13 +156,8 @@
 		font-size: calc(36px + 0.7vw);
 	}
 
-	@media (max-width: 729px) {
-		title-wrapper {
-			max-width: 265px;
-		}
-	}
-
 	space-box {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -188,7 +166,7 @@
 		padding: 10px;
 	}
 
-	.svg-wrapper {
+	svg-wrapper {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -215,6 +193,17 @@
 		}
 	}
 
+	@media (min-width: 600px) {
+		svg-wrapper.toggle,
+		button.toggle.small-screen {
+			display: none;
+		}
+	}
+	@media (max-width: 729px) {
+		title-wrapper {
+			max-width: 265px;
+		}
+	}
 	.cart {
 		position: relative;
 		width: 51px;
@@ -243,21 +232,6 @@
 		}
 	}
 
-	/*SCAFFOLDING */
-
-	inner-column > * {
-		/*		border: 3px solid black;*/
-	}
-
-	space-box > * {
-		/*		border: 3px dashed green;*/
-	}
-
-	space-box,
-	.site-title {
-		/*		border: 3px dashed red;*/
-	}
-
 	@media (max-width: 599px) {
 		/* only if small! */
 		.site-menu {
@@ -284,11 +258,6 @@
 			min-width: 200px;
 			text-align: center;
 		}
-		/*   .site-menu .corner {
-		   position: absolute;
-		   top: 20px;
-		   right: 20px;
-		 } */
 
 		body.small-menu-open .site-menu {
 			opacity: 1;
@@ -296,11 +265,11 @@
 			transform: translate(0, 0); /* another fun option to try #a */
 			transform: scale(1);
 			transition: 0.2s;
+			a {
+				opacity: 1;
+			}
 		}
 
-		body.small-menu-open .site-menu a {
-			opacity: 1;
-		}
 		button.toggle.small-screen {
 			border: 3px solid white;
 			background-color: black;
