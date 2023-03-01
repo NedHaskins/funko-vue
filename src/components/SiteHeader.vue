@@ -31,32 +31,45 @@
 
 	// const isOpen = ref(false); //this would be a component of a UI store maybe?
 
-	var body = document.querySelector('body');
+	// // set up a "listener" that will
+	// // listen for "clicks" (and taps) on the whole page!
+	// spaceBox.addEventListener('click', function (event) {
+	// 	console.log(event.target);
+	// 	if (event.target.matches('.toggle')) {
+	// 		body.classList.toggle('small-menu-open');
+	// 	}
+	// 	//need some logic in here to close the menu
+	// 	// if (event.target.matches('.site-menu a')) {
+	// 	// 	body.classList.remove('small-menu-open');
+	// 	// }
+	// });
 
-	// set up a "listener" that will
-	// listen for "clicks" (and taps) on the whole page!
-	document.addEventListener('click', function (event) {
-		if (event.target.matches('.toggle')) {
-			body.classList.toggle('small-menu-open');
+	function toggleMobileMenu() {
+		let body = document.querySelector('body');
+		body.classList.toggle('small-menu-open');
+	}
+
+	function checkMobileMenu() {
+		let body = document.querySelector('body');
+		if (body.classList == 'small-menu-open') {
+			body.classList.remove('small-menu-open');
+		} else {
+			return;
 		}
-		// need some logic in here to close the menu
-		// if (event.target.matches('.toggle.small-screen')) {
-		// 	body.classList.remove('small-menu-open');
-		// }
-	});
+	}
 </script>
 <template>
-	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
-	<pre v-if="user.current">Signed in as: {{ user.userDoc }}</pre>
+	<!-- 	<div v-if="user.current">Signed in as: {{ user.current.email }}</div>
+	<pre v-if="user.current">Signed in as: {{ user.userDoc }}</pre> -->
 	<!-- <div v-for="item in cart">{{ item }}</div> -->
 	<!-- <div v-for="item in cart.cartGrouping">{{ item }}</div> -->
 
 	<header v-bind:class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
-				<space-box class="left">
-					<svg-wrapper @click="ui.toggleMenu()" class="toggle">
-						<CheeseburgerIcon />
+				<space-box @click="toggleMobileMenu()" class="left">
+					<svg-wrapper class="cheeseburger">
+						<CheeseburgerIcon class="toggle" />
 					</svg-wrapper>
 				</space-box>
 				<title-wrapper>
@@ -89,14 +102,16 @@
 			<menu-wrapper>
 				<!-- {{ ui.menuClass }}  -->
 
-				<nav class="site-menu">
-					<RouterLink to="/home">Home</RouterLink>
+				<nav class="site-menu header">
+					<RouterLink @click="checkMobileMenu()" to="/home">Home</RouterLink>
 
-					<RouterLink to="/figures">Figures</RouterLink>
-					<RouterLink to="/categories">Categories</RouterLink>
-					<RouterLink v-if="user.current && user.role === 'admin'" to="/admin">Dashboard</RouterLink>
+					<RouterLink @click="checkMobileMenu()" to="/figures">Figures</RouterLink>
+					<RouterLink @click="checkMobileMenu()" to="/categories">Categories</RouterLink>
+					<RouterLink @click="checkMobileMenu()" v-if="user.current && user.role === 'admin'" to="/admin"
+						>Dashboard</RouterLink
+					>
 
-					<button @click="ui.toggleMenu()" class="toggle small-screen">Close</button>
+					<button @click="toggleMobileMenu()" class="toggle small-screen">Close</button>
 				</nav>
 			</menu-wrapper>
 		</inner-column>
@@ -104,11 +119,6 @@
 </template>
 
 <style lang="scss" scoped>
-	div.svg-wrapper.hamburger {
-		svg {
-		}
-	}
-
 	/*	*:focus {
 	 outline: 20px solid black;}*/
 
@@ -116,7 +126,7 @@
 		display: flex;
 		justify-content: space-evenly;
 	}
-	.site-menu {
+	.site-menu.header {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-evenly;
@@ -153,7 +163,7 @@
 	}
 
 	.site-title {
-		font-size: calc(36px + 0.7vw);
+		font-size: calc(26px + 0.7vw);
 	}
 
 	space-box {
@@ -191,12 +201,14 @@
 		.user-icon {
 			margin-left: 0px;
 		}
-	}
 
-	@media (min-width: 600px) {
-		svg-wrapper.toggle,
+		svg-wrapper.cheeseburger,
 		button.toggle.small-screen {
 			display: none;
+		}
+
+		.site-title {
+			font-size: calc(36px + 0.7vw);
 		}
 	}
 	@media (max-width: 729px) {
@@ -234,7 +246,7 @@
 
 	@media (max-width: 599px) {
 		/* only if small! */
-		.site-menu {
+		.site-menu.header {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -254,20 +266,9 @@
 			/* */
 			transition: 0s;
 		}
-		.site-menu a {
+		.site-menu.header a {
 			min-width: 200px;
 			text-align: center;
-		}
-
-		body.small-menu-open .site-menu {
-			opacity: 1;
-			pointer-events: initial;
-			transform: translate(0, 0); /* another fun option to try #a */
-			transform: scale(1);
-			transition: 0.2s;
-			a {
-				opacity: 1;
-			}
 		}
 
 		button.toggle.small-screen {
