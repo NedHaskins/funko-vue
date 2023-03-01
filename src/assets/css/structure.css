@@ -17,11 +17,6 @@ header {
 	flex: 1;
 }
 
-menu-wrapper {
-	display: flex;
-	justify-content: space-evenly;
-}
-
 code {
 	font-family: 'Courier';
 	color: green;

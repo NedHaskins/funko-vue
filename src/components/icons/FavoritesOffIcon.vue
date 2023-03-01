@@ -1,0 +1,33 @@
+<template>
+	<svg
+		width="100%"
+		height="100%"
+		viewBox="0 0 424 367"
+		version="1.1"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xml:space="preserve"
+		xmlns:serif="http://www.serif.com/"
+		style="
+			fill-rule: evenodd;
+			clip-rule: evenodd;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-miterlimit: 1.5;
+		"
+	>
+		<g>
+			<ellipse
+				cx="211.998"
+				cy="183.476"
+				rx="210.539"
+				ry="182.018"
+				style="fill: #fff; stroke: #fff; stroke-width: 2.92px"
+			/>
+			<path
+				d="M211.997,149.008c25.833,-46.014 77.499,-46.014 103.331,-27.608c25.834,18.405 25.834,55.217 0,92.029c-18.083,27.608 -64.581,55.217 -103.331,73.623c-38.749,-18.406 -85.248,-46.015 -103.331,-73.623c-25.832,-36.812 -25.832,-73.624 0,-92.029c25.833,-18.406 77.499,-18.406 103.331,27.608Z"
+				style="fill: #ff007f; stroke: #000; stroke-width: 2.92px"
+			/>
+		</g>
+	</svg>
+</template>

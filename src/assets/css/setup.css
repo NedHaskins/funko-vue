@@ -36,12 +36,12 @@ svg {
 	width: 100%;
 }
 
-:is(figure-card, category-card) picture {
+:is(figure-card, category-card, subcategory-card, .picture-wrapper) picture {
 	border: 3px solid var(--ink);
 }
 
 @media (prefers-color-scheme: dark) {
-	:is(figure-card, category-card, subcategory-card) picture {
+	:is(figure-card, category-card, subcategory-card, .picture-wrapper) picture {
 		border: 3px solid var(--paper);
 	}
 }
