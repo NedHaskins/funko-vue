@@ -29,10 +29,17 @@
 
 	const isFavorited = ref(false);
 
-	function favoriteItem() {
+	async function toggleFavorite(figure) {
 		isFavorited.value = !isFavorited.value;
 		console.log(isFavorited.value);
-		//add this figure's data to the user's favorites collection
+		if (isFavorited.value === true) {
+			//if there's no favorites yet...create one
+			await addDoc(collection(db, 'users', user.current?.uid, 'favorites'), figure);
+			alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
+		} else {
+			await deleteDoc(doc(db, 'users', user.current?.uid, 'favorites', figure.id));
+			alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
+		}
 	}
 </script>
 <template>
@@ -51,11 +58,11 @@
 					<button type="button" @click="cart.addItem(figure[0])">Add to cart</button>
 				</button-wrapper>
 
-				<svg-wrapper class="favorite-off" @click="favoriteItem()" v-if="isFavorited === false">
+				<svg-wrapper class="favorite-off" @click="toggleFavorite(figure[0])" v-if="isFavorited === false">
 					<FavoritesOffIcon />
 				</svg-wrapper>
 
-				<svg-wrapper class="favorite-on" @click="favoriteItem()" v-else>
+				<svg-wrapper class="favorite-on" @click="toggleFavorite(figure[0])" v-else>
 					<FavoritesOnIcon />
 				</svg-wrapper>
 			</figure-extras>
@@ -72,7 +79,7 @@
 
 	figure-info {
 		margin-top: 20px;
-		// border: 3px solid black;
+		// border: 3px solid red;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -130,16 +137,21 @@
 			}
 		}
 
-		card-bottom > * {
-			border: 3px solid lime;
+		card-bottom {
+			// border: 3px solid lime;
 		}
 	}
 
 	@media (min-width: 700px) {
 		figure-info {
 			flex-direction: row;
+			gap: 30px;
+			picture {
+				width: 50%;
+			}
 			card-bottom {
 				flex-direction: column;
+				width: 50%;
 			}
 		}
 	}
