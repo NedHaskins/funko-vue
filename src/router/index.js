@@ -15,6 +15,7 @@ import ShoppingCartView from '@/views/ShoppingCartView.vue';
 import AdminDashboardView from '@/views/AdminDashboard.vue';
 import UserProfileView from '@/views/UserProfileView.vue';
 import CreateItemView from '@/views/CreateItemView.vue';
+import FavoritesView from '@/views/user-dashboard/FavoritesView.vue';
 
 import FirebaseTestView from '@/views/FirebaseTestView.vue';
 import SignInPage from '@/views/pages/SignInPage.vue';
@@ -122,6 +123,11 @@ const router = createRouter({
 					path: '/admin/create-item',
 					name: 'create-item',
 					component: CreateItemView,
+				},
+				{
+					path: '/admin/favorites',
+					name: 'favorites',
+					component: FavoritesView,
 				},
 			],
 		},

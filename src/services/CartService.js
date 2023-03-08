@@ -9,8 +9,6 @@ import { useFirestore, useCollection, useDocument } from 'vuefire';
 import { getDocs, collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 import { useUserService } from '@/services/UserService';
 
-//Firebase variables
-
 export const useCartService = defineStore('cart', function () {
 	const user = useUserService();
 	const db = useFirestore();
@@ -25,12 +23,7 @@ export const useCartService = defineStore('cart', function () {
 
 	const list = useCollection(cartReference);
 
-	// await promise;
-
-	// console.log(list.value);
-
 	//used to group objects that have the same .name value together in an array
-
 	const cartGrouping = computed(function () {
 		return list.value?.reduce(function (group, item) {
 			group[item.name] = group[item.name] ?? [];
@@ -74,51 +67,11 @@ export const useCartService = defineStore('cart', function () {
 
 	async function deleteCollection() {
 		const querySnapshot = await getDocs(collection(db, 'users', user.current?.uid, 'cart'));
-		// querySnapshot.forEach(function (doc) {
-		// 	// // doc.data() is never undefined for query doc snapshots
-		// 	// console.log(doc.id, " => ", doc.data());
-		// 	console.log(typeof querySnapshot, doc.id);
-		// 	// await deleteDoc(doc(db, 'users', user.current?.uid, 'cart', doc.id))
-		// });
 		for (let item of querySnapshot.docs) {
 			console.log(item);
 			await deleteDoc(doc(db, 'users', user.current?.uid, 'cart', item.id));
 		}
-		// console.log(querySnapshot.docs);
 	}
-
-	// 	const collectionRef = collection(db, 'users', user.current?.uid, 'cart');
-	// 	console.log(collectionRef);
-	// 	const query = collectionRef.orderBy('__name__').limit(batchSize);
-
-	// 	return new Promise((resolve, reject) => {
-	// 		deleteQueryBatch(db, query, resolve).catch(reject);
-	// 	});
-	// }
-
-	// async function deleteQueryBatch(db, query, resolve) {
-	// 	const snapshot = await query.get();
-
-	// 	const batchSize = snapshot.size;
-	// 	if (batchSize === 0) {
-	// 		// When there are no documents left, we are done
-	// 		resolve();
-	// 		return;
-	// 	}
-
-	// 	// Delete documents in a batch
-	// 	const batch = db.batch();
-	// 	snapshot.docs.forEach((doc) => {
-	// 		batch.delete(doc.ref);
-	// 	});
-	// 	await batch.commit();
-
-	// 	// Recurse on the next process tick, to avoid
-	// 	// exploding the stack.
-	// 	process.nextTick(() => {
-	// 		deleteQueryBatch(db, query, resolve);
-	// 	});
-	// }
 
 	return {
 		user,

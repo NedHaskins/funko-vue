@@ -116,6 +116,22 @@ card-bottom {
 	color: red;
 }
 
+/*SITE-HEADER*/
+
+@media (max-width: 599px) {
+	body.small-menu-open .site-menu.header {
+		opacity: 1;
+		pointer-events: initial;
+		transform: translate(0, 0); /* another fun option to try #a */
+		transform: scale(1);
+		transition: 0.2s;
+	}
+
+	body.small-menu-open .site-menu.header a {
+		opacity: 1;
+	}
+}
+
 /*SCAFFOLDING*/
 
 /*.subpage-links {

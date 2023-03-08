@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -22,6 +22,17 @@ export const useUserService = defineStore('user', function () {
 	const current = useCurrentUser();
 	const router = useRouter();
 
+	const favorites = ref([]);
+
+	function toggleFavorite(itemId) {
+		if (favorites.value.includes(itemId)) {
+			favorites.value.splice(favorites.value.indexOf(itemId), 1);
+		} else {
+			favorites.value.push(itemId);
+		}
+		console.log(favorites.value);
+	}
+
 	function clearForm(form) {
 		form.email = '';
 		form.password = '';
@@ -39,6 +50,10 @@ export const useUserService = defineStore('user', function () {
 	const userDoc = useDocument(docReference);
 	const role = computed(() => userDoc.value?.role);
 	const name = computed(() => userDoc.value?.name);
+
+	const id = computed(function () {
+		return current.value.uid;
+	});
 
 	// function signUp(form) {
 	// 	createUserWithEmailAndPassword(auth, form.email, form.password)
@@ -82,7 +97,7 @@ export const useUserService = defineStore('user', function () {
 			});
 			alert('New user created.');
 			router.push('/home');
-		} catch (ex) {
+		} catch (error) {
 			if (error.code === 'auth/weak-password') {
 				alert("You'll need at least 6 characters for your password.");
 			}
@@ -124,5 +139,8 @@ export const useUserService = defineStore('user', function () {
 		userDoc,
 		role,
 		auth,
+		favorites,
+		toggleFavorite,
+		id,
 	};
 });

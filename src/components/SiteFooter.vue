@@ -25,6 +25,7 @@
 	.site-menu a {
 		font-family: 'Bangers';
 		font-size: 32px;
+		text-align: center;
 	}
 
 	.github {

@@ -6,26 +6,26 @@
 	//GSAP imports
 	import gsap from 'gsap';
 	const heartbeat = ref(null);
-	onMounted(function () {
-		// var heartbeat = '.heartbeat';
+	// onMounted(function () {
+	// 	// var heartbeat = '.heartbeat';
 
-		var timeline = gsap.timeline();
+	// 	var timeline = gsap.timeline();
 
-		timeline
-			.to(heartbeat.value, {
-				scale: 1.2,
-				duration: 1,
-			})
-			.to(heartbeat.value, {
-				scale: 1,
+	// 	timeline
+	// 		.to(heartbeat.value, {
+	// 			scale: 1.2,
+	// 			duration: 1,
+	// 		})
+	// 		.to(heartbeat.value, {
+	// 			scale: 1,
 
-				duration: 1,
-			});
+	// 			duration: 1,
+	// 		});
 
-		timeline.timeScale(1);
-		timeline.repeat(-1);
-		//allows for retroactive editing of event speed
-	});
+	// 	timeline.timeScale(1);
+	// 	timeline.repeat(-1);
+	// 	//allows for retroactive editing of event speed
+	// });
 </script>
 
 <template>
@@ -65,7 +65,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			flex: 2;
+			flex: 1;
 			picture {
 				padding: 10px;
 				max-width: 500px;

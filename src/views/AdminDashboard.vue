@@ -21,6 +21,8 @@
 		<RouterLink to="/inventory">Inventory UI</RouterLink>
 
 		<RouterLink to="/admin/user-profile">View / edit profile</RouterLink>
+
+		<RouterLink to="/admin/favorites">Favorites</RouterLink>
 	</dashboard-navbar>
 
 	<RouterView />
