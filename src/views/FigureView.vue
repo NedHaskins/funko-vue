@@ -21,39 +21,30 @@
 	const user = useUserService();
 	const cart = useCartService();
 
-	const figureRef = computed(function () {
-		return query(collection(db, 'figures'), where('slug', '==', route.params.figure));
-	});
+	const figureRef = query(collection(db, 'figures'), where('slug', '==', route.params.figure));
 
-	console.log(figureRef);
+	// const { data: figure, promise: figureLoaded } = useCollection(figureRef);
 
-	const { data: figure, promise: figureLoaded } = useCollection(figureRef);
+	// onBeforeMount(async function () {
+	// 	await figureLoaded;
+	// 	console.log('Figure is loaded');
+	// });
+	//adds time to get the data from Firebase so the Vuefire variable can be defined correctly
 
-	onBeforeMount(async function () {
-		await figureLoaded;
-		console.log('Figure is loaded');
-	});
+	const figure = useCollection(figureRef);
 
 	const favoritesRef = computed(function () {
 		if (user.current) {
 			return collection(db, 'users', user.id, 'favorites');
 		}
 	});
-
 	const favorites = useCollection(favoritesRef);
 
-	//check if isFavorited value is true somewhere in here
-
-	//function checkFavorite
-	//document.queryselector maybe?
-
-	const favoriteIcon = ref(false);
-
 	//Used to change the CSS class of the SVG for favorites.
+	const favoriteIcon = ref(false);
 	function toggleSVG() {
 		favoriteIcon.value = !favoriteIcon.value;
 	}
-
 	const svgClass = computed(function () {
 		if (favoriteIcon.value) {
 			return 'favorite-on';
@@ -63,10 +54,10 @@
 	});
 
 	async function FavoriteValueCheck() {
-		try {
-			if (user.current) {
-				if (favorites.length > 0) {
-					console.log('Favorites collection found.');
+		if (user.current) {
+			try {
+				let docSnap = await getDoc(doc(db, 'users', user.id, 'favorites', figure.id));
+				if (docSnap) {
 					isFavorited.value = true;
 					console.log(isFavorited.value);
 					console.log('True value returned.');
@@ -75,12 +66,11 @@
 					console.log(isFavorited.value);
 					console.log('False value returned.');
 				}
+			} catch (ex) {
+				console.log('There was a problem...');
 			}
-		} catch (ex) {
-			console.log('There was a problem...');
 		}
 	}
-
 	async function toggleFavorite(figure) {
 		isFavorited.value = !isFavorited.value;
 		console.log(isFavorited.value);
@@ -95,6 +85,7 @@
 			await deleteDoc(doc(collection(db, 'users', user.current?.uid, 'favorites'), figure.id)),
 				alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		}
+		console.log('Value changed.');
 	}
 
 	const isFavorited = ref(true) || ref(false);
@@ -103,7 +94,7 @@
 	//is there a way to "solidify" or "save" the values here?
 </script>
 <template v-if="figure[0]">
-	<div>{{ figure }}</div>
+	<div>{{ route.params.figure }}</div>
 	<div>{{ favorites }}</div>
 	<figure-info>
 		<picture> <img v-bind:src="figure[0]?.image" /></picture>
