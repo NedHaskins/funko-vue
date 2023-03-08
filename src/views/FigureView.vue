@@ -1,6 +1,6 @@
 <script setup>
 	//Vue imports
-	import { ref, computed } from 'vue';
+	import { ref, computed, onBeforeMount } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useUserService } from '@/services/UserService';
 	import { useCartService } from '@/services/CartService';
@@ -25,44 +25,112 @@
 		return query(collection(db, 'figures'), where('slug', '==', route.params.figure));
 	});
 
-	const figure = useDocument(figureRef);
+	console.log(figureRef);
 
-	const isFavorited = ref(false);
+	const { data: figure, promise: figureLoaded } = useCollection(figureRef);
+
+	onBeforeMount(async function () {
+		await figureLoaded;
+		console.log('Figure is loaded');
+	});
+
+	const favoritesRef = computed(function () {
+		if (user.current) {
+			return collection(db, 'users', user.id, 'favorites');
+		}
+	});
+
+	const favorites = useCollection(favoritesRef);
+
+	//check if isFavorited value is true somewhere in here
+
+	//function checkFavorite
+	//document.queryselector maybe?
+
+	const favoriteIcon = ref(false);
+
+	//Used to change the CSS class of the SVG for favorites.
+	function toggleSVG() {
+		favoriteIcon.value = !favoriteIcon.value;
+	}
+
+	const svgClass = computed(function () {
+		if (favoriteIcon.value) {
+			return 'favorite-on';
+		} else {
+			return 'favorite-off';
+		}
+	});
+
+	async function FavoriteValueCheck() {
+		try {
+			if (user.current) {
+				if (favorites.length > 0) {
+					console.log('Favorites collection found.');
+					isFavorited.value = true;
+					console.log(isFavorited.value);
+					console.log('True value returned.');
+				} else {
+					isFavorited.value = false;
+					console.log(isFavorited.value);
+					console.log('False value returned.');
+				}
+			}
+		} catch (ex) {
+			console.log('There was a problem...');
+		}
+	}
 
 	async function toggleFavorite(figure) {
 		isFavorited.value = !isFavorited.value;
 		console.log(isFavorited.value);
 		if (isFavorited.value === true) {
 			//if there's no favorites yet...create one
-			await addDoc(collection(db, 'users', user.current?.uid, 'favorites'), figure);
+			await setDoc(doc(db, 'users', user.current?.uid, 'favorites', figure.id), {
+				name: figure.id,
+			});
 			alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
 		} else {
-			await deleteDoc(doc(db, 'users', user.current?.uid, 'favorites', figure.id));
-			alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
+			//Only the ID is needed here, because it serves as a reference to the object -- unlike the above, you're not adding an object.
+			await deleteDoc(doc(collection(db, 'users', user.current?.uid, 'favorites'), figure.id)),
+				alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		}
 	}
+
+	const isFavorited = ref(true) || ref(false);
+	FavoriteValueCheck();
+
+	//is there a way to "solidify" or "save" the values here?
 </script>
-<template>
+<template v-if="figure[0]">
+	<div>{{ figure }}</div>
+	<div>{{ favorites }}</div>
 	<figure-info>
-		<picture> <img v-bind:src="figure[0].image" /></picture>
+		<picture> <img v-bind:src="figure[0]?.image" /></picture>
 		<card-bottom>
 			<text-block>
-				<h1>{{ figure[0].name }}</h1>
-				<p>{{ figure[0].description }}</p>
+				<h1>{{ figure[0]?.name }}</h1>
+				<p>{{ figure[0]?.description }}</p>
 			</text-block>
+
 			<figure-extras>
 				<div class="price-wrapper">
-					<p>${{ figure[0].price }}</p>
+					<p>${{ figure[0]?.price }}</p>
 				</div>
 				<button-wrapper class="add-to-cart">
 					<button type="button" @click="cart.addItem(figure[0])">Add to cart</button>
 				</button-wrapper>
 
-				<svg-wrapper class="favorite-off" @click="toggleFavorite(figure[0])" v-if="isFavorited === false">
+				<svg-wrapper
+					id="favorite-off"
+					class="favorite-off"
+					@click="toggleFavorite(figure[0])"
+					v-if="isFavorited === false"
+				>
 					<FavoritesOffIcon />
 				</svg-wrapper>
 
-				<svg-wrapper class="favorite-on" @click="toggleFavorite(figure[0])" v-else>
+				<svg-wrapper id="favorite-on" class="favorite-on" @click="toggleFavorite(figure[0])" v-else>
 					<FavoritesOnIcon />
 				</svg-wrapper>
 			</figure-extras>
@@ -71,19 +139,14 @@
 </template>
 
 <style lang="scss" scoped>
-	svg-wrapper {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
 	figure-info {
 		margin-top: 20px;
-		// border: 3px solid red;
+		border: 3px solid red;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		width: 100%;
 
 		picture {
 			border: 4px solid var(--ink);
@@ -91,40 +154,54 @@
 			width: 300px;
 		}
 
-		text-block {
-			display: block;
-			margin-top: 25px;
-			max-width: 60%;
-			text-align: center;
-			h1 {
-				font-family: 'Bangers';
-			}
-			p {
-				font-family: 'Fredoka One';
-				font-weight: normal;
-				margin-top: 15px;
-			}
-		}
-
 		card-bottom {
+			border: 3px solid lime;
 			margin-top: 27px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 30px;
-			width: 100%;
+			// gap: 30px;
+			// width: 100%;
 			// max-width: 400px;
+
+			pre {
+				/* these are a pain to get right. suitable as a baseline.. */
+				border: 3px solid yellow;
+				max-width: 100%;
+				max-height: 100%;
+				overflow: auto;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				overflow-wrap: break-word;
+			}
 
 			p,
 			button {
 				font-size: 27px;
 			}
 
+			text-block {
+				border: 3px solid red;
+				display: block;
+				margin-top: 25px;
+				max-width: 60%;
+				text-align: center;
+				h1 {
+					font-family: 'Bangers';
+				}
+				p {
+					font-family: 'Fredoka One';
+					font-weight: normal;
+					margin-top: 15px;
+				}
+			}
+
 			figure-extras {
+				border: 3px solid purple;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-evenly;
-				width: 100%;
+				// width: 100%;
 
 				.price-wrapper {
 					text-align: center;
@@ -133,6 +210,12 @@
 				.price-wrapper,
 				svg-wrapper {
 					width: 20%;
+				}
+
+				svg-wrapper {
+					display: flex;
+					align-items: center;
+					justify-content: center;
 				}
 			}
 		}
@@ -146,11 +229,16 @@
 		figure-info {
 			flex-direction: row;
 			gap: 30px;
+			p {
+				display: block;
+			}
 			picture {
+				border: 3px solid blue;
 				width: 50%;
 			}
 			card-bottom {
 				flex-direction: column;
+				align-items: center;
 				width: 50%;
 			}
 		}
