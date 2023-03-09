@@ -27,7 +27,7 @@
 <template>
 	<ul class="figure-list">
 		<li v-for="card in figures">
-			<FigureCard v-bind:figure="card" />
+			<FigureCard :figure="card" />
 		</li>
 	</ul>
 	<div id="canvas"></div>

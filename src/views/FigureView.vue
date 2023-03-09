@@ -36,11 +36,20 @@
 
 	const figure = useCollection(figureRef);
 
+	const favorited = computed(function () {
+		if (figure) {
+			//is this figure ID in the favorites collection? true/false
+			return favorites.list.find((favorite) => favorite.name == figure.id);
+		}
+	});
+
 	//is there a way to "solidify" or "save" the values here?
 </script>
 <template v-if="figure[0]">
+	<div>{{ figure }}</div>
 	<div>{{ route.params.figure }}</div>
 	<div>{{ favorites.list }}</div>
+	<div style="color: cyan">{{ favorited }}</div>
 	<figure-info>
 		<picture> <img v-bind:src="figure[0]?.image" /></picture>
 		<card-bottom>
@@ -56,20 +65,10 @@
 				<button-wrapper class="add-to-cart">
 					<button type="button" @click="cart.addItem(figure[0])">Add to cart</button>
 				</button-wrapper>
-
-				<!-- <svg-wrapper
-					id="favorite-off"
-					class="favorite-off"
-					@click="favorites.toggleFavorite(figure[0])"
-					v-if="favorites.isFavorited == false"
-				>
-					<FavoritesOffIcon />
-				</svg-wrapper>
-
-				<svg-wrapper id="favorite-on" class="favorite-on" @click="favorites.toggleFavorite(figure[0])" v-else>
-					<FavoritesOnIcon />
-				</svg-wrapper> -->
-				<!--button...svg inside button-->
+				<button class="favorite" @click="favorites.toggleFavorite(figure[0].id)">
+					<FavoritesOffIcon v-if="!favorited" />
+					<FavoritesOnIcon v-else />
+				</button>
 			</figure-extras>
 		</card-bottom>
 	</figure-info>

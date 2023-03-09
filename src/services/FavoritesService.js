@@ -28,11 +28,9 @@ export const useFavoritesService = defineStore('favorites', function () {
 		//if the figure is in the favorites collection
 		if (alreadyFavorited) {
 			//remove it
-			console.log(alreadyFavorited);
 			await deleteDoc(doc(collection(db, 'users', user.id, 'favorites'), id));
 			// alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		} else {
-			console.log('Problem');
 			await setDoc(doc(db, 'users', user.id, 'favorites', id), {
 				name: id,
 			});

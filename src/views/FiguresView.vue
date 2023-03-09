@@ -23,7 +23,7 @@
 		<h2>Choose a figure from the list below!</h2>
 		<h3>To filter figures down by category, click on the "Categories" link above.</h3>
 	</module-header>
-	<FigureList v-bind:figures="figures" />
+	<FigureList :figures="figures" />
 </template>
 
 <style scoped></style>

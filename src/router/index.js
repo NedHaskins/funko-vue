@@ -9,7 +9,9 @@ import CategoryView from '@/views/CategoryView.vue';
 import SubcategoryView from '@/views/SubcategoryView.vue';
 
 import FiguresView from '@/views/FiguresView.vue';
-import FigureView from '@/views/FigureView.vue';
+// import FigureView from '@/views/FigureView.vue';
+
+import NewFigureView from '@/views/NewFigureView.vue';
 import ShoppingCartView from '@/views/ShoppingCartView.vue';
 
 import AdminDashboardView from '@/views/AdminDashboard.vue';
@@ -89,7 +91,7 @@ const router = createRouter({
 			//The best solution may be to use a completely different URL.
 			path: '/:cat/:figure',
 			name: 'figure-no-sub',
-			component: FigureView,
+			component: NewFigureView,
 		},
 		{
 			path: '/:cat/:sub',
@@ -100,7 +102,7 @@ const router = createRouter({
 			//These are the route params! :)
 			path: '/figure/:cat/:sub/:figure', //<--- values here are used to filter down values to match for detail pages
 			name: 'figure-with-sub',
-			component: FigureView,
+			component: NewFigureView,
 		},
 		{
 			path: '/shopping-cart',
