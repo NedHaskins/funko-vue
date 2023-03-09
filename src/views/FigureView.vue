@@ -36,11 +36,7 @@
 
 	const figure = useCollection(figureRef);
 
-	onBeforeMount(function () {
-		favorites.favoriteValueCheck();
-	});
-
-	console.log(favorites.value);
+	favorites.favoriteValueCheck();
 
 	//is there a way to "solidify" or "save" the values here?
 </script>
@@ -66,13 +62,13 @@
 				<svg-wrapper
 					id="favorite-off"
 					class="favorite-off"
-					@click="toggleFavorite(figure[0])"
-					v-if="isFavorited == false"
+					@click="favorites.toggleFavorite(figure[0])"
+					v-if="favorites.isFavorited == false"
 				>
 					<FavoritesOffIcon />
 				</svg-wrapper>
 
-				<svg-wrapper id="favorite-on" class="favorite-on" @click="toggleFavorite(figure[0])" v-else>
+				<svg-wrapper id="favorite-on" class="favorite-on" @click="favorites.toggleFavorite(figure[0])" v-else>
 					<FavoritesOnIcon />
 				</svg-wrapper>
 			</figure-extras>
