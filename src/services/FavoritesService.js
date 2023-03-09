@@ -109,6 +109,7 @@ export const useFavoritesService = defineStore('favorites', function () {
 	return {
 		user,
 		list,
+		isFavorited,
 		toggleFavorite,
 		favoriteValueCheck,
 	};
