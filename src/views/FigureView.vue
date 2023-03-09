@@ -4,10 +4,11 @@
 	import { useRoute } from 'vue-router';
 	import { useUserService } from '@/services/UserService';
 	import { useCartService } from '@/services/CartService';
+	import { useFavoritesService } from '@/services/FavoritesService';
 
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
-	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
+	import { collection, doc, addDoc, getDocs, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
 	//Favorites icons
 	import FavoritesOnIcon from '@/components/icons/FavoritesOnIcon.vue';
@@ -20,9 +21,11 @@
 	const db = useFirestore();
 	const user = useUserService();
 	const cart = useCartService();
+	const favorites = useFavoritesService();
 
-	const figureRef = query(collection(db, 'figures'), where('slug', '==', route.params.figure));
-
+	const figureRef = computed(function () {
+		return query(collection(db, 'figures'), where('slug', '==', route.params.figure));
+	});
 	// const { data: figure, promise: figureLoaded } = useCollection(figureRef);
 
 	// onBeforeMount(async function () {
@@ -33,69 +36,17 @@
 
 	const figure = useCollection(figureRef);
 
-	const favoritesRef = computed(function () {
-		if (user.current) {
-			return collection(db, 'users', user.id, 'favorites');
-		}
-	});
-	const favorites = useCollection(favoritesRef);
-
-	//Used to change the CSS class of the SVG for favorites.
-	const favoriteIcon = ref(false);
-	function toggleSVG() {
-		favoriteIcon.value = !favoriteIcon.value;
-	}
-	const svgClass = computed(function () {
-		if (favoriteIcon.value) {
-			return 'favorite-on';
-		} else {
-			return 'favorite-off';
-		}
+	onBeforeMount(function () {
+		favorites.favoriteValueCheck();
 	});
 
-	async function FavoriteValueCheck() {
-		if (user.current) {
-			try {
-				let docSnap = await getDoc(doc(db, 'users', user.id, 'favorites', figure.id));
-				if (docSnap) {
-					isFavorited.value = true;
-					console.log(isFavorited.value);
-					console.log('True value returned.');
-				} else {
-					isFavorited.value = false;
-					console.log(isFavorited.value);
-					console.log('False value returned.');
-				}
-			} catch (ex) {
-				console.log('There was a problem...');
-			}
-		}
-	}
-	async function toggleFavorite(figure) {
-		isFavorited.value = !isFavorited.value;
-		console.log(isFavorited.value);
-		if (isFavorited.value === true) {
-			//if there's no favorites yet...create one
-			await setDoc(doc(db, 'users', user.current?.uid, 'favorites', figure.id), {
-				name: figure.id,
-			});
-			alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
-		} else {
-			//Only the ID is needed here, because it serves as a reference to the object -- unlike the above, you're not adding an object.
-			await deleteDoc(doc(collection(db, 'users', user.current?.uid, 'favorites'), figure.id)),
-				alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
-		}
-		console.log('Value changed.');
-	}
-
-	const isFavorited = ref(true) || ref(false);
-	FavoriteValueCheck();
+	console.log(favorites.value);
 
 	//is there a way to "solidify" or "save" the values here?
 </script>
 <template v-if="figure[0]">
 	<div>{{ route.params.figure }}</div>
-	<div>{{ favorites }}</div>
+	<div>{{ favorites.list }}</div>
 	<figure-info>
 		<picture> <img v-bind:src="figure[0]?.image" /></picture>
 		<card-bottom>
@@ -116,7 +67,7 @@
 					id="favorite-off"
 					class="favorite-off"
 					@click="toggleFavorite(figure[0])"
-					v-if="isFavorited === false"
+					v-if="isFavorited == false"
 				>
 					<FavoritesOffIcon />
 				</svg-wrapper>
