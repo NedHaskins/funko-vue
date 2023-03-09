@@ -2,6 +2,7 @@
 	import { computed, onMounted } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useUserService } from '@/services/UserService';
+	import { useFavoritesService } from '@/services/FavoritesService';
 
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
@@ -14,11 +15,16 @@
 	const db = useFirestore();
 	const user = useUserService();
 
-	defineProps(['figure']);
+	const props = defineProps(['figure']);
 
-	function redirect() {
-		window.location.href = `figure/${figure.name}`;
-	}
+	const favorites = useFavoritesService();
+
+	const favorited = computed(function () {
+		if (props.figure) {
+			//is this figure ID in the favorites collection? true/false
+			return favorites.list.find((favorite) => favorite.name == props.figure.id);
+		}
+	});
 
 	// onMounted(function () {
 	// 	console.log(figure);
@@ -32,6 +38,9 @@
 	//
 </script>
 <template>
+	<div>{{ figure.slug }}</div>
+	<div style="color: cyan">{{ favorites.list }}</div>
+	<div style="color: red">{{ favorited }}</div>
 	<figure-card v-if="figure">
 		<RouterLink
 			v-if="!figure.subcategory"
@@ -76,6 +85,8 @@
 					>More info</RouterLink
 				>
 			</div>
+
+			<button class="favorite" @click="favorites.toggleFavorite(figure.id)">Toggle favorites</button>
 		</card-bottom>
 	</figure-card>
 </template>

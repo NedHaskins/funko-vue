@@ -36,8 +36,6 @@
 
 	const figure = useCollection(figureRef);
 
-	favorites.favoriteValueCheck();
-
 	//is there a way to "solidify" or "save" the values here?
 </script>
 <template v-if="figure[0]">
@@ -59,7 +57,7 @@
 					<button type="button" @click="cart.addItem(figure[0])">Add to cart</button>
 				</button-wrapper>
 
-				<svg-wrapper
+				<!-- <svg-wrapper
 					id="favorite-off"
 					class="favorite-off"
 					@click="favorites.toggleFavorite(figure[0])"
@@ -70,7 +68,8 @@
 
 				<svg-wrapper id="favorite-on" class="favorite-on" @click="favorites.toggleFavorite(figure[0])" v-else>
 					<FavoritesOnIcon />
-				</svg-wrapper>
+				</svg-wrapper> -->
+				<!--button...svg inside button-->
 			</figure-extras>
 		</card-bottom>
 	</figure-info>

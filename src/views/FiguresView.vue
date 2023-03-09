@@ -1,6 +1,6 @@
 <script setup>
 	//Vue imports
-	import { onMounted } from 'vue';
+	import { computed, onMounted } from 'vue';
 
 	import FigureList from '@/components/FigureList.vue';
 
@@ -11,7 +11,12 @@
 	//Firebase variables
 
 	const db = useFirestore();
-	const figures = useCollection(collection(db, 'figures')); //reactive data
+
+	const figuresReference = computed(function () {
+		return collection(db, 'figures');
+	});
+
+	const figures = useCollection(figuresReference); //reactive data
 </script>
 <template>
 	<module-header>

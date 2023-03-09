@@ -23,74 +23,21 @@ export const useFavoritesService = defineStore('favorites', function () {
 
 	const list = useCollection(favoritesReference);
 
-	const isFavorited = ref(null);
-
-	function favoriteValueCheck() {
-		const found = list.value.find((item) => item.name == route.params.figure);
-		if (found) {
-			isFavorited.value = true;
-			console.log(isFavorited.value);
-			console.log('True value returned.');
+	async function toggleFavorite(id) {
+		const alreadyFavorited = list.value.find((item) => item.name == id);
+		//if the figure is in the favorites collection
+		if (alreadyFavorited) {
+			//remove it
+			console.log(alreadyFavorited);
+			await deleteDoc(doc(collection(db, 'users', user.id, 'favorites'), id));
+			// alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		} else {
-			isFavorited.value = false;
-			console.log(isFavorited.value);
-			console.log('False value returned.');
-		}
-	}
-
-	// async function FavoriteValueCheck() {
-	// 	if (user.current) {
-	// 		try {
-	// 			if (favorites) {
-	// 				let docSnap = await getDoc(doc(db, 'users', user.id, 'favorites', figure.id));
-	// 				if (docSnap.exists()) {
-	// 					isFavorited.value = true;
-	// 					console.log(isFavorited.value);
-	// 					console.log('True value returned.');
-	// 				} else {
-	// 					isFavorited.value = false;
-	// 					console.log(isFavorited.value);
-	// 					console.log('False value returned.');
-	// 				}
-	// 			}
-	// 		} catch (ex) {
-	// 			console.log('There was a problem...');
-	// 		}
-	// 	}
-	// }
-
-	// const favoriteValueCheck = computed( function () {
-	// 	if (favorites.value) {
-	// 		let docSnap = await getDoc(doc(db, 'users', user.id, 'favorites', figure.id));
-	// 		if (docSnap.exists()) {
-	// 			isFavorited.value = true;
-	// 			console.log(isFavorited.value);
-	// 			console.log('True value returned.');
-	// 		} else {
-	// 			isFavorited.value = false;
-	// 			console.log(isFavorited.value);
-	// 			console.log('False value returned.');
-	// 		}
-	// 	}
-	// 	return isFavorited.value;
-	// })
-	// }
-
-	async function toggleFavorite(figure) {
-		isFavorited.value = !isFavorited.value;
-		console.log(isFavorited.value);
-		if (isFavorited.value === true) {
-			//if there's no favorites yet...create one
-			await setDoc(doc(db, 'users', user.current?.uid, 'favorites', figure.id), {
-				name: figure.id,
+			console.log('Problem');
+			await setDoc(doc(db, 'users', user.id, 'favorites', id), {
+				name: id,
 			});
-			alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
-		} else {
-			//Only the ID is needed here, because it serves as a reference to the object -- unlike the above, you're not adding an object.
-			await deleteDoc(doc(collection(db, 'users', user.current?.uid, 'favorites'), figure.id)),
-				alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
+			// alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
 		}
-		console.log('Value changed.');
 	}
 
 	//Used to change the CSS class of the SVG for favorites.
@@ -109,8 +56,6 @@ export const useFavoritesService = defineStore('favorites', function () {
 	return {
 		user,
 		list,
-		isFavorited,
 		toggleFavorite,
-		favoriteValueCheck,
 	};
 });
