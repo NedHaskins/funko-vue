@@ -30,9 +30,6 @@
 	});
 </script>
 <template>
-	<!-- <div>{{ figure.slug }}</div> -->
-	<!-- <div style="color: cyan">{{ favorites.list }}</div> -->
-	<!-- <div style="color: red">{{ favorited }}</div> -->
 	<figure-card v-if="figure">
 		<picture-wrapper>
 			<RouterLink

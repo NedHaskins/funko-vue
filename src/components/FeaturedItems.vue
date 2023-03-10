@@ -62,15 +62,12 @@
 
 <template>
 	<section class="featured-items">
-		<!-- <pre v-if="figures" style="color: cyan">{{ randomList }}</pre> -->
-		<!-- <pre v-if="figures" style="color: blue">{{}}</pre> -->
-
 		<module-header>
 			<div id="letters-container" ref="container"></div>
 		</module-header>
 		<ul :class="{ party: active }">
 			<li v-for="item in randomList">
-				<FigureCard v-bind:figure="item" />
+				<FigureCard :figure="item" />
 			</li>
 		</ul>
 

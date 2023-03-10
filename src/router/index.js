@@ -134,11 +134,6 @@ const router = createRouter({
 			],
 		},
 		{
-			path: '/admin/user-profile',
-			name: 'user-profile',
-			component: UserProfileView,
-		},
-		{
 			path: '/firebase-test',
 			name: 'firebase-test',
 			component: FirebaseTestView,
