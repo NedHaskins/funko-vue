@@ -3,6 +3,8 @@
 
 import { computed } from 'vue';
 
+import { useRoute } from 'vue-router';
+
 import { defineStore } from 'pinia';
 
 import { collection } from 'firebase/firestore';
@@ -10,6 +12,7 @@ import { collection } from 'firebase/firestore';
 import { useFirestore, useCollection } from 'vuefire';
 
 export const useFigureService = defineStore('figures', function () {
+	const route = useRoute();
 	const db = useFirestore();
 
 	const figuresReference = computed(function () {
@@ -18,7 +21,12 @@ export const useFigureService = defineStore('figures', function () {
 
 	const list = useCollection(figuresReference);
 
+	const figure = computed(function () {
+		return list.value.find((item) => item.id == route.params.figure);
+	});
+
 	return {
 		list,
+		figure,
 	};
 });

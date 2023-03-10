@@ -13,44 +13,37 @@ make an [X} option to the left of each item row to remove it from the list if de
 </script>
 
 <template>
-	<inner-column>
-		<table class="cart">
-			<tbody>
-				<tr v-for="group in cart.cartGrouping">
-					<td class="name">{{ group[0].name }}</td>
-					<td class="item-quantity">
-						<button id="remove" @click="cart.removeItem(group[0])">-</button>
-						<input type="number" :value="group.length" />
-						<!--place v-model here-->
-						<button id="add" @click="cart.addItem(group[0])">+</button>
-					</td>
-					<td id="price" class="price">${{ group[0].price * group.length }}</td>
-				</tr>
-				<tr class="total">
-					<td>TOTAL</td>
-					<td></td>
-					<td>${{ cart.prettyTotal }}</td>
-				</tr>
-			</tbody>
-		</table>
+	<table class="cart">
+		<tbody>
+			<tr v-for="group in cart.cartGrouping">
+				<td class="name">{{ group[0].name }}</td>
+				<td class="item-quantity">
+					<button id="remove" @click="cart.removeItem(group[0])">-</button>
+					<input type="number" :value="group.length" />
+					<!--place v-model here-->
+					<button id="add" @click="cart.addItem(group[0])">+</button>
+				</td>
+				<td id="price" class="price">${{ group[0].price * group.length }}</td>
+			</tr>
+			<tr class="total">
+				<td>TOTAL</td>
+				<td></td>
+				<td>${{ cart.prettyTotal }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-		<cart-bottom>
-			<button-wrapper>
-				<button type="button" @click="cart.deleteCollection()">Clear cart</button>
-			</button-wrapper>
+	<cart-bottom>
+		<button-wrapper>
+			<button type="button" @click="cart.deleteCollection()">Clear cart</button>
+		</button-wrapper>
 
-			<button-wrapper>
-				<button>Place order</button>
-			</button-wrapper>
-		</cart-bottom>
-	</inner-column>
+		<button-wrapper>
+			<button>Place order</button>
+		</button-wrapper>
+	</cart-bottom>
 </template>
 <style lang="scss" scoped>
-	inner-column {
-		max-width: 600px;
-		// border: 3px dashed cyan;
-	}
-
 	table {
 		font-family: 'Bangers';
 		font-size: 19px;

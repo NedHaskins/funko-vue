@@ -8,9 +8,12 @@ import { ref, computed } from 'vue';
 import { useFirestore, useCollection, useDocument } from 'vuefire';
 import { getDocs, collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 import { useUserService } from '@/services/UserService';
+import { useFigureService } from '@/services/FigureService';
 
 export const useFavoritesService = defineStore('favorites', function () {
 	const user = useUserService();
+	const figures = useFigureService();
+
 	const db = useFirestore();
 
 	const favoritesReference = computed(function () {
@@ -29,12 +32,12 @@ export const useFavoritesService = defineStore('favorites', function () {
 		if (alreadyFavorited) {
 			//remove it
 			await deleteDoc(doc(collection(db, 'users', user.id, 'favorites'), id));
-			// alert(`${figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
+			alert(`${figures.figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		} else {
 			await setDoc(doc(db, 'users', user.id, 'favorites', id), {
 				name: id,
 			});
-			// alert(`${figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
+			alert(`${figures.figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
 		}
 	}
 

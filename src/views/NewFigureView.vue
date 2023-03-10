@@ -37,16 +37,12 @@
 	});
 </script>
 <template>
-	<div style="color: lime">{{ route.params.figure }}</div>
-	<div style="color: orange">{{ favorites.list }}</div>
-
-	<div style="color: green">{{ figure }}</div>
 	<figure-info>
-		<picture> <img v-bind:src="figure.image" /></picture>
+		<picture> <img v-bind:src="figure?.image" /></picture>
 		<card-bottom>
 			<text-block>
-				<h1>{{ figure.name }}</h1>
-				<p>{{ figure.description }}</p>
+				<h1>{{ figure?.name }}</h1>
+				<p>{{ figure?.description }}</p>
 			</text-block>
 
 			<figure-extras>
@@ -64,3 +60,119 @@
 		</card-bottom>
 	</figure-info>
 </template>
+
+<style lang="scss" scoped>
+	figure-info {
+		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+
+		picture {
+			border: 4px solid var(--ink);
+			padding: 15px;
+			width: 300px;
+		}
+
+		card-bottom {
+			margin-top: 27px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			// gap: 30px;
+			// width: 100%;
+			// max-width: 400px;
+
+			pre {
+				/* these are a pain to get right. suitable as a baseline.. */
+				max-width: 100%;
+				max-height: 100%;
+				overflow: auto;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				overflow-wrap: break-word;
+			}
+
+			p,
+			button {
+				font-size: 27px;
+			}
+
+			button {
+				max-width: 142px;
+			}
+
+			button.favorite {
+				background-color: unset;
+			}
+
+			text-block {
+				display: block;
+				margin-top: 25px;
+				max-width: 60%;
+				text-align: center;
+				h1 {
+					font-family: 'Bangers';
+				}
+				p {
+					font-family: 'Fredoka One';
+					font-weight: normal;
+					margin-top: 15px;
+				}
+			}
+
+			figure-extras {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-evenly;
+				// width: 100%;
+
+				.price-wrapper {
+					text-align: center;
+				}
+
+				.price-wrapper,
+				svg-wrapper {
+					width: 20%;
+				}
+
+				svg-wrapper {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+
+		card-bottom {
+			// border: 3px solid lime;
+		}
+	}
+
+	@media (min-width: 700px) {
+		figure-info {
+			flex-direction: row;
+			gap: 30px;
+			p {
+				display: block;
+			}
+			picture {
+				width: 40%;
+			}
+			card-bottom {
+				flex-direction: column;
+				align-items: center;
+				width: 60%;
+
+				text-block {
+					max-width: 100%;
+				}
+				p {
+					max-width: 100%;
+				}
+			}
+		}
+	}
+</style>
