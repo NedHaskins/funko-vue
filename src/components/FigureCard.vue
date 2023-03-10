@@ -89,14 +89,14 @@
 </template>
 
 <style lang="scss" scoped>
-	card-bottom > * {
-		border: 3px solid red;
-		div,
-		p,
-		a {
-			border: 3px solid green;
-		}
-	}
+	// card-bottom > * {
+	// 	border: 3px solid red;
+	// 	div,
+	// 	p,
+	// 	a {
+	// 		border: 3px solid green;
+	// 	}
+	// }
 	figure-card {
 		display: block;
 

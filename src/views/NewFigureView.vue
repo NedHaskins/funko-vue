@@ -19,20 +19,21 @@
 	const db = useFirestore();
 	const user = useUserService();
 
-	const figures = useFigureService();
+	const figuresRef = computed(function () {
+		return collection(db, 'figures');
+	});
+
+	const figures = useCollection(figuresRef);
 
 	const figure = computed(function () {
-		const found = figures.list.find((item) => item.id == route.params.figure);
-		return found;
+		return figures.value.find((item) => item.id == route.params.figure);
 	});
 
 	const favorites = useFavoritesService();
 
 	const favorited = computed(function () {
-		if (figure.value && favorites) {
-			//is this figure ID in the favorites collection? true/false
-			return favorites.list.find((favorite) => favorite.name == figure.value.id);
-		}
+		//is this figure ID in the favorites collection? true/false
+		return favorites.list.find((favorite) => favorite.name == figure.value.id);
 	});
 </script>
 <template>
