@@ -13,6 +13,7 @@ import FiguresView from '@/views/FiguresView.vue';
 
 import NewFigureView from '@/views/NewFigureView.vue';
 import ShoppingCartView from '@/views/ShoppingCartView.vue';
+import CheckoutModal from '@/views/CheckoutModal.vue';
 
 import AdminDashboardView from '@/views/AdminDashboard.vue';
 import UserProfileView from '@/views/UserProfileView.vue';
@@ -109,6 +110,15 @@ const router = createRouter({
 			name: 'shopping-cart',
 			component: ShoppingCartView,
 			meta: { requiresAuth: true },
+
+			children: [
+				{
+					path: '/shopping-cart/checkout',
+					name: 'checkout',
+					component: CheckoutModal,
+					meta: { requiresAuth: true },
+				},
+			],
 		},
 		{
 			path: '/admin',

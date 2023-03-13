@@ -7,9 +7,6 @@
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
 	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
-	//Favorites icons
-	import FavoritesOnIcon from '@/components/icons/FavoritesOnIcon.vue';
-	import FavoritesOffIcon from '@/components/icons/FavoritesOffIcon.vue';
 
 	import { useFigureService } from '@/services/FigureService';
 	//Vue variables
@@ -37,7 +34,7 @@
 	});
 </script>
 <template>
-	<figure-info>
+	<figure-info v-if="figure">
 		<picture> <img v-bind:src="figure?.image" /></picture>
 		<card-bottom>
 			<text-block>
@@ -52,7 +49,7 @@
 				<button-wrapper class="add-to-cart">
 					<button type="button" @click="cart.addItem(figure)">Add to cart</button>
 				</button-wrapper>
-				<button v-if="figure" class="favorite" @click="favorites.toggleFavorite(figure.id)">
+				<button class="favorite" @click="favorites.toggleFavorite(figure.id)">
 					<FavoritesOnIcon v-if="favorited" />
 					<FavoritesOffIcon v-else />
 				</button>

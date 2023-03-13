@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 
 //Vue
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 //Firebase imports
 import { useFirestore, useCollection, useDocument } from 'vuefire';
@@ -73,6 +73,22 @@ export const useCartService = defineStore('cart', function () {
 		}
 	}
 
+	//Pieces to toggle the checkout menu on and off.
+
+	const isCheckingOut = ref(false);
+
+	function toggleCheckout() {
+		isCheckingOut.value = !isCheckingOut.value;
+	}
+
+	const showCheckout = computed(function () {
+		if (isCheckingOut.value) {
+			return 'checkout-open';
+		} else {
+			return 'checkout-closed';
+		}
+	});
+
 	return {
 		user,
 		list,
@@ -82,7 +98,9 @@ export const useCartService = defineStore('cart', function () {
 		addItem,
 		removeItem,
 		deleteCollection,
-		// deleteQueryBatch,
 		prettyTotal,
+		isCheckingOut,
+		toggleCheckout,
+		showCheckout,
 	};
 });

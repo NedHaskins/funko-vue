@@ -64,7 +64,7 @@
 	<!-- <div v-for="item in cart">{{ item }}</div> -->
 	<!-- <div v-for="item in cart.cartGrouping">{{ item }}</div> -->
 
-	<header v-bind:class="`${route.name} ${ui.menuClass}`">
+	<header :class="`${route.name} ${ui.menuClass}`">
 		<inner-column>
 			<header-top>
 				<space-box @click="toggleMobileMenu()" class="left">

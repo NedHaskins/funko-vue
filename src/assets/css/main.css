@@ -106,6 +106,7 @@ card-bottom {
 .more-info {
 	font-family: 'Bangers';
 	font-size: 18px;
+	text-align: center;
 }
 
 .more-info a {

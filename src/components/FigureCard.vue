@@ -7,9 +7,6 @@
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
 	import { collection, doc, addDoc, setDoc, deleteDoc, query, where } from 'firebase/firestore';
-	//Favorites icons
-	import FavoritesOnIcon from '@/components/icons/FavoritesOnIcon.vue';
-	import FavoritesOffIcon from '@/components/icons/FavoritesOffIcon.vue';
 
 	//Vue variables
 	const route = useRoute();
@@ -28,7 +25,16 @@
 			return favorites.list.find((favorite) => favorite.name == props.figure.id);
 		}
 	});
+
+	const iconClass = computed(function () {
+		if (favorited.value) {
+			return 'favorited';
+		} else {
+			return 'not-favorited';
+		}
+	});
 </script>
+<div></div>
 <template>
 	<figure-card v-if="figure">
 		<picture-wrapper>
@@ -77,9 +83,30 @@
 				>
 			</div>
 
-			<button class="favorite" @click="favorites.toggleFavorite(figure.id)">
-				<FavoritesOffIcon v-if="!favorited" />
-				<FavoritesOnIcon v-else />
+			<button :class="`${iconClass}`" @click="favorites.toggleFavorite(figure.id)">
+				<!-- 				<FavoritesOffIcon v-if="!favorited" />
+				<FavoritesOnIcon v-else /> -->
+				<svg
+					width="100%"
+					height="100%"
+					viewBox="0 0 258 190"
+					version="1.1"
+					xmlns="http://www.w3.org/2000/svg"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xml:space="preserve"
+					xmlns:serif="http://www.serif.com/"
+					style="
+						fill-rule: evenodd;
+						clip-rule: evenodd;
+						stroke-linecap: round;
+						stroke-linejoin: round;
+						stroke-miterlimit: 1.5;
+					"
+				>
+					<path
+						d="M128.956,45.358c25.832,-46.015 77.498,-46.015 103.331,-27.609c25.833,18.406 25.833,55.218 -0,92.029c-18.083,27.609 -64.582,55.218 -103.331,73.624c-38.75,-18.406 -85.248,-46.015 -103.331,-73.624c-25.833,-36.811 -25.833,-73.623 -0,-92.029c25.832,-18.406 77.498,-18.406 103.331,27.609Z"
+					/>
+				</svg>
 			</button>
 		</card-bottom>
 	</figure-card>
@@ -124,14 +151,36 @@
 	}
 
 	card-bottom {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		gap: 30px;
+		display: grid;
+		grid-template-columns: 1fr 30% 1fr;
 
 		p,
 		button {
 			font-size: 27px;
+		}
+	}
+
+	button.favorited,
+	button.not-favorited {
+		max-width: 69px;
+	}
+
+	:is(.favorited, .not-favorited) svg path {
+		stroke: var(--ink);
+		stroke-width: 12.25px;
+	}
+
+	button.favorited svg path {
+		fill: #e9467c;
+	}
+
+	button.not-favorited svg path {
+		fill: none;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:is(.favorited, .not-favorited) svg path {
+			stroke: var(--paper);
 		}
 	}
 

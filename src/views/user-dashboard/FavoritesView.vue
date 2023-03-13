@@ -36,7 +36,7 @@
 			const found = figures.value.find((item) => item.slug === favorites.list[i].name);
 			array.push(found);
 		}
-		return array; //Return stups the function!
+		return array; //Return stops the function!
 	});
 
 	// function isFavorite(item) {

@@ -3,7 +3,9 @@
 make an [X} option to the left of each item row to remove it from the list if desired.-->
 
 <script setup>
-	import { computed } from 'vue';
+	import { ref, computed } from 'vue';
+	import { RouterView } from 'vue-router';
+
 	import { useUserService } from '@/services/UserService';
 	import { useCartService } from '@/services/CartService';
 
@@ -13,6 +15,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 </script>
 
 <template>
+	<div>{{ cart.showCheckout }}</div>
 	<table class="cart">
 		<tbody>
 			<tr v-for="group in cart.cartGrouping">
@@ -39,9 +42,14 @@ make an [X} option to the left of each item row to remove it from the list if de
 		</button-wrapper>
 
 		<button-wrapper>
-			<button>Place order</button>
+			<RouterLink @click="cart.toggleCheckout()" to="/shopping-cart/checkout">
+				<button type="button">Place order</button>
+			</RouterLink>
 		</button-wrapper>
 	</cart-bottom>
+	<section :class="`${cart.showCheckout}`">
+		<RouterView />
+	</section>
 </template>
 <style lang="scss" scoped>
 	table {
@@ -157,4 +165,14 @@ make an [X} option to the left of each item row to remove it from the list if de
 	// 		border: 3px dashed red;
 	// 	}
 	// }
+
+	.checkout-open {
+		position: fixed;
+		top: 0;
+		left: 0;
+		min-width: 100vw;
+		min-height: 100vh;
+		background-color: green;
+		opacity: 50%;
+	}
 </style>

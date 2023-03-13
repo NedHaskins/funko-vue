@@ -22,19 +22,19 @@
 </script>
 
 <template>
-	<pre class="route-display"><code>{{route.name}}</code></pre>
-	<SiteHeader v-if="!route.name?.includes('intro')" />
+	<pre class="route-display"><code></code></pre>
+	<SiteHeader v-if="!route.name?.includes('intro') && !route.name?.includes('checkout')" />
 	<!-- the question mark here allows the `skip` that happens in the route value during rendering.  This fixed the problem of the pages not loading successfully during this check.-->
 	<main class="outlet">
 		<inner-column>
 			<RouterView />
 		</inner-column>
 	</main>
-	<SiteFooter v-if="!route.name?.includes('intro')" />
+	<SiteFooter v-if="!route.name?.includes('intro') && !route.name?.includes('checkout')" />
 </template>
 
 <style scoped>
 	.route-display {
-		display: none;
+		/*		display: none;*/
 	}
 </style>

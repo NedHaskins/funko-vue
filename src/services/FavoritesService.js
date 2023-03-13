@@ -29,15 +29,20 @@ export const useFavoritesService = defineStore('favorites', function () {
 	async function toggleFavorite(id) {
 		const alreadyFavorited = list.value.find((item) => item.name == id);
 		//if the figure is in the favorites collection
-		if (alreadyFavorited) {
+		if (!user.current) {
+			alert('You must be a user to add favorites!');
+		}
+		if (figures && alreadyFavorited) {
 			//remove it
 			await deleteDoc(doc(collection(db, 'users', user.id, 'favorites'), id));
-			alert(`${figures.figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
+			console.log(alreadyFavorited);
+			// alert(`${figures.figure.name} was removed from ${user.userDoc.firstName}'s favorites list.`);
 		} else {
 			await setDoc(doc(db, 'users', user.id, 'favorites', id), {
 				name: id,
 			});
-			alert(`${figures.figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
+			console.log(alreadyFavorited);
+			// alert(`${figures.figure.name} was added to ${user.userDoc.firstName}'s favorites list. :)`);
 		}
 	}
 
