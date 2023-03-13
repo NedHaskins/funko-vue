@@ -43,7 +43,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 		<button-wrapper>
 			<RouterLink @click="cart.toggleCheckout()" to="/shopping-cart/checkout">
-				<button type="button">Place order</button>
+				<button type="button">Checkout</button>
 			</RouterLink>
 		</button-wrapper>
 	</cart-bottom>
@@ -170,9 +170,9 @@ make an [X} option to the left of each item row to remove it from the list if de
 		position: fixed;
 		top: 0;
 		left: 0;
-		min-width: 100vw;
+		width: 100%;
 		min-height: 100vh;
-		background-color: green;
-		opacity: 50%;
+		background-color: #ffecae; /*Banana Mania*/
+		opacity: 100%;
 	}
 </style>
