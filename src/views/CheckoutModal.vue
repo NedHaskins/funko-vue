@@ -100,6 +100,37 @@
 					</input-wrapper>
 				</li>
 			</ul>
+			<!--The following three blocks need to be able to read the current radio value, which means there needs to be something reactive watching the radio values.-->
+			<div class="credit-card-info">
+				<input-wrapper>
+					<label for="card-number">Card Number</label>
+					<input id="card-number" type="number" />
+				</input-wrapper>
+				<input-wrapper>
+					<label for="expiration-date">Expiration Date</label>
+					<input id="expiration-date" type="date" />
+				</input-wrapper>
+				<input-wrapper>
+					<label for="card-number">Card Number</label>
+					<input id="card-number" type="number" />
+				</input-wrapper>
+			</div>
+
+			<div class="paypal-email">
+				<input-wrapper>
+					<label for="card-number">Email Address</label>
+					<input id="card-number" type="number" />
+				</input-wrapper>
+			</div>
+
+			<div class="bitcoin-info">
+				<input-wrapper>
+					<label for="private-key">Private Key</label>
+					<input id="private-key" type="text" />
+				</input-wrapper>
+			</div>
+
+			<h2>Enter your shipping info!</h2>
 			<ul class="payment-options">
 				<li>
 					<svg-wrapper>
@@ -126,6 +157,15 @@
 					</input-wrapper>
 				</li>
 			</ul>
+
+			<div class="shipping-speed">
+				<h3>Choose your shipping speed.</h3>
+				<select>
+					<option>Standard - $5.99</option>
+					<option>Express - $12.99</option>
+					<option>Overnight - $24.99</option>
+				</select>
+			</div>
 
 			<button-wrapper>
 				<button type="button">
