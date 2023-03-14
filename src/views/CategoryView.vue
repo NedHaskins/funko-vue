@@ -35,11 +35,11 @@
    <!--if the current category selected has any subcategories-->
    <ul class="subcategory-list" v-if="subcategories.length">
       <li v-for="subcategory in subcategories">
-         <SubcategoryCard v-bind:category="category" v-bind:subcategory="subcategory" />
+         <SubcategoryCard :category="category" :subcategory="subcategory" />
       </li>
    </ul>
 
-   <FigureList v-else v-bind:figures="filterFiguresByCategory" />
+   <FigureList v-else :figures="filterFiguresByCategory" />
 </template>
 
 <style lang="scss" scoped>

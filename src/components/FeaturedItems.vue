@@ -71,7 +71,7 @@
 			</li>
 		</ul>
 
-		<!-- <FigureList v-bind:figures="makeRandomList(figures)" /> -->
+		<!-- <FigureList :figures="makeRandomList(figures)" /> -->
 		<div id="canvas"></div>
 	</section>
 </template>

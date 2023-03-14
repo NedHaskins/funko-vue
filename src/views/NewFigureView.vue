@@ -35,7 +35,7 @@
 </script>
 <template>
 	<figure-info v-if="figure">
-		<picture> <img v-bind:src="figure?.image" /></picture>
+		<picture> <img :src="figure?.image" /></picture>
 		<card-bottom>
 			<text-block>
 				<h1>{{ figure?.name }}</h1>

@@ -36,7 +36,7 @@
 		<h3>{{ subcategory[0].blurb }}</h3>
 	</module-header>
 
-	<FigureList v-bind:figures="filteredFigures" />
+	<FigureList :figures="filteredFigures" />
 </template>
 
 <style scoped>

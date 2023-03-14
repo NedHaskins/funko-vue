@@ -10,6 +10,10 @@
 	import PaypalIcon from '@/components/icons/payment-icons/PaypalIcon.vue';
 	import BitcoinIcon from '@/components/icons/payment-icons/BitcoinIcon.vue';
 
+	import USPSIcon from '@/components/icons/shipping-icons/USPSIcon.vue';
+	import FedexIcon from '@/components/icons/shipping-icons/FedexIcon.vue';
+	import DHLIcon from '@/components/icons/shipping-icons/DHLIcon.vue';
+
 	const cart = useCartService();
 
 	const checkoutForm = reactive({
@@ -96,8 +100,32 @@
 					</input-wrapper>
 				</li>
 			</ul>
-
-			<shipping-icons></shipping-icons>
+			<ul class="payment-options">
+				<li>
+					<svg-wrapper>
+						<FedexIcon />
+					</svg-wrapper>
+					<input-wrapper class="radio">
+						<input type="radio" name="shipping" id="fedex" />
+					</input-wrapper>
+				</li>
+				<li>
+					<svg-wrapper>
+						<DHLIcon />
+					</svg-wrapper>
+					<input-wrapper class="radio">
+						<input type="radio" name="shipping" id="dhl" />
+					</input-wrapper>
+				</li>
+				<li>
+					<svg-wrapper>
+						<USPSIcon />
+					</svg-wrapper>
+					<input-wrapper class="radio">
+						<input type="radio" name="shipping" id="dhl" />
+					</input-wrapper>
+				</li>
+			</ul>
 
 			<button-wrapper>
 				<button type="button">
@@ -111,6 +139,11 @@
 </template>
 
 <style lang="scss" scoped>
+	@media (prefers-color-scheme: dark) {
+		checkout-modal {
+			color: black;
+		}
+	}
 	svg-wrapper,
 	form {
 		display: block;

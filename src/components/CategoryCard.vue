@@ -3,9 +3,9 @@
 </script>
 <template>
 	<category-card>
-		<RouterLink v-bind:to="`/${category.id}`">
+		<RouterLink :to="`/${category.id}`">
 			<picture>
-				<img v-bind:src="category.image" />
+				<img :src="category.image" />
 			</picture>
 		</RouterLink>
 

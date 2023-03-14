@@ -32,7 +32,7 @@
 
    <ul>
       <li v-for="item in categories">
-         <CategoryCard v-bind:category="item" />
+         <CategoryCard :category="item" />
       </li>
    </ul>
 </template>
