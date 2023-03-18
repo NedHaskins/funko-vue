@@ -222,14 +222,41 @@
 	checkout-modal {
 		display: flex;
 		flex-direction: column;
-		// min-height: 100vh;
-		// overflow: scroll;
+		overflow: auto;
 		background-color: white;
-		width: 80%;
-		padding: 20px;
+		padding: 30px;
+		height: 88%;
+
+		input-wrapper {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 	output {
 		border: 3px solid lime;
+	}
+
+	form {
+		h2,
+		h3 {
+			margin-top: 20px;
+		}
+
+		label {
+			margin-top: 11px;
+			font-size: 18px;
+		}
+
+		input {
+			margin-top: 5px;
+			font-size: 24px;
+			border: 1px solid var(--x11gray);
+		}
+
+		select {
+			margin-top: 20px;
+			font-size: 24px;
+		}
 	}
 	@media (prefers-color-scheme: dark) {
 		checkout-modal {
@@ -241,22 +268,23 @@
 		display: block;
 	}
 
-	input-wrapper {
-		display: block;
-	}
-
 	button-wrapper {
+		margin-top: 20px;
 		display: flex;
 		flex-direction: row;
+		gap: 20px;
 	}
 
 	button-wrapper {
 		justify-content: center;
 	}
 
-	.payment-options {
-		display: flex;
-		flex-direction: row;
+	.payment-options,
+	.shipping-options {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		margin-top: 20px;
 
 		li {
 			display: flex;
@@ -264,7 +292,7 @@
 			svg-wrapper {
 				display: flex;
 				flex-direction: row;
-				align-items: center;
+				justify-content: center;
 				width: 100%;
 				flex: 1;
 				svg {
@@ -280,7 +308,8 @@
 		}
 	}
 
-	h1 {
+	h1,
+	h3 {
 		font-family: 'Bangers';
 	}
 </style>

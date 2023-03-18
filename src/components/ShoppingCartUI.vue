@@ -175,7 +175,8 @@ make an [X} option to the left of each item row to remove it from the list if de
 		top: 0;
 		left: 0;
 		width: 100%;
-		min-height: 100vh;
+		height: 100vh;
+		overflow: auto;
 		background-color: rgb(100, 100, 100, 0.8);
 	}
 </style>
