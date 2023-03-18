@@ -1,21 +1,35 @@
 <script setup>
-	import { reactive } from 'vue';
+	//NPM packages
+	import { v4 as uuidv4 } from 'uuid';
 
+	//Vue imports
+	import { ref, reactive } from 'vue';
 	import { RouterLink } from 'vue-router';
 
-	import { useCartService } from '@/services/CartService';
+	//Vuefire / Firestore imports
+	import { doc, collection, addDoc, deleteDoc, getDocs } from 'firebase/firestore';
+	import { useFirestore } from 'vuefire';
 
+	//Pinia imports
+	import { useCartService } from '@/services/CartService';
+	import { useUserService } from '@/services/UserService';
+
+	//Icons
 	import VisaIcon from '@/components/icons/payment-icons/VisaIcon.vue';
 	import MastercardIcon from '@/components/icons/payment-icons/MastercardIcon.vue';
 	import PaypalIcon from '@/components/icons/payment-icons/PaypalIcon.vue';
 	import BitcoinIcon from '@/components/icons/payment-icons/BitcoinIcon.vue';
-
 	import USPSIcon from '@/components/icons/shipping-icons/USPSIcon.vue';
 	import FedexIcon from '@/components/icons/shipping-icons/FedexIcon.vue';
 	import DHLIcon from '@/components/icons/shipping-icons/DHLIcon.vue';
 
+	//Service variables
+	const db = useFirestore();
 	const cart = useCartService();
+	const user = useUserService();
 
+	let chosenPaymentMethod = ref(null);
+	let chosenShippingMethod = ref(null);
 	const checkoutForm = reactive({
 		name: '',
 		address: '',
@@ -23,9 +37,26 @@
 		city: '',
 		state: '',
 		zipCode: '',
-		cardNo: '',
-		expDate: '',
 	});
+
+	async function placeOrder() {
+		const docRef = await addDoc(collection(db, 'users', user.id, 'orders'), {
+			name: checkoutForm.name,
+			address: checkoutForm.address,
+			aptNo: checkoutForm.aptNo,
+			city: checkoutForm.city,
+			state: checkoutForm.state,
+			zipCode: checkoutForm.zipCode,
+			itemsInOrder: cart.list, //maybe use cartGrouping here -- use a function to get this?
+		});
+		console.log('New order created with ID ', docRef.id);
+		//the cart will need to be cleared after this
+		const querySnapshot = await getDocs(collection(db, 'users', user.id, 'cart'));
+		for (let item of querySnapshot.docs) {
+			await deleteDoc(doc(db, 'users', user.id, 'cart', item.id));
+		}
+		console.log('Cart cleared successfully.');
+	}
 
 	//Function to place item order.
 
@@ -37,32 +68,40 @@
 <template>
 	<checkout-modal>
 		<h1>Checkout!</h1>
+		<div>
+			<!-- <pre>{{ cart.list }}</pre> -->
+		</div>
 
-		<form>
+		<form @submit.prevent="placeOrder()">
 			<h2>Enter your address!</h2>
 			<input-wrapper>
 				<label for="name">Name</label>
-				<input id="name" type="text" />
+				<input id="name" type="text" v-model="checkoutForm.name" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label for="address">Address</label>
-				<input id="address" type="text" />
+				<input id="address" type="text" v-model="checkoutForm.address" />
+			</input-wrapper>
+
+			<input-wrapper>
+				<label for="apt-no">Apt. No.</label>
+				<input id="apt-no" type="text" v-model="checkoutForm.aptNo" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label for="city">City</label>
-				<input id="city" type="text" />
+				<input id="city" type="text" v-model="checkoutForm.city" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label for="state">State</label>
-				<input id="state" type="text" />
+				<input id="state" type="text" v-model="checkoutForm.state" />
 			</input-wrapper>
 
 			<input-wrapper>
 				<label for="zip-code">Zip Code</label>
-				<input id="zip-code" type="number" />
+				<input id="zip-code" type="number" v-model="checkoutForm.zipCode" />
 			</input-wrapper>
 
 			<h2>Enter your payment info!</h2>
@@ -161,9 +200,9 @@
 			<div class="shipping-speed">
 				<h3>Choose your shipping speed.</h3>
 				<select>
-					<option>Standard - $5.99</option>
-					<option>Express - $12.99</option>
-					<option>Overnight - $24.99</option>
+					<option value="standard">Standard - $5.99</option>
+					<option value="express">Express - $12.99</option>
+					<option value="overnight">Overnight - $24.99</option>
 				</select>
 			</div>
 
@@ -172,13 +211,17 @@
 					<RouterLink @click="cart.toggleCheckout()" to="/shopping-cart">Back to cart</RouterLink>
 				</button>
 
-				<button type="button">Place order</button>
+				<button type="submit">Place order</button>
 			</button-wrapper>
 		</form>
+		<output></output>
 	</checkout-modal>
 </template>
 
 <style lang="scss" scoped>
+	output {
+		border: 3px solid lime;
+	}
 	@media (prefers-color-scheme: dark) {
 		checkout-modal {
 			color: black;
@@ -235,5 +278,7 @@
 	checkout-modal {
 		display: flex;
 		flex-direction: column;
+		min-height: 100vh;
+		overflow: scroll;
 	}
 </style>

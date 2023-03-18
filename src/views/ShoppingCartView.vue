@@ -11,9 +11,9 @@
 </script>
 
 <template>
-	<section class="shopping-cart-view">
+	<section v-if="user.current" class="shopping-cart-view">
 		<module-header>
-			<h2 v-if="user.current">{{ user.userDoc?.firstName }}'s Shopping Cart</h2>
+			<h2>{{ user.userDoc?.firstName }}'s Shopping Cart</h2>
 		</module-header>
 		<ShoppingCartUI />
 	</section>

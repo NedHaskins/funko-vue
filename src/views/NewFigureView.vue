@@ -3,6 +3,7 @@
 	import { useRoute } from 'vue-router';
 	import { useUserService } from '@/services/UserService';
 	import { useFavoritesService } from '@/services/FavoritesService';
+	import { useCartService } from '@/services/CartService';
 
 	//Firestore / Vuefire imports
 	import { useFirestore, useCollection, useDocument } from 'vuefire';
@@ -15,6 +16,7 @@
 	//Firestore / Vuefire variables
 	const db = useFirestore();
 	const user = useUserService();
+	const cart = useCartService();
 
 	const figuresRef = computed(function () {
 		return collection(db, 'figures');
@@ -29,8 +31,18 @@
 	const favorites = useFavoritesService();
 
 	const favorited = computed(function () {
-		//is this figure ID in the favorites collection? true/false
-		return favorites.list.find((favorite) => favorite.name == figure.value.id);
+		if (figure.value) {
+			//is this figure ID in the favorites collection? true/false
+			return favorites.list.find((favorite) => favorite.name == figure.value.id);
+		}
+	});
+
+	const iconClass = computed(function () {
+		if (favorited.value) {
+			return 'favorited';
+		} else {
+			return 'not-favorited';
+		}
 	});
 </script>
 <template>
@@ -49,9 +61,30 @@
 				<button-wrapper class="add-to-cart">
 					<button type="button" @click="cart.addItem(figure)">Add to cart</button>
 				</button-wrapper>
-				<button class="favorite" @click="favorites.toggleFavorite(figure.id)">
-					<FavoritesOnIcon v-if="favorited" />
-					<FavoritesOffIcon v-else />
+				<button :class="`${iconClass}`" @click="favorites.toggleFavorite(figure.id)">
+					<!-- 				<FavoritesOffIcon v-if="!favorited" />
+				<FavoritesOnIcon v-else /> -->
+					<svg
+						width="100%"
+						height="100%"
+						viewBox="0 0 258 190"
+						version="1.1"
+						xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink"
+						xml:space="preserve"
+						xmlns:serif="http://www.serif.com/"
+						style="
+							fill-rule: evenodd;
+							clip-rule: evenodd;
+							stroke-linecap: round;
+							stroke-linejoin: round;
+							stroke-miterlimit: 1.5;
+						"
+					>
+						<path
+							d="M128.956,45.358c25.832,-46.015 77.498,-46.015 103.331,-27.609c25.833,18.406 25.833,55.218 -0,92.029c-18.083,27.609 -64.582,55.218 -103.331,73.624c-38.75,-18.406 -85.248,-46.015 -103.331,-73.624c-25.833,-36.811 -25.833,-73.623 -0,-92.029c25.832,-18.406 77.498,-18.406 103.331,27.609Z"
+						/>
+					</svg>
 				</button>
 			</figure-extras>
 		</card-bottom>
@@ -126,6 +159,11 @@
 				justify-content: space-evenly;
 				// width: 100%;
 
+				button {
+					border: none;
+					background: none;
+				}
+
 				.price-wrapper {
 					text-align: center;
 				}
@@ -170,6 +208,32 @@
 					max-width: 100%;
 				}
 			}
+		}
+	}
+
+	/*FAVORITE BUTTON ATTRIBUTES*/
+
+	button.favorited,
+	button.not-favorited {
+		max-width: 69px;
+	}
+
+	:is(.favorited, .not-favorited) svg path {
+		stroke: var(--ink);
+		stroke-width: 12.25px;
+	}
+
+	button.favorited svg path {
+		fill: #e9467c;
+	}
+
+	button.not-favorited svg path {
+		fill: none;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:is(.favorited, .not-favorited) svg path {
+			stroke: var(--paper);
 		}
 	}
 </style>

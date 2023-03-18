@@ -4,7 +4,7 @@ make an [X} option to the left of each item row to remove it from the list if de
 
 <script setup>
 	import { ref, computed } from 'vue';
-	import { RouterView } from 'vue-router';
+	//RouterView's pulled in from somewhere else??
 
 	import { useUserService } from '@/services/UserService';
 	import { useCartService } from '@/services/CartService';
