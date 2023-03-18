@@ -157,9 +157,10 @@
 				display: flex;
 				flex-direction: row;
 				justify-content: space-evenly;
-				// width: 100%;
+				width: 100%;
 
-				button {
+				button.favorited,
+				button.not-favorited {
 					border: none;
 					background: none;
 				}
@@ -200,7 +201,9 @@
 				flex-direction: column;
 				align-items: center;
 				width: 60%;
-
+				figure-extras {
+					margin-top: 20px;
+				}
 				text-block {
 					max-width: 100%;
 				}

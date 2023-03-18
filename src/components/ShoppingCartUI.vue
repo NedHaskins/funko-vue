@@ -167,12 +167,15 @@ make an [X} option to the left of each item row to remove it from the list if de
 	// }
 
 	.checkout-open {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		min-height: 100vh;
-		background-color: #ffecae; /*Banana Mania*/
-		opacity: 100%;
+		background-color: rgb(100, 100, 100, 0.8);
 	}
 </style>

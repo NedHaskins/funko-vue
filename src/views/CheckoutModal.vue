@@ -170,7 +170,7 @@
 			</div>
 
 			<h2>Enter your shipping info!</h2>
-			<ul class="payment-options">
+			<ul class="shipping-options">
 				<li>
 					<svg-wrapper>
 						<FedexIcon />
@@ -219,6 +219,15 @@
 </template>
 
 <style lang="scss" scoped>
+	checkout-modal {
+		display: flex;
+		flex-direction: column;
+		// min-height: 100vh;
+		// overflow: scroll;
+		background-color: white;
+		width: 80%;
+		padding: 20px;
+	}
 	output {
 		border: 3px solid lime;
 	}
@@ -273,12 +282,5 @@
 
 	h1 {
 		font-family: 'Bangers';
-	}
-
-	checkout-modal {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		overflow: scroll;
 	}
 </style>
