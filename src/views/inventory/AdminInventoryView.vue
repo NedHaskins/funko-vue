@@ -27,8 +27,8 @@
 	<inventory-ui-navbar>
 		<RouterLink to="/inventory/figure-list">View figure list</RouterLink>
 		<RouterLink to="/inventory/create-figure">Create new figure</RouterLink>
-		<RouterLink to="/inventory/create-category">Create / view / edit category</RouterLink>
-		<RouterLink to="/inventory/create-subcategory">Create / view / edit subcategory</RouterLink>
+		<RouterLink to="/inventory/create-category">Create / view category</RouterLink>
+		<RouterLink to="/inventory/create-subcategory">Create / view subcategory</RouterLink>
 	</inventory-ui-navbar>
 
 	<RouterView />

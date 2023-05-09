@@ -29,7 +29,7 @@ export const useCartService = defineStore('cart', function () {
 			group[item.name] = group[item.name] ?? [];
 			group[item.name].push(item);
 			return group;
-		}, {}); //THE ACCUMULATORRRRRR
+		}, {}); //THE ACCUMULATORRRRRR (the thing that collects the result?)
 	});
 
 	const totalItems = computed(function () {

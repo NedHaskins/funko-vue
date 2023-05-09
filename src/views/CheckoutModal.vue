@@ -3,7 +3,7 @@
 	import { v4 as uuidv4 } from 'uuid';
 
 	//Vue imports
-	import { ref, reactive } from 'vue';
+	import { ref, reactive, computed } from 'vue';
 	import { RouterLink } from 'vue-router';
 
 	//Vuefire / Firestore imports
@@ -37,7 +37,30 @@
 		city: '',
 		state: '',
 		zipCode: '',
+		paymentMethod: '',
+		email: '',
+		privateKey: '',
+		shippingMethod: '',
+		shippingSpeed: '',
 	});
+
+	const isCard = computed(function () {
+		return checkoutForm.paymentMethod == 'visa' || checkoutForm.paymentMethod == 'mastercard';
+	});
+
+	const isPaypal = computed(function () {
+		return checkoutForm.paymentMethod == 'paypal';
+	});
+
+	const isBitcoin = computed(function () {
+		return checkoutForm.paymentMethod == 'bitcoin';
+	});
+
+	function choosePaymentType(value) {
+		//when the appropriate radio button is clickec, the variable is set to that particular payment method.  Console-log it to confirm.
+
+		console.log('test');
+	}
 
 	async function placeOrder() {
 		const docRef = await addDoc(collection(db, 'users', user.id, 'orders'), {
@@ -47,6 +70,10 @@
 			city: checkoutForm.city,
 			state: checkoutForm.state,
 			zipCode: checkoutForm.zipCode,
+			paymentMethod: checkoutForm.paymentMethod,
+			privateKey: checkoutForm.privateKey,
+			shippingMethod: checkoutForm.shippingMethod,
+			shippingSpeed: checkoutForm.shippingSpeed,
 			itemsInOrder: cart.list, //maybe use cartGrouping here -- use a function to get this?
 		});
 		console.log('New order created with ID ', docRef.id);
@@ -68,6 +95,8 @@
 <template>
 	<checkout-modal>
 		<h1>Checkout!</h1>
+		<h2>{{ checkoutForm.paymentMethod }}</h2>
+		<h2>{{ isCard }}</h2>
 		<div>
 			<!-- <pre>{{ cart.list }}</pre> -->
 		</div>
@@ -111,7 +140,14 @@
 						<VisaIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="payment" id="visa" />
+						<input
+							@click="choosePaymentType()"
+							type="radio"
+							name="payment"
+							id="visa"
+							value="visa"
+							v-model="checkoutForm.paymentMethod"
+						/>
 					</input-wrapper>
 				</li>
 				<li>
@@ -119,7 +155,13 @@
 						<MastercardIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="payment" id="mastercard" />
+						<input
+							type="radio"
+							name="payment"
+							id="mastercard"
+							value="mastercard"
+							v-model="checkoutForm.paymentMethod"
+						/>
 					</input-wrapper>
 				</li>
 				<li>
@@ -127,7 +169,7 @@
 						<PaypalIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="payment" id="paypal" />
+						<input type="radio" name="payment" id="paypal" value="paypal" v-model="checkoutForm.paymentMethod" />
 					</input-wrapper>
 				</li>
 				<li>
@@ -135,12 +177,18 @@
 						<BitcoinIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="payment" id="bitcoin" />
+						<input
+							type="radio"
+							name="payment"
+							id="bitcoin"
+							value="bitcoin"
+							v-model="checkoutForm.paymentMethod"
+						/>
 					</input-wrapper>
 				</li>
 			</ul>
 			<!--The following three blocks need to be able to read the current radio value, which means there needs to be something reactive watching the radio values.-->
-			<div class="credit-card-info">
+			<div class="credit-card-info" v-if="isCard">
 				<input-wrapper>
 					<label for="card-number">Card Number</label>
 					<input id="card-number" type="number" />
@@ -155,17 +203,17 @@
 				</input-wrapper>
 			</div>
 
-			<div class="paypal-email">
+			<div class="paypal-email" v-if="isPaypal">
 				<input-wrapper>
 					<label for="card-number">Email Address</label>
-					<input id="card-number" type="number" />
+					<input id="card-number" type="number" v-model="checkoutForm.email" />
 				</input-wrapper>
 			</div>
 
-			<div class="bitcoin-info">
+			<div class="bitcoin-info" v-if="isBitcoin">
 				<input-wrapper>
 					<label for="private-key">Private Key</label>
-					<input id="private-key" type="text" />
+					<input id="private-key" type="text" v-model="checkoutForm.privateKey" />
 				</input-wrapper>
 			</div>
 
@@ -176,7 +224,7 @@
 						<FedexIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="shipping" id="fedex" />
+						<input type="radio" name="shipping" value="fedex" v-model="checkoutForm.shippingMethod" />
 					</input-wrapper>
 				</li>
 				<li>
@@ -184,7 +232,7 @@
 						<DHLIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="shipping" id="dhl" />
+						<input type="radio" name="shipping" value="dhl" v-model="checkoutForm.shippingMethod" />
 					</input-wrapper>
 				</li>
 				<li>
@@ -192,14 +240,14 @@
 						<USPSIcon />
 					</svg-wrapper>
 					<input-wrapper class="radio">
-						<input type="radio" name="shipping" id="dhl" />
+						<input type="radio" name="shipping" value="dhl" v-model="checkoutForm.shippingMethod" />
 					</input-wrapper>
 				</li>
 			</ul>
 
 			<div class="shipping-speed">
 				<h3>Choose your shipping speed.</h3>
-				<select>
+				<select v-model="checkoutForm.shippingSpeed">
 					<option value="standard">Standard - $5.99</option>
 					<option value="express">Express - $12.99</option>
 					<option value="overnight">Overnight - $24.99</option>
