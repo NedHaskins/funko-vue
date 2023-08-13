@@ -15,7 +15,6 @@ make an [X} option to the left of each item row to remove it from the list if de
 </script>
 
 <template>
-	<div>{{ cart.showCheckout }}</div>
 	<table class="cart">
 		<tbody>
 			<tr v-for="group in cart.cartGrouping">

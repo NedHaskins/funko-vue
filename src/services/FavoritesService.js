@@ -48,9 +48,11 @@ export const useFavoritesService = defineStore('favorites', function () {
 
 	//Used to change the CSS class of the SVG for favorites.
 	const favoriteIcon = ref(false);
+
 	function toggleSVG() {
 		favoriteIcon.value = !favoriteIcon.value;
-	}
+	} //this isn't being used...
+
 	const svgClass = computed(function () {
 		if (favoriteIcon.value) {
 			return 'favorite-on';

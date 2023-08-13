@@ -104,12 +104,11 @@
 
 				<nav class="site-menu header">
 					<RouterLink @click="checkMobileMenu()" to="/home">Home</RouterLink>
-
 					<RouterLink @click="checkMobileMenu()" to="/figures">Figures</RouterLink>
 					<RouterLink @click="checkMobileMenu()" to="/categories">Categories</RouterLink>
 					<RouterLink @click="checkMobileMenu()" v-if="user.current && user.role === 'admin'" to="/admin"
-						>Dashboard</RouterLink
-					>
+						>Dashboard
+					</RouterLink>
 
 					<button @click="toggleMobileMenu()" class="toggle small-screen">Close</button>
 				</nav>

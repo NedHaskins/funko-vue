@@ -44,6 +44,23 @@
 		description: '',
 	});
 
+	// function resetAllInputs(form) {
+	// 	form.id = '';
+	// 	form.slug = '';
+	// 	form.name = '';
+	// 	form.category = '';
+	// 	form.subcategory = '';
+	// 	form.image = '';
+	// 	form.price = '';
+	// 	form.description = '';
+	// }
+
+	function resetAllInputs(form) {
+		for (let i = 0; i < form.length; i++) {
+			form[i] = '';
+		}
+	}
+
 	function addFigure(id) {
 		setDoc(doc(db, 'figures', id), {
 			name: userInput.name,
@@ -56,13 +73,8 @@
 		});
 
 		alert(`The figure ${userInput.name} has been added to Firestore.`);
-		userInput.id = '';
-		userInput.name = '';
-		userInput.category = '';
-		userInput.subcategory = '';
-		userInput.image = '';
-		userInput.price = '';
-		userInput.description = '';
+		console.log(userInput);
+		resetAllInputs(userInput);
 	}
 
 	function consoleTest() {
